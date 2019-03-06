@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>include/libtools_api.h</itemPath>
+      <itemPath>include/sqlite3.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="file" displayName="file" projectFiles="true">
+        <itemPath>file/file_api.c</itemPath>
+        <itemPath>file/file_lib.c</itemPath>
+        <itemPath>file/file_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="html2txt" displayName="html2txt" projectFiles="true">
+        <itemPath>html2txt/html2txt_api.c</itemPath>
+        <itemPath>html2txt/html2txt_lib.c</itemPath>
+        <itemPath>html2txt/html2txt_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="list" displayName="list" projectFiles="true">
+        <itemPath>list/list_api.c</itemPath>
+        <itemPath>list/list_lib.c</itemPath>
+        <itemPath>list/list_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="log" displayName="log" projectFiles="true">
+        <itemPath>log/log_api.c</itemPath>
+        <itemPath>log/log_lib.c</itemPath>
+        <itemPath>log/log_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="mem" displayName="mem" projectFiles="true">
+        <itemPath>mem/mem_api.c</itemPath>
+        <itemPath>mem/mem_lib.c</itemPath>
+        <itemPath>mem/mem_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="queue" displayName="queue" projectFiles="true">
+        <itemPath>queue/queue_api.c</itemPath>
+        <itemPath>queue/queue_lib.c</itemPath>
+        <itemPath>queue/queue_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="sha1" displayName="sha1" projectFiles="true">
+        <itemPath>sha1/sha1_api.c</itemPath>
+        <itemPath>sha1/sha1_lib.c</itemPath>
+        <itemPath>sha1/sha1_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="SqLite" projectFiles="true">
+        <itemPath>SqLite/sqlite3.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Store" projectFiles="true">
+        <itemPath>store_api.c</itemPath>
+        <itemPath>store_lib.c</itemPath>
+        <itemPath>store_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
+        <itemPath>tcpip/tcpip_api.c</itemPath>
+        <itemPath>tcpip/tcpip_lib.c</itemPath>
+        <itemPath>tcpip/tcpip_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="text" displayName="text" projectFiles="true">
+        <itemPath>text/text_api.c</itemPath>
+        <itemPath>text/text_lib.c</itemPath>
+        <itemPath>text/text_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="thread" displayName="thread" projectFiles="true">
+        <itemPath>thread/thread_api.c</itemPath>
+        <itemPath>thread/thread_lib.c</itemPath>
+        <itemPath>thread/thread_lib.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="token" displayName="token" projectFiles="true">
+        <itemPath>token/token_api.c</itemPath>
+        <itemPath>token/token_lib.c</itemPath>
+        <itemPath>token/token_lib.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="TEST__text_atox"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>file/tests/TEST__text_atox.c</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>file</Elem>
+    <Elem>list</Elem>
+    <Elem>log</Elem>
+    <Elem>mem</Elem>
+    <Elem>queue</Elem>
+    <Elem>sha1</Elem>
+    <Elem>sqlite</Elem>
+    <Elem>sqlite-amalgamation-3210000</Elem>
+    <Elem>tcpip</Elem>
+    <Elem>text</Elem>
+    <Elem>thread</Elem>
+    <Elem>token</Elem>
+    <Elem>html2txt</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="SqLite/sqlite3.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="file/file_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="file/file_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="file/file_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="file/tests/TEST__text_atox.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="html2txt/html2txt_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="html2txt/html2txt_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="html2txt/html2txt_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/libtools_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/sqlite3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="list/list_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="list/list_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="list/list_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="log/log_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="log/log_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="log/log_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mem/mem_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="mem/mem_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="mem/mem_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="queue/queue_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="queue/queue_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="queue/queue_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sha1/sha1_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sha1/sha1_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sha1/sha1_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="store_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="store_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="store_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tcpip/tcpip_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tcpip/tcpip_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tcpip/tcpip_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="text/text_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="text/text_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="text/text_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thread/thread_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="thread/thread_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="thread/thread_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="token/token_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="token/token_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="token/token_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>include</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="SqLite/sqlite3.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="file/file_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="file/file_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="file/file_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="file/tests/TEST__text_atox.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="html2txt/html2txt_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="html2txt/html2txt_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="html2txt/html2txt_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/libtools_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/sqlite3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="list/list_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="list/list_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="list/list_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="log/log_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="log/log_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="log/log_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mem/mem_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="mem/mem_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="mem/mem_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="queue/queue_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="queue/queue_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="queue/queue_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sha1/sha1_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sha1/sha1_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sha1/sha1_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="store_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="store_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="store_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tcpip/tcpip_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tcpip/tcpip_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tcpip/tcpip_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="text/text_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="text/text_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="text/text_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thread/thread_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="thread/thread_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="thread/thread_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="token/token_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="token/token_lib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="token/token_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
