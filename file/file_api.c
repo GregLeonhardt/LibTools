@@ -1014,10 +1014,10 @@ file_unzip(
     struct  file_info_t         *   file_info_p;
     /**
      *  @param  file_name       Buffer to hold the directory/file name      */
-    char                            file_name[ FILE_NAME_L + 1 ];
+    char                            file_name[ ( FILE_NAME_L * 3 ) ];
     /**
      *  @param  extract_to      Name of the directory to extract into       */
-    char                            extract_to[ FILE_NAME_L + 1 ];
+    char                            extract_to[ ( FILE_NAME_L * 3 ) ];
     /**
      *  @param  tmp_p           Temporary data pointer                      */
     char                        *   tmp_p;
