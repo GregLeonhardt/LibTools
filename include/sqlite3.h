@@ -9510,7 +9510,7 @@ SQLITE_API int sqlite3changeset_fk_conflicts(
 **     // Do something with change.
 **   }
 **   rc = sqlite3changeset_finalize();
-**   if( rc!=SQLITE_OK ){
+**   if ( rc!=SQLITE_OK ){
 **     // An error has occurred 
 **   }
 */
@@ -9562,9 +9562,9 @@ SQLITE_API int sqlite3changeset_invert(
 **
 **   sqlite3_changegroup *pGrp;
 **   rc = sqlite3_changegroup_new(&pGrp);
-**   if( rc==SQLITE_OK ) rc = sqlite3changegroup_add(pGrp, nA, pA);
-**   if( rc==SQLITE_OK ) rc = sqlite3changegroup_add(pGrp, nB, pB);
-**   if( rc==SQLITE_OK ){
+**   if ( rc==SQLITE_OK ) rc = sqlite3changegroup_add(pGrp, nA, pA);
+**   if ( rc==SQLITE_OK ) rc = sqlite3changegroup_add(pGrp, nB, pB);
+**   if ( rc==SQLITE_OK ){
 **     rc = sqlite3changegroup_output(pGrp, pnOut, ppOut);
 **   }else{
 **     *ppOut = 0;
