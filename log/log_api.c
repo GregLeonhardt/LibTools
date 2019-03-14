@@ -310,7 +310,7 @@ log_init(
     tmp_p = getenv( "HOME" );
 
     //  Did we get it ?
-    if( tmp_p != NULL )
+    if ( tmp_p != NULL )
     {
         //  YES:    Build the full path
         snprintf( log_dir_path, sizeof( log_dir_path ),
@@ -334,7 +334,7 @@ log_init(
     dir = opendir( log_dir_path );
 
     //  Does it already exist ?
-    if( dir != NULL )
+    if ( dir != NULL )
     {
         //  YES:    Good to know, close it
         closedir( dir );
@@ -444,15 +444,15 @@ log_write(
     pdm = false;
 
     //  Should the message be displayed on the screen ?
-    if(    ( ( message_id & log_display_mask ) !=         0 )
-        || ( ( message_id &        MID_FATAL ) == MID_FATAL ) )
+    if (    ( ( message_id & log_display_mask ) !=         0 )
+         || ( ( message_id &        MID_FATAL ) == MID_FATAL ) )
     {
         //  YES:    Set the display flag
         mdm = true;
     }
 
     //  Should the message be written to the log file "
-    if( ( message_id & log_print_mask ) != 0 )
+    if ( ( message_id & log_print_mask ) != 0 )
     {
         //  YES:    Set the display flag
         pdm = true;

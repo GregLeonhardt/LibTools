@@ -747,8 +747,8 @@ list_user_unlock(
     if ( LIST__verify( list_base_p ) == true )
     {
         //  YES:    Did the caller use the correct access key ?
-        if(    ( list_base_p->access_key !=          0 )
-            && ( list_base_p->access_key == access_key ) )
+        if (    ( list_base_p->access_key !=          0 )
+             && ( list_base_p->access_key == access_key ) )
         {
             //  YES:    Release the token
             token_free( list_base_p->access_key );
@@ -880,7 +880,7 @@ list_fget_next(
         if ( list_base_p->access_key == access_key )
         {
             //  YES:    Have we gotten anything from the list yet ?
-            if( list_base_p->f_key_p == NULL )
+            if ( list_base_p->f_key_p == NULL )
             {
                 //  NO:     Use the first bucket
                 list_base_p->f_key_p = list_base_p->first_p;
@@ -965,7 +965,7 @@ list_fget_prev(
         if ( list_base_p->access_key == access_key )
         {
             //  YES:    Have we gotten anything from the list yet ?
-            if( list_base_p->f_key_p == NULL )
+            if ( list_base_p->f_key_p == NULL )
             {
                 //  NO:     Use the last bucket
                 list_base_p->f_key_p = list_base_p->last_p;
@@ -1163,7 +1163,7 @@ list_fdelete(
         if ( list_base_p->access_key == access_key )
         {
             //  YES:    Is this the first bucket on the list ?
-            if( list_base_p->f_key_p->prev_p == NULL )
+            if ( list_base_p->f_key_p->prev_p == NULL )
             {
                 //  YES:    Reset the fast key pointer.
                 f_key_p = NULL;

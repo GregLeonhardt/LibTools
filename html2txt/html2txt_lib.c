@@ -363,7 +363,7 @@ HTML2TXT__remove_crlf(
         tmp_offset_p  = strchr( tmp_offset_p,  '\r' );
 
         //  Did we find a Carriage Return in the buffer ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
             //  YES:    Copy the remaining temporary buffer to the HTML buffer
             tmp_offset_p += 1;
@@ -397,7 +397,7 @@ HTML2TXT__remove_crlf(
         tmp_offset_p  = strchr( tmp_offset_p,  '\n' );
 
         //  Did we find a Line Feed in the buffer ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
             //  YES:    Copy the remaining temporary buffer to the HTML buffer
             tmp_offset_p += 1;
@@ -488,10 +488,10 @@ HTML2TXT__remove_spaces(
         tmp_offset_p  = strchr( tmp_offset_p,  ' ' );
 
         //  Did we find a space in the buffer ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
             //  YES:    Is the next character also a space ?
-            if( html_offset_p[ 1 ] == ' ' )
+            if ( html_offset_p[ 1 ] == ' ' )
             {
                 //  YES:    Find the last consecutive space in the work buffer
                 for( tmp_offset_p += 1;
@@ -539,10 +539,10 @@ HTML2TXT__remove_spaces(
         tmp_offset_p  = strchr( tmp_offset_p,  '>' );
 
         //  Did we find a space in the buffer ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
             //  YES:    Is the next character a space ?
-            if( html_offset_p[ 1 ] == ' ' )
+            if ( html_offset_p[ 1 ] == ' ' )
             {
                 //  YES:    Find the last consecutive space in the work buffer
                 for( tmp_offset_p += 1;
@@ -590,10 +590,10 @@ HTML2TXT__remove_spaces(
         tmp_offset_p  = strchr( tmp_offset_p,  '<' );
 
         //  Did we find a space in the buffer ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
             //  YES:    Is the next character a space ?
-            if( html_offset_p[ 1 ] == ' ' )
+            if ( html_offset_p[ 1 ] == ' ' )
             {
                 //  YES:    Find the last consecutive space in the work buffer
                 for( tmp_offset_p += 1;
@@ -704,7 +704,7 @@ HTML2TXT__remove_style(
         tmp_offset_p  = strchr( tmp_offset_p,  '<' );
 
         //  Did we find the start of a tag in the buffer ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
             //  Fill the compare buffer from the HTML buffer
             memset( compare_beg, '\0', sizeof( compare_beg ) );
@@ -712,8 +712,8 @@ HTML2TXT__remove_style(
             text_to_lowercase( compare_beg );
 
             //  Is this a tag that needs to be changed ?
-            if(    ( strncmp( compare_beg, "<style>",        7 ) == 0 )
-                || ( strncmp( compare_beg, "<style ",        7 ) == 0 ) )
+            if (    ( strncmp( compare_beg, "<style>",        7 ) == 0 )
+                 || ( strncmp( compare_beg, "<style ",        7 ) == 0 ) )
             {
                 //  YES:    Locate the end of the style block
                 tmp_offset_p += 1;
@@ -725,7 +725,7 @@ HTML2TXT__remove_style(
                 text_to_lowercase( compare_end );
 
                 //  Did we locate the end tag ?
-                if( strncmp( compare_end, "</style>", 8 ) == 0 )
+                if ( strncmp( compare_end, "</style>", 8 ) == 0 )
                 {
                     //  YES:    Now find the end of the end tag
                     tmp_offset_p = strchr( tmp_offset_p, '>' );
@@ -834,7 +834,7 @@ HTML2TXT__tag_scan(
         tmp_offset_p  = strchr( tmp_offset_p,  '<' );
 
         //  Did we find the start of a tag in the buffer ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
             /**
              *  @param  ndx             Index into the array table          */
@@ -892,7 +892,7 @@ HTML2TXT__tag_scan(
                     }
 
                     //  Does this tag match the one from the buffer ?
-                    if( strncmp( compare, html_tag, strlen( html_tag ) ) == 0 )
+                    if ( strncmp( compare, html_tag, strlen( html_tag ) ) == 0 )
                     {
                         //  YES:    Increment the number of times found
                         html_tag_list[ ndx ].count += 1;
@@ -906,13 +906,13 @@ HTML2TXT__tag_scan(
                 }
 
                 //  Did we locate the tag in our table ?
-                if( found == false )
+                if ( found == false )
                 {
                     //  NO:     move on to the next tag in the table
                     ndx += 1;
 
                     //  Did we reach the end of the tag list ?
-                    if( html_tag_list[ ndx ].task == HTML_TAG_END )
+                    if ( html_tag_list[ ndx ].task == HTML_TAG_END )
                     {
                         //  Move the pointer past the start
                         html_offset_p += 1;
@@ -926,10 +926,10 @@ HTML2TXT__tag_scan(
             }   while( found == false );
 
             //  Was a match for the tag located ?
-            if( found == true )
+            if ( found == true )
             {
                 //  YES:    What should we do with the source data ?
-                if( format == 0 || format == 1 )
+                if ( format == 0 || format == 1 )
                 {
                     process_type = ( html_tag_list[ ndx ].task >> 4 ) & 0x0F;
                 }
@@ -1063,7 +1063,7 @@ HTML2TXT__str_2_char(
         tmp_offset_p  = strchr( tmp_offset_p,  '&' );
 
         //  Did we find it ?
-        if( html_offset_p != NULL )
+        if ( html_offset_p != NULL )
         {
 
             /****************************************************************
@@ -1082,7 +1082,7 @@ HTML2TXT__str_2_char(
             {
 
                 //  Is the string a match to HTML or Numeric ?
-                if( strncmp( compare,
+                if ( strncmp( compare,
                              html_table[ html_table_ndx ].html_entity,
                              strlen( html_table[ html_table_ndx ].html_entity ) ) == 0 )
                 {
@@ -1108,7 +1108,7 @@ HTML2TXT__str_2_char(
             }
 
             //  Already done ?
-            if( altered == false )
+            if ( altered == false )
             {
 
                 /************************************************************
@@ -1116,15 +1116,15 @@ HTML2TXT__str_2_char(
                  ************************************************************/
 
                 //  NO:     Is this decimal code ?
-                if(    (    (          html_offset_p[ 1 ]   ==  '#' )
-                         && ( isdigit( html_offset_p[ 2 ] ) !=   0  )
-                         && ( isdigit( html_offset_p[ 3 ] ) !=   0  )
-                         && (          html_offset_p[ 4 ]   ==  ';' ) )
-                    || (    (          html_offset_p[ 1 ]   ==  '#' )
-                         && ( isdigit( html_offset_p[ 2 ] ) !=   0  )
-                         && ( isdigit( html_offset_p[ 3 ] ) !=   0  )
-                         && ( isdigit( html_offset_p[ 4 ] ) !=   0  )
-                         && (          html_offset_p[ 5 ]   ==  ';' ) ) )
+                if (    (    (          html_offset_p[ 1 ]   ==  '#' )
+                          && ( isdigit( html_offset_p[ 2 ] ) !=   0  )
+                          && ( isdigit( html_offset_p[ 3 ] ) !=   0  )
+                          && (          html_offset_p[ 4 ]   ==  ';' ) )
+                     || (    (          html_offset_p[ 1 ]   ==  '#' )
+                          && ( isdigit( html_offset_p[ 2 ] ) !=   0  )
+                          && ( isdigit( html_offset_p[ 3 ] ) !=   0  )
+                          && ( isdigit( html_offset_p[ 4 ] ) !=   0  )
+                          && (          html_offset_p[ 5 ]   ==  ';' ) ) )
                 {
                     //  NO:     Get the decimal value
                     value = atoi( &(html_offset_p[ 2 ] ) );
@@ -1151,11 +1151,11 @@ HTML2TXT__str_2_char(
                  ************************************************************/
 
                 else
-                if(    (           html_offset_p[ 1 ]   ==  '#' )
-                    && ( tolower(  html_offset_p[ 2 ] ) ==  'x' )
-                    && ( isxdigit( html_offset_p[ 3 ] ) !=   0  )
-                    && ( isxdigit( html_offset_p[ 4 ] ) !=   0  )
-                    && (           html_offset_p[ 5 ]   ==  ';' ) )
+                if (    (           html_offset_p[ 1 ]   ==  '#' )
+                     && ( tolower(  html_offset_p[ 2 ] ) ==  'x' )
+                     && ( isxdigit( html_offset_p[ 3 ] ) !=   0  )
+                     && ( isxdigit( html_offset_p[ 4 ] ) !=   0  )
+                     && (           html_offset_p[ 5 ]   ==  ';' ) )
                 {
                     //  YES:    Null terminate the hex string
                     //  @note   The remainder of the text is going to be overlayed
@@ -1184,7 +1184,7 @@ HTML2TXT__str_2_char(
             }
 
             //  Did we find something to alter ?
-            if( altered == false )
+            if ( altered == false )
             {
                 //  YES:    Advance the pointer to continue the search
                 html_offset_p += 1;
@@ -1217,8 +1217,8 @@ HTML2TXT__str_2_char(
         tmp_offset_p  = strchr( tmp_offset_p,  '+' );
 
         //  Did we find it ?
-        if(    ( html_offset_p != NULL )
-            && ( tmp_offset_p  != NULL ) )
+        if (    ( html_offset_p != NULL )
+             && ( tmp_offset_p  != NULL ) )
         {
             //  YES:    Fill the compare buffer from the HTML buffer
             memset( compare, '\0', sizeof( compare ) );
@@ -1226,11 +1226,11 @@ HTML2TXT__str_2_char(
             text_to_uppercase( compare );
 
             //  Is the previous character a "U"
-            if( compare[ 0 ] ==  'U' )
+            if ( compare[ 0 ] ==  'U' )
             {
                 //  The next two characters MUST be digits.
-                if(    ( isxdigit( html_offset_p[ 1 ] ) != 0 )
-                    && ( isxdigit( html_offset_p[ 2 ] ) != 0 ) )
+                if (    ( isxdigit( html_offset_p[ 1 ] ) != 0 )
+                     && ( isxdigit( html_offset_p[ 2 ] ) != 0 ) )
                 {
                     //  YES:    Fix the offset pointers
                     html_offset_p -= 1;
@@ -1239,22 +1239,22 @@ HTML2TXT__str_2_char(
                     //  Null terminate the hex string
                     //  @note   The remainder of the text is going to be
                     //          overlay with the left-shift.
-                    if( isxdigit( compare[ 4 ] ) == 0 )
+                    if ( isxdigit( compare[ 4 ] ) == 0 )
                     {
                         html_offset_p[ 4 ] = '\0';
                     }
                     else
-                    if( isxdigit( compare[ 5 ] ) == 0 )
+                    if ( isxdigit( compare[ 5 ] ) == 0 )
                     {
                         html_offset_p[ 5 ] = '\0';
                     }
                     else
-                    if( isxdigit( compare[ 6 ] ) == 0 )
+                    if ( isxdigit( compare[ 6 ] ) == 0 )
                     {
                         html_offset_p[ 6 ] = '\0';
                     }
                     else
-                    if( isxdigit( compare[ 7 ] ) == 0 )
+                    if ( isxdigit( compare[ 7 ] ) == 0 )
                     {
                         html_offset_p[ 7 ] = '\0';
                     }
@@ -1278,7 +1278,7 @@ HTML2TXT__str_2_char(
             }
 
             //  Was anything altered ?
-            if( altered == false )
+            if ( altered == false )
             {
                 //  NO:     Move the pointers past the space.
                 html_offset_p += 1;

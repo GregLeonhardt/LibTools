@@ -228,7 +228,7 @@ mem_free(
      ************************************************************************/
 
     //  Is there an address to free ?
-    if( memory_p != NULL )
+    if ( memory_p != NULL )
     {
         //  YES:    Log the release of some memory
         log_write( MID_DEBUG_0, "mem_free",
@@ -330,14 +330,14 @@ mem_dump(
      ************************************************************************/
 
     //  Is this the very first time here ?
-    if( count == 0 )
+    if ( count == 0 )
     {
         //  YES:    Save the current stack size
         count = list_query_count( malloc_info_p );
     }
 
     //  Has there been a change in the memory stack size ?
-    if( list_query_count( malloc_info_p ) > count )
+    if ( list_query_count( malloc_info_p ) > count )
     {
         //  YES:    Then go ahead and dump the stack
         count = list_query_count( malloc_info_p );
@@ -361,11 +361,11 @@ mem_dump(
             tmp_p = (char*)malloc_data_p->address;
 
             //  Is this a text buffer ?
-            if(    ( malloc_data_p->size > 4 )
-                && ( isprint( tmp_p[ 0 ] ) != 0 )
-                && ( isprint( tmp_p[ 1 ] ) != 0 )
-                && ( isprint( tmp_p[ 2 ] ) != 0 )
-                && ( isprint( tmp_p[ 3 ] ) != 0 ) )
+            if (    ( malloc_data_p->size > 4 )
+                 && ( isprint( tmp_p[ 0 ] ) != 0 )
+                 && ( isprint( tmp_p[ 1 ] ) != 0 )
+                 && ( isprint( tmp_p[ 2 ] ) != 0 )
+                 && ( isprint( tmp_p[ 3 ] ) != 0 ) )
             {
                 //  Log the data
                 log_write( MID_DEBUG_2, "mem_dump", "\t\t'%s'\n", tmp_p );

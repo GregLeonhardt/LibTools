@@ -132,7 +132,7 @@ file_open_read(
     file_fp = fopen( file_name, "r");
 
     //  Was the file open successful ?
-    if( file_fp == NULL)
+    if ( file_fp == NULL)
     {
         //  The file open failed.  Change the return code to FAIL
         log_write( MID_FATAL, "file_open_read",
@@ -192,7 +192,7 @@ file_open_write(
     file_fp = fopen( file_name, "w");
 
     //  Was the file open successful ?
-    if( file_fp == NULL)
+    if ( file_fp == NULL)
     {
         //  The file open failed.  Change the return code to FAIL
         log_write( MID_FATAL, "file_open_write",
@@ -252,7 +252,7 @@ file_open_append(
     file_fp = fopen( file_name, "a");
 
     //  Was the file open successful ?
-    if( file_fp == NULL)
+    if ( file_fp == NULL)
     {
         //  The file open failed.  Change the return code to FAIL
         log_write( MID_FATAL, "file_open_append",
@@ -382,7 +382,7 @@ file_read_text(
         eof_p = fgets( in_line, sizeof( in_line ), file_fp );
 
         //  Are we at End-Of-File ?
-        if( eof_p == NULL )
+        if ( eof_p == NULL )
         {
             //  YES:    Are we at End-Of-File ?
             in_line_p = END_OF_FILE;
@@ -399,20 +399,20 @@ file_read_text(
             gettimeofday( &time_now, NULL );
 
             //  Is the first time through here ?
-            if( time_last.tv_sec == 0 )
+            if ( time_last.tv_sec == 0 )
             {
                 //  YES:    Update the last display time
                 time_last.tv_sec = time_now.tv_sec;
             }
 
             //  Is it time to display ?
-            if( ( time_last.tv_sec + 60 ) <= time_now.tv_sec )
+            if ( ( time_last.tv_sec + 60 ) <= time_now.tv_sec )
             {
                 //  YES:    Update the last display time
                 time_last.tv_sec = time_now.tv_sec;
 
                 //  Is this the first time ?
-                if( bytes_read_last > 0 )
+                if ( bytes_read_last > 0 )
                 {
                     //  NO:     Calculate the transfer rate.
                     bytes_read = total_bytes_read - bytes_read_last;
@@ -437,7 +437,7 @@ file_read_text(
             tmp_data_2_p = text_copy_to_new( in_line );
 
             //  Is there already data in the read data buffer ?
-            if( tmp_data_1_p == NULL )
+            if ( tmp_data_1_p == NULL )
             {
                 //  NO:     Transfer data from the tmp buffer to the read data buffer.
                 tmp_data_1_p = tmp_data_2_p;
@@ -473,9 +473,9 @@ file_read_text(
             }
         }
         //  Does line of data end with an equals sign '=' ?
-        if(    ( tmp_data_1_p != NULL )
-            && ( tmp_data_1_p[ strlen( tmp_data_1_p ) - 1 ] == '=' )
-            && ( tmp_data_1_p[ strlen( tmp_data_1_p ) - 2 ] != '=' ) )
+        if (    ( tmp_data_1_p != NULL )
+             && ( tmp_data_1_p[ strlen( tmp_data_1_p ) - 1 ] == '=' )
+             && ( tmp_data_1_p[ strlen( tmp_data_1_p ) - 2 ] != '=' ) )
         {
             //  YES:    Strip off the equals sign
             tmp_data_1_p[ strlen( tmp_data_1_p ) - 1 ] = '\0';
@@ -495,8 +495,8 @@ file_read_text(
      ********************************************************************/
 
     //  Are we at End-Of-File "
-    if(    ( in_line_p != END_OF_FILE )
-        && ( in_line_p != NULL        ) )
+    if (    ( in_line_p != END_OF_FILE )
+         && ( in_line_p != NULL        ) )
     {
         //  Initialize the search pointer
         tmp_data_2_p = in_line_p;
@@ -517,13 +517,13 @@ file_read_text(
             tmp_data_1_p = strchr( tmp_data_2_p, '=' );
 
             //  Did we find one ?
-            if( tmp_data_1_p != NULL )
+            if ( tmp_data_1_p != NULL )
             {
 
                 //  Is the format correct ?
-                if(    (           tmp_data_1_p[ 0 ] == '=' )
-                    && ( isxdigit( tmp_data_1_p[ 1 ] ) != 0 )
-                    && ( isxdigit( tmp_data_1_p[ 2 ] ) != 0 ) )
+                if (    (           tmp_data_1_p[ 0 ] == '=' )
+                     && ( isxdigit( tmp_data_1_p[ 1 ] ) != 0 )
+                     && ( isxdigit( tmp_data_1_p[ 2 ] ) != 0 ) )
                 {
                     /**
                      *  @param  in_line         Temporary for HEX to ASCII  */
@@ -540,7 +540,7 @@ file_read_text(
                     xlate_char = strtol( hex_data, NULL, 16 );
 
                     //  Is this x'BD (1/2)
-                    if( xlate_char == 0xBD )
+                    if ( xlate_char == 0xBD )
                     {
                         //  YES:    Write it out
                         tmp_data_1_p[ 0 ] = '1';
@@ -549,7 +549,7 @@ file_read_text(
                     }
 
                     //  Is this x'BC (1/4)
-                    if( xlate_char == 0xBC )
+                    if ( xlate_char == 0xBC )
                     {
                         //  YES:    Write it out
                         tmp_data_1_p[ 0 ] = '1';
@@ -558,7 +558,7 @@ file_read_text(
                     }
 
                     //  Is this x'BE (3/4)
-                    if( xlate_char == 0xBC )
+                    if ( xlate_char == 0xBC )
                     {
                         //  YES:    Write it out
                         tmp_data_1_p[ 0 ] = '3';
@@ -575,7 +575,7 @@ file_read_text(
                         data_l = strlen( &tmp_data_1_p[ 3 ] );
 
                         //  Is there anything else in the string ?
-                        if( data_l > 0 )
+                        if ( data_l > 0 )
                         {
                             /**
                              *  @param  ndx             Offset into a buffer        */
@@ -610,8 +610,8 @@ file_read_text(
 
     //  Remove the CR/LF characters (if present)
     //  @NOTE:  The line may have ended with =0D
-    if(    ( in_line_p != NULL         )
-        && ( in_line_p != END_OF_FILE  ) )
+    if (    ( in_line_p != NULL         )
+         && ( in_line_p != END_OF_FILE  ) )
     {
         text_remove_crlf( in_line_p );
     }
@@ -681,14 +681,14 @@ file_stat(
     strncpy( dir_name, full_file_name_p, sizeof( dir_name ) - 1 );
 
     //  Is the last character of the full file name a '/' ?
-    if( dir_name[ strlen( dir_name ) - 1 ] == '/' )
+    if ( dir_name[ strlen( dir_name ) - 1 ] == '/' )
     {
         //  YES:    Remove it from the string
         dir_name[ strlen( dir_name ) - 1 ] = '\0';
     }
 
     //  Is there a directory in the full file name ?
-    if( strrchr( dir_name, '/' ) == NULL )
+    if ( strrchr( dir_name, '/' ) == NULL )
     {
         //  NO:     Just use the full file name
         strncpy( file_info_p->file_name, dir_name,
@@ -800,7 +800,7 @@ file_ls(
      ************************************************************************/
 
     //  Attempt to open a directory
-    if( ( dp = opendir( fd_name ) ) == NULL )
+    if ( ( dp = opendir( fd_name ) ) == NULL )
     {
         log_write( MID_FATAL, "file_next",
                    "File or Directory '%s' does not exist.\n",
@@ -810,8 +810,8 @@ file_ls(
     while( ( entry = readdir( dp ) ) != NULL )
     {
         //  Will the full name fit in the buffer ?
-        if(   ( strlen( fd_name ) + strlen( entry->d_name ) )
-            < ( sizeof( full_file_name ) - 2 ) )
+        if (   ( strlen( fd_name ) + strlen( entry->d_name ) )
+             < ( sizeof( full_file_name ) - 2 ) )
         {
             //  YES:    Expand the name
             snprintf( full_file_name, sizeof( full_file_name ),
@@ -851,7 +851,7 @@ file_ls(
         else
         {
             //  Is there a extension exclude type ?
-            if( include_ext_p != NULL )
+            if ( include_ext_p != NULL )
             {
                 /**
                  *  @param  period_p        Pointer to the last period      */
@@ -864,7 +864,7 @@ file_ls(
                 period_p = strrchr( full_file_name, '.' );
 
                 //  Is there a file extention ?
-                if( period_p != NULL )
+                if ( period_p != NULL )
                 {
                     //  YES:    Copy the file extention to a new buffer
                     strncpy( extention, ++period_p, sizeof( extention ) );
@@ -873,7 +873,7 @@ file_ls(
                     text_to_lowercase( extention );
 
                     //  Compare the file extention to the include extention.
-                    if( strncmp( include_ext_p, extention, strlen( include_ext_p ) ) != 0 )
+                    if ( strncmp( include_ext_p, extention, strlen( include_ext_p ) ) != 0 )
                     {
                         //  NO:     This isn't an include file extention
                         continue;
@@ -965,7 +965,7 @@ file_path_to_lib(
     tmp_p = getenv( "HOME" );
 
     //  Did we get it ?
-    if( tmp_p != NULL )
+    if ( tmp_p != NULL )
     {
         //  YES:    Build the full path
         snprintf( path_p, FILE_NAME_L,
@@ -1057,9 +1057,9 @@ file_unzip(
             list_delete( file_list_p, file_info_p );
 
             //  Will the fully qualified file name will fit in the buffer ?
-            if(     (   ( strlen( file_info_p->dir_name  ) )
-                      + ( strlen( file_info_p->file_name ) ) )
-                 >= ( sizeof( file_name ) ) )
+            if (     (   ( strlen( file_info_p->dir_name  ) )
+                       + ( strlen( file_info_p->file_name ) ) )
+                  >= ( sizeof( file_name ) ) )
             {
                 //  NO:     This is bad..
                 log_write( MID_WARNING, "file_unzip",
@@ -1083,7 +1083,7 @@ file_unzip(
             tmp_p = strrchr( extract_to, '.' );
 
             //  Is there one ?
-            if( tmp_p != NULL )
+            if ( tmp_p != NULL )
             {
                 //  YES:    Copy the file extention to a new buffer
                 strncpy( extention, ++tmp_p, sizeof( extention ) );
@@ -1092,7 +1092,7 @@ file_unzip(
                 text_to_lowercase( extention );
 
                 //  Is this a "*.zip" file ?
-                if( strncmp( extention, "zip", 3 ) == 0 )
+                if ( strncmp( extention, "zip", 3 ) == 0 )
                 {
                     //  YES:    Null terminate at the period
                     (--tmp_p)[ 0 ] = '\0';

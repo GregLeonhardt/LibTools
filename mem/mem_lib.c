@@ -115,7 +115,7 @@ MEM__info_get(
          malloc_data_p = list_fget_next( malloc_info_p, malloc_data_p, malloc_data_k ) )
     {
         //  Do the addresses match ?
-        if( malloc_data_p->address == address )
+        if ( malloc_data_p->address == address )
         {
             //  YES:    This is it, stop looking
             break;
@@ -175,7 +175,7 @@ MEM__info_remove(
          malloc_data_p = list_fget_next( malloc_info_p, malloc_data_p, malloc_data_k ) )
     {
         //  Do the addresses match ?
-        if( malloc_data_p->address == address )
+        if ( malloc_data_p->address == address )
         {
             //  Remove it from the information list
             list_fdelete( malloc_info_p, malloc_data_p, malloc_data_k );
