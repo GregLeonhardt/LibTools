@@ -337,6 +337,7 @@ mem_dump(
     }
 
     //  Has there been a change in the memory stack size ?
+    else
     if ( list_query_count( malloc_info_p ) > count )
     {
         //  YES:    Then go ahead and dump the stack
