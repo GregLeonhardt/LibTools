@@ -237,7 +237,7 @@ mem_free(
         //  Remove the malloc information from the information list
         MEM__info_remove( memory_p );
 
-        //  Allocate the requested number of bytes.
+        //  Release the previously allocated memory buffer.
         free( memory_p );
     }
     else
