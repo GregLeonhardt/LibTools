@@ -19,6 +19,8 @@
 
 #define ALLOC_MEM               ( "ALLOCATE STORAGE FOR MEM" )
 
+#define MEM_LEAK_DETECT         ( 0 )
+
 /****************************************************************************
  * System Function API
  ****************************************************************************/
@@ -185,9 +187,11 @@ mem_malloc(
     //  Save the size
     malloc_data_p->size = size;
 
+#if MEM_LEAK_DETECT
     //  Append to the malloc information list
     list_put_last( malloc_info_p, malloc_data_p );
-
+#endif
+    
     /************************************************************************
      *  Function Exit
      ************************************************************************/
@@ -234,9 +238,11 @@ mem_free(
         log_write( MID_DEBUG_0, "mem_free",
                    "[ %p ]\n", memory_p );
 
+#if MEM_LEAK_DETECT    
         //  Remove the malloc information from the information list
         MEM__info_remove( memory_p );
-
+#endif
+        
         //  Release the previously allocated memory buffer.
         free( memory_p );
     }
@@ -311,6 +317,8 @@ mem_dump(
     void
     )
 {
+    
+#if MEM_LEAK_DETECT
     /**
      *  @param  malloc_data_k   List Lock Key                               */
     int                             malloc_data_k;
@@ -328,7 +336,7 @@ mem_dump(
     /************************************************************************
      *  Function
      ************************************************************************/
-
+    
     //  Is this the very first time here ?
     if ( count == 0 )
     {
@@ -380,7 +388,8 @@ mem_dump(
         log_write( MID_FATAL, "mem_dump",
                    "Application is stopped to investigate a memory leak.\n" );
     }
-
+#endif
+    
     /************************************************************************
      *  Function Exit
      ************************************************************************/

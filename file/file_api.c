@@ -435,6 +435,8 @@ file_read_text(
 
             //  Move the read data to a temporary buffer
             tmp_data_2_p = text_copy_to_new( in_line );
+        
+            log_write( MID_DEBUG_1, "file_api.c", "Line: %d\n", __LINE__ );
 
             //  Is there already data in the read data buffer ?
             if ( tmp_data_1_p == NULL )
@@ -459,6 +461,8 @@ file_read_text(
 
                 //  Allocate a new buffer for the two lines.
                 copy_of_p = mem_malloc( data_l );
+
+                log_write( MID_DEBUG_1, "file_api.c", "Line: %d\n", __LINE__ );
 
                 //  Copy the two lines of text to the new buffer
                 strncpy( copy_of_p, tmp_data_1_p, data_l );
@@ -673,6 +677,8 @@ file_stat(
     //  Allocate a structure to save the file information
     file_info_p = mem_malloc( sizeof( struct file_info_t ) );
 
+    log_write( MID_DEBUG_1, "file_api.c", "Line: %d\n", __LINE__ );
+
     /************************************************************************
      *  Function Body
      ************************************************************************/
@@ -882,6 +888,8 @@ file_ls(
             }
             //  NO:     Allocate a structure to save the file information
             file_info_p = mem_malloc( sizeof( struct file_info_t ) );
+
+            log_write( MID_DEBUG_1, "file_api.c", "Line: %d\n", __LINE__ );
 
             //  Get the file statics data
             stat_data_p = file_stat( full_file_name, entry->d_name );

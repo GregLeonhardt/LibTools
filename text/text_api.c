@@ -602,6 +602,8 @@ text_copy_to_new(
     //  NOTE:   The '+1' is for the null termination character.
     copy_of_p = mem_malloc( strlen( text_p ) + 1 );
 
+    log_write( MID_DEBUG_1, "text_api.c", "Line: %d\n", __LINE__ );
+
     //  Copy the information to the new buffer
     memcpy( copy_of_p, text_p, strlen( text_p ) );
 
@@ -893,8 +895,12 @@ text_datastring_to_ascii(
     //  Allocate a temporary data buffer
     render_p = mem_malloc( src_data_l );
 
+    log_write( MID_DEBUG_1, "text_api.c", "Line: %d\n", __LINE__ );
+
     //  Allocate a temporary data buffer
     tmp_p = mem_malloc( src_data_l );
+
+    log_write( MID_DEBUG_1, "text_api.c", "Line: %d\n", __LINE__ );
 
     //  Make two copies of the source data
     memcpy( render_p, src_data_p, src_data_l );

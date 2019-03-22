@@ -134,8 +134,12 @@ html2txt(
     //  Allocate the work buffer
     work_p = mem_malloc( work_l + 1 );
 
+    log_write( MID_DEBUG_1, "html2txt_api.c", "Line: %d\n", __LINE__ );
+
     //  Allocate the temporary buffer
     tmp_p = mem_malloc( work_l + 1 );
+
+    log_write( MID_DEBUG_1, "html2txt_api.c", "Line: %d\n", __LINE__ );
 
     //  Copy the source data buffer to the work data buffer.
     memcpy( work_p, html_p, html_l );
