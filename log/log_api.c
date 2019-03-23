@@ -351,11 +351,11 @@ log_init(
 
     //  Set the default display and print filters
 #if 1
+    log_display_mask = 0xE000;
+    log_print_mask   = 0xE000;
+#else
     log_display_mask = 0xFDFF;
     log_print_mask   = 0xFDFF;
-#else
-    log_display_mask = 0x0000;
-    log_print_mask   = 0x0000;
 #endif
     /************************************************************************
      *  Function Exit
