@@ -102,6 +102,7 @@ struct  html_tag_t              html_tag_list[ ] =
     {   "source",        6, HTML_TAG_DEL_DEL,   0   },
     {   "strike",        6, HTML_TAG_DEL_DEL,   0   },
     {   "strong",        6, HTML_TAG_DEL_DEL,   0   },
+    {   "center",        6, HTML_TAG_DEL_DEL,   0   },
 
     {   "input",         5, HTML_TAG_DEL_DEL,   0   },
     {   "small",         5, HTML_TAG_DEL_DEL,   0   },
