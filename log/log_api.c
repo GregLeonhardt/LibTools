@@ -64,6 +64,11 @@
  ****************************************************************************/
 
 //----------------------------------------------------------------------------
+#define LOG_EVERYTHING  (  MID_FATAL | MID_WARNING | MID_INFO               \
+                         | MID_DEBUG_3 | MID_DEBUG_2 | MID_DEBUG_1 | MID_DEBUG_0 )
+#define LOG_NORMAL      (  MID_FATAL | MID_WARNING | MID_INFO )
+#define LOG_MEM_LEAK    (  MID_FATAL | MID_WARNING | MID_INFO               \
+                         | MID_DEBUG_2 | MID_DEBUG_1 | MID_DEBUG_0 )
 //----------------------------------------------------------------------------
 
 /****************************************************************************
@@ -350,13 +355,9 @@ log_init(
               "%s/%s/%s", tmp_p, LOG_DIR_NAME, log_file_name );
 
     //  Set the default display and print filters
-#if 1
-    log_display_mask = 0xE000;
-    log_print_mask   = 0xE000;
-#else
-    log_display_mask = 0xFDFF;
-    log_print_mask   = 0xFDFF;
-#endif
+    log_display_mask = ( LOG_NORMAL );
+    log_print_mask =   ( LOG_NORMAL );
+    
     /************************************************************************
      *  Function Exit
      ************************************************************************/

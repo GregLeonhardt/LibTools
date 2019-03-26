@@ -1042,7 +1042,6 @@ HTML2TXT__str_2_char(
 
     //  Allocate the work buffer
     tmp_p = mem_malloc( strlen( html_p ) + 1 );
-
     log_write( MID_DEBUG_1, "html2txt_lib.c", "Line: %d\n", __LINE__ );
 
     //  Duplicate the html buffer in the temporary buffer
