@@ -748,8 +748,9 @@ text_title_case(
                  temp_char_p[ 0 ] != ')' && inside_brackets != false;
                  temp_char_p++ )
             {
-                //  Is this a space ( ' ' ) ?
-                if( temp_char_p[ 0 ] == ' ' )
+                //  Is this a space ' ' or End-of-Line ?
+                if(    ( temp_char_p[ 0 ] == ' '  )
+                    || ( temp_char_p[ 0 ] == '\0' ) )
                 {
                     //  YES:    Change the flag so it will NOT be changed.
                     inside_brackets = false;
