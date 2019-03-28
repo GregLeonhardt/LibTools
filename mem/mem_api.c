@@ -170,6 +170,7 @@ mem_malloc(
      *  Update the malloc information list
      ************************************************************************/
 
+#if MEM_LEAK_DETECT
     //  Allocate a new malloc data structure
     malloc_data_p = (struct malloc_data_t*)malloc( sizeof( struct malloc_data_t ) );
 
@@ -187,7 +188,6 @@ mem_malloc(
     //  Save the size
     malloc_data_p->size = size;
 
-#if MEM_LEAK_DETECT
     //  Append to the malloc information list
     list_put_last( malloc_info_p, malloc_data_p );
 #endif
