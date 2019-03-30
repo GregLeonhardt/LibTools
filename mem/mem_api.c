@@ -130,16 +130,18 @@ mem_init(
 
 void *
 mem_malloc(
-    int                             size
+    int                             size  
     )
 {
     /**
-     *  Pointer to the allocated memory                                 */
+     *  @param  memory_p        Pointer to the allocated memory             */
     char                        *   memory_p;
+#if MEM_LEAK_DETECT
     /**
      *  @param  malloc_data_p   Pointer to a sizeof structure               */
     struct  malloc_data_t       *   malloc_data_p;
-
+#endif
+    
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
