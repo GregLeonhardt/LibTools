@@ -319,18 +319,15 @@ HTML2TXT__locate_tag_end(
     )
 {
     /**
-     *  @param  gt_p            Less Than pointer                           */
-    char                        *   gt_p;      
-    /**
-     *  @param  lt_p            Greater Than pointer                        */
-    char                        *   lt_p;
+     *  @param  tag_end_p       Tag End pointer                             */
+    char                        *   tag_end_p; 
 
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
 
     //  Set the starting point
-    gt_p = html_p;
+    tag_end_p = html_p;
 
     /************************************************************************
      *  Find and remove Carriage Returns
@@ -339,29 +336,17 @@ HTML2TXT__locate_tag_end(
     //  Is this a comment tag ?
     if ( strncmp( html_p, "<!--", 4 ) == 0 )
     {
-        //  YES:    Lets find the end
-        do
-        {
-            //  NOTE:   If there are '< ... >' sequences within the comment
-            //          this routine will skip over the internal sequence
-            //          to find the end of the tag
-            //  Example:
-            //  <!--X-From-R13: "Dvpuneq &#38; Rrr Fheare" <eygheareNxfxp.arg> -->
+        //  Find the end of the comment.
+        tag_end_p = strstr( html_p, "-->" );
 
-            //  Locate the tag end character
-            lt_p = strchr( ++gt_p, '<' );
-
-            //  Locate the tag end character
-            gt_p = strchr( gt_p, '>' );
-
-            //  Locate a possible 
-        }   while(    ( lt_p != NULL )
-                   && ( lt_p <  gt_p ) );
+        //  Locate the tag end character
+        tag_end_p = strchr( tag_end_p, '>' );
+       
     }
     else
     {
         //  NO:     Lets find the end
-        gt_p = strchr( html_p, '>' );
+        tag_end_p = strchr( html_p, '>' );
     }
 
     /************************************************************************
@@ -369,7 +354,7 @@ HTML2TXT__locate_tag_end(
      ************************************************************************/
 
     //  DONE!
-    return( gt_p );
+    return( tag_end_p );
 }
 
 /****************************************************************************/
