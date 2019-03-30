@@ -301,6 +301,79 @@ struct  html_char_t                 html_table[ ] =
 
 /****************************************************************************/
 /**
+ *  Locate the end of the current tag.
+ *
+ *  @param  html_p              Pointer to the HTML source buffer.
+ *
+ *  @return tag_end_p           Upon successful completion a pointer to
+ *                              The last character of a tag, else NULL
+ *                              is returned.
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+char    *
+HTML2TXT__locate_tag_end(
+    char                        *   html_p
+    )
+{
+    /**
+     *  @param  gt_p            Less Than pointer                           */
+    char                        *   gt_p;      
+    /**
+     *  @param  lt_p            Greater Than pointer                        */
+    char                        *   lt_p;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Set the starting point
+    gt_p = html_p;
+
+    /************************************************************************
+     *  Find and remove Carriage Returns
+     ************************************************************************/
+
+    //  Is this a comment tag ?
+    if ( strncmp( html_p, "<!--", 4 ) == 0 )
+    {
+        //  YES:    Lets find the end
+        do
+        {
+            //  NOTE:   If there are '< ... >' sequences within the comment
+            //          this routine will skip over the internal sequence
+            //          to find the end of the tag
+            //  Example:
+            //  <!--X-From-R13: "Dvpuneq &#38; Rrr Fheare" <eygheareNxfxp.arg> -->
+
+            //  Locate the tag end character
+            lt_p = strchr( ++gt_p, '<' );
+
+            //  Locate the tag end character
+            gt_p = strchr( gt_p, '>' );
+
+            //  Locate a possible 
+        }   while(    ( lt_p != NULL )
+                   && ( lt_p <  gt_p ) );
+    }
+    else
+    {
+        //  NO:     Lets find the end
+        gt_p = strchr( html_p, '>' );
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( gt_p );
+}
+
+/****************************************************************************/
+/**
  *  Remove Carriage Return & Line Feed
  *
  *  @param  work_p              Pointer to the HTML source buffer.
@@ -882,7 +955,7 @@ HTML2TXT__tag_scan(
                         case    1:      //  Open ended start        <html ...>
                         {
                             snprintf( html_tag, sizeof( html_tag ),
-                                      "<%s ", html_tag_list[ ndx ].name );
+                                      "<%s", html_tag_list[ ndx ].name );
                         }   break;
 
                         case    2:      //  End                     </html>
@@ -945,8 +1018,8 @@ HTML2TXT__tag_scan(
                     case    HTML_TAG_END_DEL:
                     {
                         //  Locate the end of the tag
-                        tmp_offset_p = strchr( tmp_offset_p, '>' );
-
+                        tmp_offset_p = HTML2TXT__locate_tag_end( tmp_offset_p );
+                        
                         //  Copy the remaining temporary buffer to the HTML buffer
                         tmp_offset_p += 1;
                         strncpy( html_offset_p,
@@ -960,7 +1033,7 @@ HTML2TXT__tag_scan(
                         html_offset_p[ 0 ] = '\n';
 
                         //  Locate the end of the tag
-                        tmp_offset_p  = strchr( tmp_offset_p,  '>' );
+                        tmp_offset_p = HTML2TXT__locate_tag_end( tmp_offset_p );
 
                         //  Copy the remaining temporary buffer to the HTML buffer
                         html_offset_p += 1;
