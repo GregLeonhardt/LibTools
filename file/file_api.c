@@ -435,7 +435,7 @@ file_read_text(
 
             //  Move the read data to a temporary buffer
             tmp_data_2_p = text_copy_to_new( in_line );
-        
+
             log_write( MID_DEBUG_1, "file_api.c", "Line: %d\n", __LINE__ );
 
             //  Is there already data in the read data buffer ?
@@ -1114,7 +1114,7 @@ file_unzip(
 
                         // Build the unzip command
                         snprintf( command, sizeof ( command ),
-                                 "unzip -q -o %s -d %s",
+                                 "unzip -q -o \"%s\" -d \"%s\"",
                                  file_name,
                                  extract_to );
 
