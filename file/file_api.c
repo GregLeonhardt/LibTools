@@ -38,6 +38,7 @@
 #include <time.h>               //  Functions for manipulating date and time
 #include <langinfo.h>           //  Identify items of langinfo data
 #include <dirent.h>             //  Facilitate directory traversing
+#include <errno.h>              //  Defines the integer variable errno
                                 //*******************************************
 
 /****************************************************************************
@@ -1144,6 +1145,62 @@ file_unzip(
     list_kill( file_list_p );
 
     //  DONE!
+}
+
+/****************************************************************************/
+/**
+ *  Test if the directory already exists.
+ *
+ *  @param  dir_p               Pointer to the starting directory
+ *
+ *  @return file_rc             TRUE when the directory exists, else FALSE.
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+int
+file_dir_exist(
+    char                        *   path_p
+    )
+{
+    /**
+     *  @param  file_rc         Function return code                        */
+    int                             file_rc;
+    /**
+     *  param   directory_p     Directory information structure             */
+    DIR                         *   directory_p;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Assume the directory does NOT exist
+    file_rc = false;
+
+    /************************************************************************
+     *  Function
+     ************************************************************************/
+
+    //  Attempt to open the directory
+    directory_p = opendir( path_p );
+
+    //  Does it already exist ?
+    if ( directory_p )
+    {
+        //  YES:    Directory exists.
+        closedir( directory_p );
+
+        //  Set the return code
+        file_rc = true;
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( file_rc );
 }
 
 /****************************************************************************/
