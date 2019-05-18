@@ -1152,6 +1152,8 @@ file_unzip(
  *  Test if the directory already exists.
  *
  *  @param  dir_p               Pointer to the starting directory
+ *  @param  create              When TRUE and the directory does NOT already
+ *                              exist, create it.
  *
  *  @return file_rc             TRUE when the directory exists, else FALSE.
  *
@@ -1161,7 +1163,8 @@ file_unzip(
 
 int
 file_dir_exist(
-    char                        *   path_p
+    char                        *   path_p,
+    int                             create
     )
 {
     /**
@@ -1193,6 +1196,15 @@ file_dir_exist(
 
         //  Set the return code
         file_rc = true;
+    }
+    else
+    {
+        //  NO:     Should it be created ?
+        if ( create == true )
+        {
+            //  YES:    Do it!
+            mkdir( path_p, 0766 );
+        }
     }
 
     /************************************************************************
