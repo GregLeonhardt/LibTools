@@ -143,9 +143,9 @@ file_open_read(
     else
     {
         //  Log the event
-        log_write( MID_INFO, "file_open_read",
-                   "successfully opened file: '%s'\n",
-                   file_name );
+        log_write( MID_DEBUG_3, "file_open_read",
+                   "Successfully opened file: '%s' (%p)\n",
+                   file_name, file_fp );
     }
 
     /************************************************************************
@@ -203,10 +203,114 @@ file_open_write(
     else
     {
         //  Log the event
-        log_write( MID_INFO, "file_open_write",
-                   "File '%s' successfully opened\n",
-                   file_name );
+        log_write( MID_DEBUG_3, "file_open_write",
+                   "Successfully opened file: '%s' (%p)\n",
+                   file_name, file_fp );
     }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( file_fp );
+}
+
+/****************************************************************************/
+/**
+ *  The file_open_write function is called once for each file.  It only
+ *  opens the file and does NOT write any data to it.
+ *
+ *  @param  filename            A pointer to a character string containing
+ *                              the file name of the input file.
+ *
+ *  @return file_fp             Upon successful completion the file pointer is
+ *                              returned else NULL is returned.
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+FILE    *
+file_open_write_no_dup(
+    char                        *   file_name,
+    char                        *   dup_name
+    )
+{
+    /**
+     *  @parm   file_fp         File pointer                                */
+    FILE                        *   file_fp;
+    /**
+     *  @param  mod_file_name   Modified file name                          */
+    char                            mod_file_name[ 1024 ];
+    /**
+     *  @param  dup_count       Number of duplicate files                   */
+    int                             dup_count;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Initialize the file pointer
+    file_fp = NULL;
+
+    //  Initialize the duplicate file count
+    dup_count = 0;
+
+    //  Is the input file name too large to handle ?
+    if ( strlen( file_name ) > sizeof( mod_file_name ) )
+    {
+        //  YES:    Not a good thing
+        log_write( MID_FATAL, "file_open_write_no_dup",
+                   "The file name string is too large.\n" );
+    }
+    else
+    {
+        //  NO:     Copy it to the local file name buffer
+        memset( mod_file_name, '\0', sizeof( mod_file_name ) );
+        strncpy( mod_file_name, file_name, sizeof( mod_file_name ) );
+    }
+
+    /************************************************************************
+     *  File open and verification
+     ************************************************************************/
+
+    do
+    {
+        //  Is there a currently open file ?
+        if ( file_fp != NULL )
+        {
+            //  YES:    Close it.
+            fclose( file_fp );
+        }
+
+        //  Test for an existing file
+        file_fp = fopen( mod_file_name, "r");
+
+        //  Does it already exist ?
+        if ( file_fp != NULL )
+        {
+            //  YES:    Will the modified file name fit into the buffer
+            if (   ( strlen( file_name ) + strlen( dup_name ) + 6 )
+                 > ( sizeof( mod_file_name ) ) )
+            {
+                //  YES:    Not a good thing
+                log_write( MID_FATAL, "file_open_write_no_dup",
+                           "The modified file name string is too large.\n" );
+            }
+            else
+            {
+                //  NO:     Copy it to the local file name buffer
+                memset( mod_file_name, '\0', sizeof( mod_file_name ) );
+                snprintf( mod_file_name, sizeof( mod_file_name ),
+                          "%s.%s%04X", file_name, dup_name, ++dup_count );
+            }
+        }
+
+    }   while( file_fp != NULL );
+
+    //  Now open the file for write
+    file_fp = file_open_write( mod_file_name );
 
     /************************************************************************
      *  Function Exit
@@ -263,9 +367,9 @@ file_open_append(
     else
     {
         //  Log the event
-        log_write( MID_DEBUG_0, "file_open_append",
-                   "File '%s' successfully opened\n",
-                   file_name );
+        log_write( MID_DEBUG_3, "file_open_append",
+                   "Successfully opened file: '%s' (%p)\n",
+                   file_name, file_fp );
     }
 
     /************************************************************************
@@ -305,6 +409,10 @@ file_close(
 
     //  Close a previously opened file
     fclose( file_fp );
+
+    log_write( MID_DEBUG_3, "file_close",
+               "Successfully closed file: (%p)\n",
+               file_fp );
 
     /************************************************************************
      *  Function Exit
