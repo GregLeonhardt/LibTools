@@ -337,3 +337,86 @@ sha1_final(
 }
 
 /****************************************************************************/
+/**
+ *  Add the two numbers together and return the sum.
+ *
+ *  @param  sum                 Sum of the two following numbers
+ *  @param  num_1               The first  number
+ *  @param  num_1               The second number
+ *
+ *  @return carry               True when there is a carry from the last add
+ *
+ ****************************************************************************/
+
+int
+sha1_sum(
+    char                        *   sum_p,
+    char                        *   num1_p,
+    char                        *   num2_p
+    )
+{
+    /**
+     *  @param  tmp_digit_1     One of the digits to be added               */
+    unsigned int                    tmp_digit_1;
+    /**
+     *  @param  tmp_digit_2     The other digit to be added                 */
+    unsigned int                    tmp_digit_2;
+    /**
+     *  @param  tmp_carry       The carry bit from the addition             */
+    unsigned int                    tmp_carry;
+    /**
+     *  @param  tmp_sum         The sum of the two digits                   */
+    unsigned int                    tmp_sum;
+    /**
+     *  @param  ndx             Index pointer                               */
+    int                             ndx;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Initialize the carry bit
+    tmp_carry = 0;
+
+    /************************************************************************
+     *  Function
+     ************************************************************************/
+
+    //  Loop through the number
+    for ( ndx = SHA1_DIGEST_SIZE;
+          ndx >= 0;
+          ndx -= 1 )
+    {
+        //  Get the two numbers we going to add together
+        tmp_digit_1 = (unsigned char)num1_p[ ndx ];
+        tmp_digit_2 = (unsigned char)num2_p[ ndx ];
+
+        //  Add them together
+        tmp_sum = tmp_digit_1 + tmp_digit_2 + tmp_carry;
+
+        //  Is there a carry bit
+        if ( tmp_sum > 0xFF )
+        {
+            //  YES:    Create it
+            tmp_carry = 1;
+            tmp_sum = tmp_sum - 0x100;
+        }
+        else
+        {
+            //  NO:     Clear the carry bit.
+            tmp_carry = 0;
+        }
+
+        //  Save the sum of these two numbers
+        sum_p[ ndx ] = (unsigned char)tmp_sum;
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+     // DONE!
+    return( tmp_carry );
+}
+
+/****************************************************************************/
