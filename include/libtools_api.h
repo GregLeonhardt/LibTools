@@ -694,6 +694,29 @@ text_datastring_to_ascii(
     char                        *   src_data_p
     );
 //---------------------------------------------------------------------------
+void
+text_insert(
+    char                        *   text_buffer_p,
+    int                             text_buffer_l,
+    int                             text_ndx,
+    char                        *   text_data_p
+    );
+//---------------------------------------------------------------------------
+void
+text_remove(
+    char                        *   text_buffer_p,
+    int                             text_ndx,
+    int                             text_remove_l
+    );
+//---------------------------------------------------------------------------
+void
+text_replace(
+    char                        *   text_buffer_p,
+    int                             text_buffer_l,
+    int                             text_ndx,
+    char                        *   text_data_p,
+    int                             text_remove_l    );
+//---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 //  Thread

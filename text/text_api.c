@@ -601,7 +601,6 @@ text_copy_to_new(
     //  Allocate and initialize a new buffer.
     //  NOTE:   The '+1' is for the null termination character.
     copy_of_p = mem_malloc( strlen( text_p ) + 1 );
-
     log_write( MID_DEBUG_1, "text_api.c", "Line: %d\n", __LINE__ );
 
     //  Copy the information to the new buffer
@@ -895,12 +894,10 @@ text_datastring_to_ascii(
 
     //  Allocate a temporary data buffer
     render_p = mem_malloc( src_data_l );
-
     log_write( MID_DEBUG_1, "text_api.c", "Line: %d\n", __LINE__ );
 
     //  Allocate a temporary data buffer
     tmp_p = mem_malloc( src_data_l );
-
     log_write( MID_DEBUG_1, "text_api.c", "Line: %d\n", __LINE__ );
 
     //  Make two copies of the source data
@@ -952,10 +949,10 @@ text_datastring_to_ascii(
 
                 //  Compact
                 strcpy( ++render_offset_p, &(tmp_offset_p[ 4 ]) );
-                
+
                 //  Cleanup the end of the buffer
                 memset( &(render_p[ strlen( render_p ) ]), '\0', 3 );
-                
+
                 //  Move past the last search match
                 tmp_offset_p += 1;
             }
@@ -974,7 +971,6 @@ text_datastring_to_ascii(
 
     }   while( altered == true );
 
-
     /************************************************************************
      *  Function Exit
      ************************************************************************/
@@ -986,6 +982,248 @@ text_datastring_to_ascii(
     //  Release the allocated buffer
     mem_free( tmp_p );
     mem_free( render_p );
+
+    //  DONE!
+}
+
+/****************************************************************************/
+/**
+ *  Insert text_data_p into text_buffer_p at text_ndx.
+ *
+ *  @param  text_buffer_p       Pointer to the data buffer.
+ *  @param  text_buffer_l       Size (in bytes) of the text buffer.
+ *  @param  text_ndx            Index to insert data.
+ *  @param  text_data_p         Pointer to the data to insert.
+ *
+ *  @return void
+ *
+ *  @note
+ *      If the buffer is not large enough to add insert the new data a
+ *      hard fault is thrown.
+ *  @note
+ *      Sometime in the future I will want to replace the text_ndx with a text
+ *      string that is to be replaced.
+ *      THIS WILL NOT WORK!
+ *      There may be two strings that will match the "search string" and the
+ *      second string is the one to be replaced but the first will be located
+ *      and replaced in error.
+ *
+ ****************************************************************************/
+
+void
+text_insert(
+    char                        *   text_buffer_p,
+    int                             text_buffer_l,
+    int                             text_ndx,
+    char                        *   text_data_p
+    )
+{
+    /**
+     *  @param  tmp_p           Pointer to a temporary data buffer          */
+    char                        *   tmp_p;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Allocate the temporary data buffer
+    tmp_p = mem_malloc( text_buffer_l );
+
+    /************************************************************************
+     *  Verify the data will fit
+     ************************************************************************/
+
+    //  Is there enough room in the buffer ?
+    if ( text_buffer_l < ( strlen( text_buffer_p ) + strlen( text_data_p ) ) )
+    {
+        //  NO:     This is a fatal error.
+        log_write( MID_WARNING, "text_insert", "%s\n",
+                   "Text buffer is not large enough for the inserted text" );
+        log_write( MID_FATAL, "text_api.c", "Line: %d\n", __LINE__ );
+    }
+
+    /************************************************************************
+     *  Insert the data
+     ************************************************************************/
+
+    //  Are we inserting from the buffer head ?
+    if ( text_ndx != 0 )
+    {
+        //  NO:     Then copy the buffer head to the temporary data buffer.
+        memcpy( tmp_p, text_buffer_p, text_ndx );
+    }
+
+    //  Insert the new data string into the temporary buffer
+    strncat( tmp_p, text_data_p, ( text_buffer_l - strlen( tmp_p ) ) );
+
+    //  Are we inserting a tail to the buffer ?
+    if ( text_ndx < strlen( text_buffer_p ) )
+    {
+        //  NO:     Copy the buffer tail to the temporary data buffer.
+        strncat( tmp_p, &text_buffer_p[ text_ndx ],
+                 ( text_buffer_l - strlen( tmp_p ) ) );
+    }
+
+    //  Wipe the source buffer clean
+    memset( text_buffer_p, '\0', text_buffer_l );
+
+    //  Finally, put the new string in the old buffer.
+    memcpy( text_buffer_p, tmp_p, strlen( tmp_p ) );
+
+    /************************************************************************
+     *  Function Cleanup
+     ************************************************************************/
+
+    mem_free( tmp_p );
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+}
+
+/****************************************************************************/
+/**
+ *  Remove text_data_l bytes from text_buffer_p at text_ndx.
+ *
+ *  @param  text_buffer_p       Pointer to the data buffer.
+ *  @param  text_ndx            Index to insert data.
+ *  @param  text_remove_l       Number of bytes to remove from the buffer.
+ *
+ *  @return void
+ *
+ *  @note
+ *      Sometime in the future I will want to replace the text_ndx with a text
+ *      string that is to be replaced.
+ *      THIS WILL NOT WORK!
+ *      There may be two strings that will match the "search string" and the
+ *      second string is the one to be replaced but the first will be located
+ *      and replaced in error.
+ *
+ ****************************************************************************/
+
+void
+text_remove(
+    char                        *   text_buffer_p,
+    int                             text_ndx,
+    int                             text_remove_l
+    )
+{
+    /**
+     *  @param  tmp_p           Pointer to a temporary data buffer          */
+    char                        *   tmp_p;
+    /**
+     *  @param  text_buffer_l   Number of bytes in the text data buffer     */
+    int                             text_buffer_l;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  set the size of the text buffer.
+    text_buffer_l = strlen( text_buffer_p );
+
+    //  Allocate the temporary data buffer
+    tmp_p = mem_malloc( text_buffer_l + 1 );
+
+    /************************************************************************
+     *  Remove the data
+     ************************************************************************/
+
+    //  Are we removing from the buffer head ?
+    if ( text_ndx != 0 )
+    {
+        //  NO:     Then copy the buffer head to the temporary data buffer.
+        memcpy( tmp_p, text_buffer_p, text_ndx );
+    }
+
+    //  Are we removing the tail of the buffer ?
+    if ( ( text_ndx + text_remove_l ) < text_buffer_l )
+    {
+        //  NO:     Copy the buffer tail to the temporary data buffer.
+        strncat( &tmp_p[ text_ndx ],
+                 &text_buffer_p[ text_ndx + text_remove_l ],
+                 ( text_buffer_l - strlen( tmp_p ) ) );
+    }
+
+    //  Wipe the source buffer clean
+    memset( text_buffer_p, '\0', text_buffer_l );
+
+    //  Finally, put the new string in the old buffer.
+    memcpy( text_buffer_p, tmp_p, strlen( tmp_p ) );
+
+    /************************************************************************
+     *  Function Cleanup
+     ************************************************************************/
+
+    mem_free( tmp_p );
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+}
+
+/****************************************************************************/
+/**
+ *  Insert text_data_p into text_buffer_p at text_ndx.
+ *
+ *  @param  text_buffer_p       Pointer to the data buffer.
+ *  @param  text_buffer_l       Size (in bytes) of the text buffer.
+ *  @param  text_ndx            Index to insert data.
+ *  @param  text_data_p         Pointer to the data to insert.
+ *  @param  text_remove_l       Number of bytes to remove from the buffer.
+ *
+ *  @return void
+ *
+ *  @note
+ *      If the buffer is not large enough to add insert the new data a
+ *      hard fault is thrown.
+ *  @note
+ *      Sometime in the future I will want to replace the text_ndx with a text
+ *      string that is to be replaced.
+ *      THIS WILL NOT WORK!
+ *      There may be two strings that will match the "search string" and the
+ *      second string is the one to be replaced but the first will be located
+ *      and replaced in error.
+ *
+ ****************************************************************************/
+
+void
+text_replace(
+    char                        *   text_buffer_p,
+    int                             text_buffer_l,
+    int                             text_ndx,
+    char                        *   text_data_p,
+    int                             text_remove_l
+    )
+{
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Insert the data
+     ************************************************************************/
+
+    //  Remove the old text
+    text_remove( text_buffer_p, text_ndx, text_remove_l );
+
+    //  Insert the new text
+    text_insert( text_buffer_p, text_buffer_l, text_ndx, text_data_p );
+
+    /************************************************************************
+     *  Function Cleanup
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
 
     //  DONE!
 }
