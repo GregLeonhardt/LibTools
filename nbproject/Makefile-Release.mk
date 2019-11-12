@@ -36,6 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/SqLite/sqlite3.o \
+	${OBJECTDIR}/base64/base64_api.o \
+	${OBJECTDIR}/base64/base64_lib.o \
 	${OBJECTDIR}/file/file_api.o \
 	${OBJECTDIR}/file/file_lib.o \
 	${OBJECTDIR}/html2txt/html2txt_api.o \
@@ -50,8 +52,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/queue/queue_lib.o \
 	${OBJECTDIR}/sha1/sha1_api.o \
 	${OBJECTDIR}/sha1/sha1_lib.o \
-	${OBJECTDIR}/store_api.o \
-	${OBJECTDIR}/store_lib.o \
+	${OBJECTDIR}/store/store_api.o \
+	${OBJECTDIR}/store/store_lib.o \
 	${OBJECTDIR}/tcpip/tcpip_api.o \
 	${OBJECTDIR}/tcpip/tcpip_lib.o \
 	${OBJECTDIR}/text/text_api.o \
@@ -102,6 +104,16 @@ ${OBJECTDIR}/SqLite/sqlite3.o: SqLite/sqlite3.c
 	${MKDIR} -p ${OBJECTDIR}/SqLite
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SqLite/sqlite3.o SqLite/sqlite3.c
+
+${OBJECTDIR}/base64/base64_api.o: base64/base64_api.c
+	${MKDIR} -p ${OBJECTDIR}/base64
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base64/base64_api.o base64/base64_api.c
+
+${OBJECTDIR}/base64/base64_lib.o: base64/base64_lib.c
+	${MKDIR} -p ${OBJECTDIR}/base64
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base64/base64_lib.o base64/base64_lib.c
 
 ${OBJECTDIR}/file/file_api.o: file/file_api.c
 	${MKDIR} -p ${OBJECTDIR}/file
@@ -173,15 +185,15 @@ ${OBJECTDIR}/sha1/sha1_lib.o: sha1/sha1_lib.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sha1/sha1_lib.o sha1/sha1_lib.c
 
-${OBJECTDIR}/store_api.o: store_api.c
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/store/store_api.o: store/store_api.c
+	${MKDIR} -p ${OBJECTDIR}/store
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store_api.o store_api.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store/store_api.o store/store_api.c
 
-${OBJECTDIR}/store_lib.o: store_lib.c
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/store/store_lib.o: store/store_lib.c
+	${MKDIR} -p ${OBJECTDIR}/store
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store_lib.o store_lib.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store/store_lib.o store/store_lib.c
 
 ${OBJECTDIR}/tcpip/tcpip_api.o: tcpip/tcpip_api.c
 	${MKDIR} -p ${OBJECTDIR}/tcpip
@@ -252,6 +264,32 @@ ${OBJECTDIR}/SqLite/sqlite3_nomain.o: ${OBJECTDIR}/SqLite/sqlite3.o SqLite/sqlit
 	    $(COMPILE.c) -O2 -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SqLite/sqlite3_nomain.o SqLite/sqlite3.c;\
 	else  \
 	    ${CP} ${OBJECTDIR}/SqLite/sqlite3.o ${OBJECTDIR}/SqLite/sqlite3_nomain.o;\
+	fi
+
+${OBJECTDIR}/base64/base64_api_nomain.o: ${OBJECTDIR}/base64/base64_api.o base64/base64_api.c 
+	${MKDIR} -p ${OBJECTDIR}/base64
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/base64/base64_api.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base64/base64_api_nomain.o base64/base64_api.c;\
+	else  \
+	    ${CP} ${OBJECTDIR}/base64/base64_api.o ${OBJECTDIR}/base64/base64_api_nomain.o;\
+	fi
+
+${OBJECTDIR}/base64/base64_lib_nomain.o: ${OBJECTDIR}/base64/base64_lib.o base64/base64_lib.c 
+	${MKDIR} -p ${OBJECTDIR}/base64
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/base64/base64_lib.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base64/base64_lib_nomain.o base64/base64_lib.c;\
+	else  \
+	    ${CP} ${OBJECTDIR}/base64/base64_lib.o ${OBJECTDIR}/base64/base64_lib_nomain.o;\
 	fi
 
 ${OBJECTDIR}/file/file_api_nomain.o: ${OBJECTDIR}/file/file_api.o file/file_api.c 
@@ -436,30 +474,30 @@ ${OBJECTDIR}/sha1/sha1_lib_nomain.o: ${OBJECTDIR}/sha1/sha1_lib.o sha1/sha1_lib.
 	    ${CP} ${OBJECTDIR}/sha1/sha1_lib.o ${OBJECTDIR}/sha1/sha1_lib_nomain.o;\
 	fi
 
-${OBJECTDIR}/store_api_nomain.o: ${OBJECTDIR}/store_api.o store_api.c 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/store_api.o`; \
+${OBJECTDIR}/store/store_api_nomain.o: ${OBJECTDIR}/store/store_api.o store/store_api.c 
+	${MKDIR} -p ${OBJECTDIR}/store
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/store/store_api.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.c) -O2 -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store_api_nomain.o store_api.c;\
+	    $(COMPILE.c) -O2 -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store/store_api_nomain.o store/store_api.c;\
 	else  \
-	    ${CP} ${OBJECTDIR}/store_api.o ${OBJECTDIR}/store_api_nomain.o;\
+	    ${CP} ${OBJECTDIR}/store/store_api.o ${OBJECTDIR}/store/store_api_nomain.o;\
 	fi
 
-${OBJECTDIR}/store_lib_nomain.o: ${OBJECTDIR}/store_lib.o store_lib.c 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/store_lib.o`; \
+${OBJECTDIR}/store/store_lib_nomain.o: ${OBJECTDIR}/store/store_lib.o store/store_lib.c 
+	${MKDIR} -p ${OBJECTDIR}/store
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/store/store_lib.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.c) -O2 -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store_lib_nomain.o store_lib.c;\
+	    $(COMPILE.c) -O2 -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/store/store_lib_nomain.o store/store_lib.c;\
 	else  \
-	    ${CP} ${OBJECTDIR}/store_lib.o ${OBJECTDIR}/store_lib_nomain.o;\
+	    ${CP} ${OBJECTDIR}/store/store_lib.o ${OBJECTDIR}/store/store_lib_nomain.o;\
 	fi
 
 ${OBJECTDIR}/tcpip/tcpip_api_nomain.o: ${OBJECTDIR}/tcpip/tcpip_api.o tcpip/tcpip_api.c 
