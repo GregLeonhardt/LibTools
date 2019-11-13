@@ -192,35 +192,33 @@ base64_decode(
         //  Reinitialize the decoded data
         decoded_data = 0;
 
+        //  Clean up all sextet buffers
+        sextet_0 = '=';
+        sextet_1 = '=';
+        sextet_2 = '=';
+        sextet_3 = '=';
+
         //  Get sextet 0
-        if (    ( s_ndx < data_l )
-             && ( data_p[ s_ndx ] != '=' ) )
+        if ( s_ndx < data_l )
             sextet_0 = data_p[ s_ndx ++ ];
 
         //  Get sextet 1
-        if (    ( s_ndx < data_l )
-             && ( data_p[ s_ndx ] != '=' ) )
+        if ( s_ndx < data_l )
             sextet_1 = data_p[ s_ndx ++ ];
 
         //  Get sextet 2
-        if (    ( s_ndx < data_l )
-             && ( data_p[ s_ndx ] != '=' ) )
+        if ( s_ndx < data_l )
             sextet_2 = data_p[ s_ndx ++ ];
 
         //  Get sextet 3
-        if (    ( s_ndx < data_l )
-             && ( data_p[ s_ndx ] != '=' ) )
+        if ( s_ndx < data_l )
             sextet_3 = data_p[ s_ndx ++ ];
 
         //  Translate the sextets to ASCII
-        if ( sextet_0 != 0x00 )
-            decoded_data =                         decode_table[ sextet_0 ];
-        if ( sextet_1 != 0x00 )
-            decoded_data = ( decoded_data << 6 ) | decode_table[ sextet_1 ];
-        if ( sextet_2 != 0x00 )
-            decoded_data = ( decoded_data << 6 ) | decode_table[ sextet_2 ];
-        if ( sextet_3 != 0x00 )
-            decoded_data = ( decoded_data << 6 ) | decode_table[ sextet_3 ];
+        decoded_data =                         decode_table[ sextet_0 ];
+        decoded_data = ( decoded_data << 6 ) | decode_table[ sextet_1 ];
+        decoded_data = ( decoded_data << 6 ) | decode_table[ sextet_2 ];
+        decoded_data = ( decoded_data << 6 ) | decode_table[ sextet_3 ];
 
         //  Save the decoded data
         decode_data_p[ d_ndx++ ] = ( decoded_data & 0x00FF0000 ) >> 16;
