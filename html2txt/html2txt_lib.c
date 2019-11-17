@@ -17,6 +17,7 @@
  *  Compiler directives
  ****************************************************************************/
 
+#define _GNU_SOURCE
 
 /****************************************************************************
  * System Function API
@@ -87,73 +88,73 @@ struct  html_tag_t
 //----------------------------------------------------------------------------
 struct  html_tag_t              html_tag_list[ ] =
 {
-    {   "html",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "blockquote",   10, HTML_TAG_DEL_DEL,   0   },
-    {   "marquee",       7, HTML_TAG_DEL_DEL,   0   },
+    {   "html",          4, HTML_TAG_DEL_DEL,   0   },  //  00
+    {   "blockquote",   10, HTML_TAG_DEL_DEL,   0   },  //  01
+    {   "marquee",       7, HTML_TAG_DEL_DEL,   0   },  //  02
 
-    {   "frameset",      8, HTML_TAG_DEL_DEL,   0   },
-    {   "noframes",      8, HTML_TAG_DEL_DEL,   0   },
-    {   "textarea",      8, HTML_TAG_DEL_DEL,   0   },
+    {   "frameset",      8, HTML_TAG_DEL_DEL,   0   },  //  03
+    {   "noframes",      8, HTML_TAG_DEL_DEL,   0   },  //  04
+    {   "textarea",      8, HTML_TAG_DEL_DEL,   0   },  //  05
 
-    {   "marquee",       7, HTML_TAG_DEL_CRLF,  0   },
+    {   "marquee",       7, HTML_TAG_DEL_CRLF,  0   },  //  06
 
-    {   "option",        6, HTML_TAG_DEL_DEL,   0   },
-    {   "select",        6, HTML_TAG_DEL_DEL,   0   },
-    {   "source",        6, HTML_TAG_DEL_DEL,   0   },
-    {   "strike",        6, HTML_TAG_DEL_DEL,   0   },
-    {   "strong",        6, HTML_TAG_DEL_DEL,   0   },
-    {   "center",        6, HTML_TAG_DEL_DEL,   0   },
+    {   "option",        6, HTML_TAG_DEL_DEL,   0   },  //  07
+    {   "select",        6, HTML_TAG_DEL_DEL,   0   },  //  08
+    {   "source",        6, HTML_TAG_DEL_DEL,   0   },  //  09
+    {   "strike",        6, HTML_TAG_DEL_DEL,   0   },  //  10
+    {   "strong",        6, HTML_TAG_DEL_DEL,   0   },  //  11
+    {   "center",        6, HTML_TAG_DEL_DEL,   0   },  //  12
 
-    {   "input",         5, HTML_TAG_DEL_DEL,   0   },
-    {   "small",         5, HTML_TAG_DEL_DEL,   0   },
-//  {   "style",         5, HTML_TAG_DEL_DEL,   0   },  //  Has it's own function
-    {   "table",         5, HTML_TAG_DEL_DEL,   0   },
-    {   "tbody",         5, HTML_TAG_DEL_DEL,   0   },
+    {   "input",         5, HTML_TAG_DEL_DEL,   0   },  //  13
+    {   "small",         5, HTML_TAG_DEL_DEL,   0   },  //  14
+//  {   "style",         5, HTML_TAG_DEL_DEL,   0   },  //      Has it's own function
+    {   "table",         5, HTML_TAG_DEL_DEL,   0   },  //  15
+    {   "tbody",         5, HTML_TAG_DEL_DEL,   0   },  //  16
 
-    {   "body",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "font",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "form",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "head",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "link",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "list",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "meta",          4, HTML_TAG_DEL_DEL,   0   },
-    {   "nobr",          4, HTML_TAG_DEL_CRLF,  0   },
-    {   "span",          4, HTML_TAG_DEL_DEL,   0   },
+    {   "body",          4, HTML_TAG_DEL_DEL,   0   },  //  17
+    {   "font",          4, HTML_TAG_DEL_DEL,   0   },  //  18
+    {   "form",          4, HTML_TAG_DEL_DEL,   0   },  //  19
+    {   "head",          4, HTML_TAG_DEL_DEL,   0   },  //  20
+    {   "link",          4, HTML_TAG_DEL_DEL,   0   },  //  21
+    {   "list",          4, HTML_TAG_DEL_DEL,   0   },  //  22
+    {   "meta",          4, HTML_TAG_DEL_DEL,   0   },  //  23
+    {   "nobr",          4, HTML_TAG_DEL_CRLF,  0   },  //  24
+    {   "span",          4, HTML_TAG_DEL_DEL,   0   },  //  25
 
-    {   "div",           3, HTML_TAG_DEL_CRLF,  0   },
-    {   "img",           3, HTML_TAG_DEL_DEL,   0   },
-    {   "pre",           3, HTML_TAG_DEL_DEL,   0   },
-    {   "sub",           3, HTML_TAG_DEL_DEL,   0   },
-    {   "sup",           3, HTML_TAG_DEL_DEL,   0   },
-    {   "wbr",           3, HTML_TAG_DEL_DEL,   0   },
-    {   "!--",           3, HTML_TAG_DEL_DEL,   0   },
+    {   "div",           3, HTML_TAG_DEL_CRLF,  0   },  //  26
+    {   "img",           3, HTML_TAG_DEL_DEL,   0   },  //  27
+    {   "pre",           3, HTML_TAG_DEL_DEL,   0   },  //  28
+    {   "sub",           3, HTML_TAG_DEL_DEL,   0   },  //  29
+    {   "sup",           3, HTML_TAG_DEL_DEL,   0   },  //  30
+    {   "wbr",           3, HTML_TAG_DEL_DEL,   0   },  //  31
+//  {   "!--",           3, HTML_TAG_DEL_DEL,   0   },  //      Has it's own function
 
-    {   "br",            2, HTML_TAG_CRLF_CRLF, 0   },
-    {   "dd",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "dl",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "dt",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "em",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "h1",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "h2",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "h3",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "h4",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "h5",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "h6",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "hr",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "ol",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "li",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "ul",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "td",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "th",            2, HTML_TAG_DEL_DEL,   0   },
-    {   "tr",            2, HTML_TAG_DEL_CRLF,  0   },
-    {   "tt",            2, HTML_TAG_DEL_DEL,   0   },
+    {   "br",            2, HTML_TAG_CRLF_CRLF, 0   },  //  32
+    {   "dd",            2, HTML_TAG_DEL_DEL,   0   },  //  33
+    {   "dl",            2, HTML_TAG_DEL_DEL,   0   },  //  34
+    {   "dt",            2, HTML_TAG_DEL_DEL,   0   },  //  35
+    {   "em",            2, HTML_TAG_DEL_DEL,   0   },  //  36
+    {   "h1",            2, HTML_TAG_DEL_CRLF,  0   },  //  37
+    {   "h2",            2, HTML_TAG_DEL_CRLF,  0   },  //  38
+    {   "h3",            2, HTML_TAG_DEL_CRLF,  0   },  //  39
+    {   "h4",            2, HTML_TAG_DEL_CRLF,  0   },  //  40
+    {   "h5",            2, HTML_TAG_DEL_CRLF,  0   },  //  41
+    {   "h6",            2, HTML_TAG_DEL_CRLF,  0   },  //  42
+    {   "hr",            2, HTML_TAG_DEL_DEL,   0   },  //  43
+    {   "ol",            2, HTML_TAG_DEL_DEL,   0   },  //  44
+    {   "li",            2, HTML_TAG_DEL_CRLF,  0   },  //  45
+    {   "ul",            2, HTML_TAG_DEL_DEL,   0   },  //  46
+    {   "td",            2, HTML_TAG_DEL_DEL,   0   },  //  47
+    {   "th",            2, HTML_TAG_DEL_DEL,   0   },  //  48
+    {   "tr",            2, HTML_TAG_DEL_CRLF,  0   },  //  49
+    {   "tt",            2, HTML_TAG_DEL_DEL,   0   },  //  50
 
-    {   "a",             1, HTML_TAG_DEL_DEL,   0   },
-    {   "b",             1, HTML_TAG_DEL_DEL,   0   },
-    {   "i",             1, HTML_TAG_DEL_DEL,   0   },
-    {   "p",             1, HTML_TAG_DEL_CRLF,  0   },
-    {   "u",             1, HTML_TAG_DEL_DEL,   0   },
-    {   "0000000000",   99, HTML_TAG_END,       0   }
+    {   "a",             1, HTML_TAG_DEL_DEL,   0   },  //  51
+    {   "b",             1, HTML_TAG_DEL_DEL,   0   },  //  52
+    {   "i",             1, HTML_TAG_DEL_DEL,   0   },  //  53
+    {   "p",             1, HTML_TAG_CRLF_CRLF, 0   },  //  54
+    {   "u",             1, HTML_TAG_DEL_DEL,   0   },  //  55
+    {   "0000000000",   99, HTML_TAG_END,       0   }   //  56
 };
 //----------------------------------------------------------------------------
 /**
@@ -320,7 +321,7 @@ HTML2TXT__locate_tag_end(
 {
     /**
      *  @param  tag_end_p       Tag End pointer                             */
-    char                        *   tag_end_p; 
+    char                        *   tag_end_p;
 
     /************************************************************************
      *  Function Initialization
@@ -341,7 +342,7 @@ HTML2TXT__locate_tag_end(
 
         //  Locate the tag end character
         tag_end_p = strchr( tag_end_p, '>' );
-       
+
     }
     else
     {
@@ -355,6 +356,161 @@ HTML2TXT__locate_tag_end(
 
     //  DONE!
     return( tag_end_p );
+}
+
+/****************************************************************************/
+/**
+ *  Test the current string for a valid HTML tag.  When a valid HTML tag is
+ *  discovered, unneeded spaces are removed.
+ *
+ *  @param  html_p              Pointer to the beginning of the HTML buffer.
+ *  @param  tag_p               Pointer to the beginning of the possible tag.
+ *  @param  format              0 & 1 = Start tag, 2 = end tag.
+ *
+ *  @return tag_start_p         When 'tag_p' is pointing to a valid HTML tag
+ *                              a pointer to the first character of the tag
+ *                              is returned.  Else NULL is returned.
+ *
+ *  @note
+ *      Format 0    -   <tag>
+ *      Format 1    -   <tag ... >
+ *      Format 3    -   </tag>
+ *
+ ****************************************************************************/
+
+char    *
+HTML2TXT__tag_clean(
+    char                        *   html_p,
+    char                        *   tag_start_p,
+    int                             tag_l,
+    int                             format
+    )
+{
+    /**
+     *  @param  tmp_start_p     Pointer to the start of the tag             */
+    char                        *   tmp_start_p;
+    /**
+     *  @param  tmp_end_p       Pointer to the end of the tag               */
+    char                        *   tmp_end_p;
+    /**
+     *  @param  delete_offset   Offset to data to be removed.               */
+    int                             delete_offset;
+    /**
+     *  @param  end_offset      Offset to end of the tag.                   */
+    int                             end_offset;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Set the default delete offset.
+    delete_offset = 1;
+
+    //  Set the default end offset.
+    end_offset = 1;
+
+    /************************************************************************
+     *  Remove spaces from the start of a tag.
+     ************************************************************************/
+
+    for ( tmp_start_p = &tag_start_p[ -1 ];
+          tmp_start_p >= html_p;
+          tmp_start_p -= 1 )
+    {
+        //  Is this a blank character ?
+        if ( isblank( tmp_start_p[ 0 ] ) == 0 )
+        {
+            //  NO:     We are done looking
+            break;
+        }
+    }
+
+    //  Could this be a HTML end-tag ?
+    if (    ( format               == 2   )
+         && ( tmp_start_p[ 0 ] == '/' ) )
+    {
+        //  YES:    Are there blank characters to be removed ?
+        if ( ( tag_start_p - tmp_start_p ) > delete_offset )
+        {
+            //  YES:    Remove them
+            text_remove( tmp_start_p, delete_offset,
+                         ( tag_start_p - tmp_start_p - 1 ) );
+        }
+        //  Clean between '<' and '/' ?
+        tmp_start_p = HTML2TXT__tag_clean( html_p, tmp_start_p, tag_l, -1 );
+    }
+
+    //  Is this a valid HTML start tag ?
+    else
+    if ( tmp_start_p[ 0 ] == '<' )
+    {
+        //  YES:    Are there blank characters to be removed ?
+        if ( ( tag_start_p - tmp_start_p ) > delete_offset )
+        {
+            //  YES:    Remove them
+            text_remove( tmp_start_p, delete_offset,
+                         ( tag_start_p - tmp_start_p - 1 ) );
+        }
+    }
+    else
+    {
+        //  NO:     Not a valid HTML tag
+        tmp_start_p = NULL;
+    }
+
+    /************************************************************************
+     *  Remove spaces from the end of a tag.
+     ************************************************************************/
+
+    //  Should we remove spaces from the end of the tag ?
+    if(    ( tmp_start_p != NULL )
+        && (    ( format == 0 )
+             || ( format == 2 ) ) )
+    {
+        //  YES:    Is this a format 2 tag search
+        if ( format == 2 )
+        {
+            //  YES:    Increase the end offset
+            end_offset += 1;
+        }
+
+        //  YES:
+        for ( tmp_end_p = &tmp_start_p[ tag_l + end_offset ];
+              tmp_end_p[ 0 ] != '\0';
+              tmp_end_p += 1 )
+        {
+            //  Is this a blank character ?
+            if ( isblank( tmp_end_p[ 0 ] ) == 0 )
+            {
+                //  NO:     We are done looking
+                break;
+            }
+        }
+
+        //  Is this a valid HTML start tag ?
+        if ( tmp_end_p[ 0 ] == '>'  )
+        {
+            //  YES:    Are there blank characters to be removed ?
+            if ( ( tmp_end_p - &tmp_start_p[ tag_l + end_offset ] ) > 1 )
+            {
+                //  YES:    Remove them
+                text_remove( tmp_start_p, ( tag_l + end_offset ),
+                            ( tmp_end_p - &tmp_start_p[ tag_l + end_offset ] ) );
+            }
+        }
+        else
+        {
+            //  NO:     Not a valid HTML tag
+            tmp_start_p = NULL;
+        }
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( tmp_start_p );
 }
 
 /****************************************************************************/
@@ -484,6 +640,85 @@ HTML2TXT__remove_crlf(
 
 /****************************************************************************/
 /**
+ *  Remove HTML comments <!-- through -->
+ *
+ *  @param  html_p              Pointer to the HTML source buffer.
+ *
+ *  @return void                There is no return code for this function.
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+void
+HTML2TXT__remove_comments(
+    char                        *   html_p
+    )
+{
+    /**
+     *  @param  comment_start_p Pointer to the start of a comment.          */
+    char                        *   comment_start_p;
+    /**
+     *  @param  comment_end_p   Pointer to the end of a comment.            */
+    char                        *   comment_end_p;
+    /**
+     *  @param  comment_l       Size of the comment string.                 */
+    int                             comment_l;
+    /**
+     *  @param  found           Flag indicating a blank character was found */
+    int                             found;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Set the start of the buffer
+    comment_start_p = html_p;
+
+    /************************************************************************
+     *  Remove consecutive spaces
+     ************************************************************************/
+
+    //  Loop through the buffer as many times as needed.
+    do
+    {
+        //  The assumption is that we ar done here.
+        found = false;
+
+        //  Scan the HTML buffer for the start of a comment
+        comment_start_p = strstr( comment_start_p, "<!--" );
+
+        //  Did we find a comment start ?
+        if( comment_start_p != NULL )
+        {
+            //  YES:    Scan the HTML buffer for the end of a comment
+            comment_end_p = strstr( comment_start_p, "-->" );
+
+            //  Did we find a comment end ?
+            if ( comment_end_p != NULL )
+            {
+                //  YES:    Set the comment size
+                comment_l = ( (comment_end_p - comment_start_p ) + 3 );
+
+                //  Remove the comment from the buffer
+                text_remove( comment_start_p, 0, comment_l );
+
+                //  Change the flag to show a comment was found
+                found = true;
+            }
+        }
+
+    }   while( found == true );
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+}
+
+/****************************************************************************/
+/**
  *  Remove consecutive spaces leaving only the first space.
  *
  *  @param  work_p              Pointer to the HTML source buffer.
@@ -501,195 +736,71 @@ HTML2TXT__remove_crlf(
 char    *
 HTML2TXT__remove_spaces(
     char                        *   html_p,
-    char                        *   tmp_p,
+    char                        *   tmp_p,      //  @TODO   Remove - Unused
     int                             buffer_l
     )
 {
     /**
-     *  @param  render_p        Pointer to the rendered text                */
-    char                        *   render_p;
-    /**
      *  @param  html_offset_p   Pointer to the first space in HTML buffer   */
     char                        *   html_offset_p;
     /**
-     *  @param  tmp_offset_p    Pointer to the last space in the tmp buffer */
-    char                        *   tmp_offset_p;
+     *  @param  found           Flag indicating a blank character was found */
+    int                             found;
     /**
-     *  @param  altered         Flag indicating the buffer was altered      */
-    int                             altered;
+     *  @param  delete_l        Number of spaces to be deleted              */
+    int                             delete_l;
 
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
 
-    //  Set the return pointer assuming a failure
-    render_p = NULL;
-
-    //  Duplicate the HTML buffer into the temporary buffer.
-    memcpy( tmp_p, html_p, buffer_l );
+    //  Set the start of the buffer
+    html_offset_p = html_p;
 
     /************************************************************************
      *  Remove consecutive spaces
      ************************************************************************/
 
-    //  Initialize the pointers
-    html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
-
     //  Loop through the buffer as many times as needed.
     do
     {
-        //  Assume there is more to do.
-        altered = true;
+        //  The assumption is that we ar done here.
+        found = false;
 
         //  Locate the next space in both buffers.
-        html_offset_p = strchr( html_offset_p, ' ' );
-        tmp_offset_p  = strchr( tmp_offset_p,  ' ' );
+        html_offset_p = strchr( &html_offset_p[ 1 ], ' ' );
 
         //  Did we find a space in the buffer ?
         if ( html_offset_p != NULL )
         {
-            //  YES:    Is the next character also a space ?
-            if ( html_offset_p[ 1 ] == ' ' )
+            //  YES:    Count the number of sequential spaces
+            for( delete_l = 0;
+                 isblank( html_offset_p[ delete_l ] ) != 0;
+                 delete_l += 1 )
             {
-                //  YES:    Find the last consecutive space in the work buffer
-                for( tmp_offset_p += 1;
-                     tmp_offset_p[ 0 ] == ' ';
-                     tmp_offset_p += 1 )
-                {
-                    //  Nothing to do here; the above statement will walk
-                    //  the pointer to the next non-space character.
-                }
-                //  Copy the remaining temporary buffer to the HTML buffer
-                html_offset_p += 1;
-                strncpy( html_offset_p, tmp_offset_p, strlen( tmp_offset_p ) + 1 );
+                //  Nothing to do here; the above statement will walk
+                //  the pointer to the next non-space character.
             }
-            else
+
+            //  Is there more then one blank character ?
+            if ( delete_l > 1 )
             {
-                //  NO:     Move the pointers past the space.
-                html_offset_p += 1;
-                tmp_offset_p  += 1;
+                //  YES:    Delete all but the first blank character.
+                text_remove( html_offset_p, 1, ( delete_l - 1 ) );
             }
-        }
-        else
-        {
-            //  NO:     There are no more spaces in the buffer
-            altered = false;
+
+            //  A blank was found.  Do another pass.
+            found = true;
         }
 
-    }   while( altered == true );
-
-    /************************************************************************
-     *  Remove redundant spaces
-     ************************************************************************/
-
-    //  Initialize the pointers
-    html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
-
-    //  Loop through the buffer as many times as needed.
-    do
-    {
-        //  Assume there is more to do.
-        altered = true;
-
-        //  Locate the end of a HTML tag in both buffers.
-        html_offset_p = strchr( html_offset_p, '>' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '>' );
-
-        //  Did we find a space in the buffer ?
-        if ( html_offset_p != NULL )
-        {
-            //  YES:    Is the next character a space ?
-            if ( html_offset_p[ 1 ] == ' ' )
-            {
-                //  YES:    Find the last consecutive space in the work buffer
-                for( tmp_offset_p += 1;
-                     tmp_offset_p[ 0 ] == ' ';
-                     tmp_offset_p += 1 )
-                {
-                    //  Nothing to do here; the above statement will walk
-                    //  the pointer to the next non-space character.
-                }
-                //  Copy the remaining temporary buffer to the HTML buffer
-                html_offset_p += 1;
-                strncpy( html_offset_p, tmp_offset_p, strlen( tmp_offset_p ) + 1 );
-            }
-            else
-            {
-                //  NO:     Move the pointers past the space.
-                html_offset_p += 1;
-                tmp_offset_p  += 1;
-            }
-        }
-        else
-        {
-            //  NO:     There are no more spaces in the buffer
-            altered = false;
-        }
-
-    }   while( altered == true );
-
-    /************************************************************************
-     *  Cleanup HTML
-     ************************************************************************/
-
-    //  Initialize the pointers
-    html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
-
-    //  Loop through the buffer as many times as needed.
-    do
-    {
-        //  Assume there is more to do.
-        altered = true;
-
-        //  Locate the end of a HTML tag in both buffers.
-        html_offset_p = strchr( html_offset_p, '<' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '<' );
-
-        //  Did we find a space in the buffer ?
-        if ( html_offset_p != NULL )
-        {
-            //  YES:    Is the next character a space ?
-            if ( html_offset_p[ 1 ] == ' ' )
-            {
-                //  YES:    Find the last consecutive space in the work buffer
-                for( tmp_offset_p += 1;
-                     tmp_offset_p[ 0 ] == ' ';
-                     tmp_offset_p += 1 )
-                {
-                    //  Nothing to do here; the above statement will walk
-                    //  the pointer to the next non-space character.
-                }
-                //  Copy the remaining temporary buffer to the HTML buffer
-                html_offset_p += 1;
-                strncpy( html_offset_p, tmp_offset_p, strlen( tmp_offset_p ) + 1 );
-            }
-            else
-            {
-                //  NO:     Move the pointers past the space.
-                html_offset_p += 1;
-                tmp_offset_p  += 1;
-            }
-        }
-        else
-        {
-            //  NO:     There are no more spaces in the buffer
-            altered = false;
-        }
-
-    }   while( altered == true );
+    }   while( found == true );
 
     /************************************************************************
      *  Function Exit
      ************************************************************************/
 
-    //  Set the return buffer pointer
-    render_p = html_p;
-
     //  DONE!
-    return( render_p );
+    return( html_p );
 }
 
 /****************************************************************************/
@@ -711,13 +822,10 @@ HTML2TXT__remove_spaces(
 char    *
 HTML2TXT__remove_style(
     char                        *   html_p,
-    char                        *   tmp_p,
+    char                        *   tmp_p,      //  @TODO   Remove - Unused
     int                             buffer_l
     )
 {
-    /**
-     *  @param  render_p        Pointer to the rendered text                */
-    char                        *   render_p;
     /**
      *  @param  html_offset_p   Pointer to the first space in HTML buffer   */
     char                        *   html_offset_p;
@@ -728,25 +836,13 @@ HTML2TXT__remove_style(
      *  @param  altered         Flag indicating the buffer was altered      */
     int                             altered;
     /**
-     *  @param  compare_beg     A buffer with lower case data to compare to */
-    char                            compare_beg[ 10 ];
-    /**
-     *  @param  compare_end     A buffer with lower case data to compare to */
-    char                            compare_end[ 10 ];
+     *  @param  replace_l       Size of the string to be deleted.           */
+    int                             delete_l;
 
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
 
-    //  Set the return pointer assuming a failure
-    render_p = NULL;
-
-    //  Duplicate the HTML buffer into the temporary buffer.
-    memcpy( tmp_p, html_p, buffer_l );
-
-    //  Initialize the pointers
-    html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
 
     /************************************************************************
      *  Function
@@ -755,58 +851,94 @@ HTML2TXT__remove_style(
     //  Loop through the buffer as many times as needed.
     do
     {
-        //  Assume there is more to do.
-        altered = true;
+        //  The flag will be changed when a '<style...' is removed.
+        altered = false;
 
-        //  Locate the next space in both buffers.
-        html_offset_p = strchr( html_offset_p, '<' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '<' );
+        //  Locate the next '<style' string
+        html_offset_p = strcasestr( html_p, "<style" );
 
-        //  Did we find the start of a tag in the buffer ?
-        if ( html_offset_p != NULL )
+        //  Did we find it ?
+        if( html_offset_p != NULL )
         {
-            //  Fill the compare buffer from the HTML buffer
-            memset( compare_beg, '\0', sizeof( compare_beg ) );
-            memcpy( compare_beg, html_offset_p, ( sizeof( compare_beg ) - 1 ) );
-            text_to_lowercase( compare_beg );
+            /****************************************************************
+             *  <style> ... </style>
+             *  <style ... />
+             *  <style ... > ... </style>
+             ****************************************************************/
 
-            //  Is this a tag that needs to be changed ?
-            if (    ( strncmp( compare_beg, "<style>",        7 ) == 0 )
-                 || ( strncmp( compare_beg, "<style ",        7 ) == 0 ) )
+            //  YES:    <style> ... </style> ?
+            if (    ( html_offset_p[ 6 ]== '>' )
+                 || ( html_offset_p[ 7 ]== '>' ) )
             {
-                //  YES:    Locate the end of the style block
-                tmp_offset_p += 1;
-                tmp_offset_p  = strchr( tmp_offset_p,  '<' );
+                //  YES:    Find the end '</style>' tag
+                tmp_offset_p = strcasestr( html_offset_p, "</style>" );
 
-                //  Fill the compare buffer from the HTML buffer
-                memset( compare_end, '\0', sizeof( compare_end ) );
-                memcpy( compare_end, tmp_offset_p, ( sizeof( compare_end ) - 1 ) );
-                text_to_lowercase( compare_end );
-
-                //  Did we locate the end tag ?
-                if ( strncmp( compare_end, "</style>", 8 ) == 0 )
+                //  Did we find it ?
+                if ( tmp_offset_p != NULL )
                 {
-                    //  YES:    Now find the end of the end tag
-                    tmp_offset_p = strchr( tmp_offset_p, '>' );
+                    //  YES:    Set the remove length.
+                    delete_l = ( ( tmp_offset_p + 8 ) - html_offset_p );
+                }
+                else
+                {
+                    //  Invalid HTML code
+                    log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
+                    log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
+                }
+            }
+            //  YES:
+            else
+            if ( html_offset_p[ 6 ]== ' ' )
+            {
+                tmp_offset_p = strchr( html_offset_p, '>' );
 
-                    //  Copy the remaining temporary buffer to the HTML buffer
-                    tmp_offset_p += 1;
-                    strncpy( html_offset_p,
-                             tmp_offset_p,
-                             strlen( tmp_offset_p ) + 1 );
+                //  Did we find the end of the start tag ?
+                if ( tmp_offset_p != NULL )
+                {
+                    //  YES:    Is it a '/>' ?
+                    if ( tmp_offset_p[ -1 ] == '/' )
+                    {
+                        //  YES:    <style ... /> ?
+                        delete_l = ( tmp_offset_p - html_offset_p );
+                    }
+                    else
+                    {
+                        //  NO:     <style ... > ... </style>
+                        tmp_offset_p = strcasestr( html_offset_p, "</style>" );
+
+                        //  Did we find it ?
+                        if ( tmp_offset_p != NULL )
+                        {
+                            //  YES:    Set the remove length.
+                            delete_l = ( ( tmp_offset_p + 8 ) - html_offset_p );
+                        }
+                        else
+                        {
+                            //  Invalid HTML code
+                            log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
+                            log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
+                        }
+                    }
+                }
+                else
+                {
+                    //  Invalid HTML code
+                    log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
+                    log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
                 }
             }
             else
             {
-                //  NO:     Move the pointers past the space.
-                html_offset_p += 1;
-                tmp_offset_p  += 1;
+                //  Invalid HTML code
+                log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
+                log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
             }
-        }
-        else
-        {
-            //  NO:     There are no more spaces in the buffer
-            altered = false;
+
+            //  Now delete the '<style> ... </style>' from the buffer.
+            text_remove( html_offset_p, 0, delete_l );
+
+            //  Change the flag to show it was found and deleted.
+            altered = true;
         }
 
     }   while( altered == true );
@@ -815,11 +947,8 @@ HTML2TXT__remove_style(
      *  Function Exit
      ************************************************************************/
 
-    //  Set the return buffer pointer
-    render_p = html_p;
-
     //  DONE!
-    return( render_p );
+    return( html_p );
 }
 
 /****************************************************************************/
@@ -841,13 +970,10 @@ HTML2TXT__remove_style(
 char    *
 HTML2TXT__tag_scan(
     char                        *   html_p,
-    char                        *   tmp_p,
+    char                        *   tmp_p,      //  @TODO   Remove - Unused
     int                             buffer_l
     )
 {
-    /**
-     *  @param  render_p        Pointer to the rendered text                */
-    char                        *   render_p;
     /**
      *  @param  html_offset_p   Pointer to the first space in HTML buffer   */
     char                        *   html_offset_p;
@@ -855,198 +981,166 @@ HTML2TXT__tag_scan(
      *  @param  tmp_offset_p    Pointer to the last space in the tmp buffer */
     char                        *   tmp_offset_p;
     /**
-     *  @param  altered         Flag indicating the buffer was altered      */
-    int                             altered;
+     *  @param  found           Flag indicating something was found         */
+    int                             found;
     /**
      *  @param  html_tag        A buffer holding the HTML tag from the array*/
     char                            html_tag[ 32 ];
     /**
-     *  @param  compare         A buffer with lower case data to compare to */
-    char                            compare[ 32 ];
+     *  @param  ndx             Index into the array table                  */
+    int                             ndx;
+    /**
+     *  @param  type            HTML tag type to build                      */
+    int                             format;
+    /**
+     *  @param  process_type    Tells us what to do with the tag            */
+    int                             process_type;
 
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
 
-    //  Set the return pointer assuming a failure
-    render_p = NULL;
-
-    //  Duplicate the HTML buffer into the temporary buffer.
-    memcpy( tmp_p, html_p, buffer_l );
-
-    //  Initialize the pointers
-    html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
 
     /************************************************************************
      *  Function
      ************************************************************************/
 
-    //  Loop through the buffer as many times as needed.
-    do
+    //  Loop through the search table
+    for ( ndx = 0;
+          html_tag_list[ ndx ].name_l != 99;
+          ndx += 1 )
     {
-        //  Assume there is more to do.
-        altered = true;
-
-        //  Locate the next space in both buffers.
-        html_offset_p = strchr( html_offset_p, '<' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '<' );
-
-        //  Did we find the start of a tag in the buffer ?
-        if ( html_offset_p != NULL )
+{
+    //  DEBUG TRAP CODE
+    if ( ndx == 54 ) {
+        tmp_offset_p = html_tag_list[ ndx ].name; }
+}
+        //  Search the array using the three tag format types
+        for( format = 0;
+             format < 3;
+             format += 1 )
         {
-            /**
-             *  @param  ndx             Index into the array table          */
-            int                             ndx;
-            /**
-             *  @param  type            HTML tag type to build              */
-            int                             format;
-            /**
-             *  @param  found           Flag showing if the tag was found   */
-            int                             found;
-            /**
-             *  @param  process_type    Identifies what to do with the tag  */
-            int                             process_type;
+            //  Clean out the HTML tag buffer
+            memset( html_tag, '\0', sizeof( html_tag ) );
 
-            //  Fill the compare buffer from the HTML buffer
-            memset( compare, '\0', sizeof( compare ) );
-            memcpy( compare, html_offset_p, ( sizeof( compare ) - 1 ) );
-            text_to_lowercase( compare );
+            //  Reset the buffer starting point.
+            html_offset_p = html_p;
 
-            //  Initialize the table index.
-            ndx = 0;
+            //  Set the search string
+            snprintf( html_tag, sizeof( html_tag ),
+                      "%s", html_tag_list[ ndx ].name );
 
-            //  Search for a match for this {possible} tag
+            //  Loop through the buffer as many times as needed.
             do
             {
-                //  The assumption is that the tag is not located.
+                //  The assume is that we are done.
                 found = false;
 
-                //  Search the array using the three tag format types
-                for( format = 0; format < 3; format += 1 )
+                //  Locate the next possible tag.
+                html_offset_p = strcasestr( html_offset_p, html_tag );
+
+                //  Did we find a match to the tag name ?
+                if ( html_offset_p != NULL )
                 {
-                    //  Clean out the HTML tag buffer
-                    memset( html_tag, '\0', sizeof( html_tag ) );
+                    //  Clean up the start of the tag
+                    tmp_offset_p = HTML2TXT__tag_clean( html_p,
+                                                        html_offset_p,
+                                                        strlen( html_tag ),
+                                                        format );
 
-                    //  What type of tag are we working with ?
-                    switch( format )
+                    //  Is this the start of a valid HTML tag ?
+                    if ( tmp_offset_p != NULL )
                     {
-                        case    0:      //  Start                   <html>
-                        {
-                            snprintf( html_tag, sizeof( html_tag ),
-                                      "<%s>", html_tag_list[ ndx ].name );
-                        }   break;
+                        //  Update the pointer with the new tag start location
+                        html_offset_p = tmp_offset_p;
 
-                        case    1:      //  Open ended start        <html ...>
+                        //  What should we do with the source data ?
+                        if ( format == 0 || format == 1 )
                         {
-                            snprintf( html_tag, sizeof( html_tag ),
-                                      "<%s", html_tag_list[ ndx ].name );
-                        }   break;
+                            process_type = ( html_tag_list[ ndx ].task >> 4 ) & 0x0F;
+                        }
+                        else
+                        {
+                            process_type =   html_tag_list[ ndx ].task        & 0x0F;
+                        }
 
-                        case    2:      //  End                     </html>
+                        //  YES:    What should we do with it ?
+                        switch( process_type )
                         {
-                            snprintf( html_tag, sizeof( html_tag ),
-                                      "</%s>", html_tag_list[ ndx ].name );
-                        }   break;
+                            //  Remove the tag_start and the tag_end
+                            case    HTML_TAG_END_DEL:
+                            {
+                                //  Locate the end of the tag
+                                tmp_offset_p = HTML2TXT__locate_tag_end( html_offset_p );
+
+                                //  Did we locate the end of the tag ?
+                                if ( tmp_offset_p != NULL )
+                                {
+                                    //  YES:    Now delete the '<style> ... </style>' from the buffer.
+                                    text_remove( html_offset_p, 0,
+                                                 ( tmp_offset_p - html_offset_p + 1 ) );
+                                }
+                                else
+                                {
+                                    //  NO:     Not good.  Delete the remainder
+                                    //          of the buffer
+                                    html_offset_p[ 0 ] = '\0';
+                                }
+
+                                //  A HTML tag was found and removed
+                                found = true;
+
+                            }   break;
+
+                            case    HTML_TAG_END_CRLF:
+                            {
+                                //  Insert a Carriage Return
+                                html_offset_p[ 0 ] = '\n';
+
+                                //  Locate the end of the tag
+                                tmp_offset_p = HTML2TXT__locate_tag_end( html_offset_p );
+
+                                //  Did we locate the end of the tag ?
+                                if ( tmp_offset_p != NULL )
+                                {
+                                    //  YES:    Now delete the '<style> ... </style>' from the buffer.
+                                text_remove( html_offset_p, 1,
+                                             ( tmp_offset_p - html_offset_p     ) );
+
+                                }
+                                else
+                                {
+                                    //  NO:     Not good.  Delete the remainder
+                                    //          of the buffer
+                                    html_offset_p[ 0 ] = '\0';
+                                }
+                                //  A HTML tag was found and removed
+                                found = true;
+
+                            }   break;
+                        }
                     }
-
-                    //  Does this tag match the one from the buffer ?
-                    if ( strncmp( compare, html_tag, strlen( html_tag ) ) == 0 )
+                    else
                     {
-                        //  YES:    Increment the number of times found
-                        html_tag_list[ ndx ].count += 1;
-
-                        //  Change the found tag so we can move on to..
+                        //  Not a valid HTML tag but something was found.
                         found = true;
 
-                        //  Stop searching
-                        break;
+                        //  Advance the search start so we don't look at the
+                        //  same thing over and over and over and over ...
+                        html_offset_p += 1;
                     }
                 }
 
-                //  Did we locate the tag in our table ?
-                if ( found == false )
-                {
-                    //  NO:     move on to the next tag in the table
-                    ndx += 1;
-
-                    //  Did we reach the end of the tag list ?
-                    if ( html_tag_list[ ndx ].task == HTML_TAG_END )
-                    {
-                        //  Move the pointer past the start
-                        html_offset_p += 1;
-                        tmp_offset_p  += 1;
-
-                        //  YES:    This tag isn't in the list
-                        break;
-                    }
-                }
-
-            }   while( found == false );
-
-            //  Was a match for the tag located ?
-            if ( found == true )
-            {
-                //  YES:    What should we do with the source data ?
-                if ( format == 0 || format == 1 )
-                {
-                    process_type = ( html_tag_list[ ndx ].task >> 4 ) & 0x0F;
-                }
-                else
-                {
-                    process_type =   html_tag_list[ ndx ].task        & 0x0F;
-                }
-
-                //  YES:    What should we do with it ?
-                switch( process_type )
-                {
-                    case    HTML_TAG_END_DEL:
-                    {
-                        //  Locate the end of the tag
-                        tmp_offset_p = HTML2TXT__locate_tag_end( tmp_offset_p );
-                        
-                        //  Copy the remaining temporary buffer to the HTML buffer
-                        tmp_offset_p += 1;
-                        strncpy( html_offset_p,
-                                 tmp_offset_p,
-                                 strlen( tmp_offset_p ) + 1 );
-                    }   break;
-
-                    case    HTML_TAG_END_CRLF:
-                    {
-                        //  Insert a Carriage Return
-                        html_offset_p[ 0 ] = '\n';
-
-                        //  Locate the end of the tag
-                        tmp_offset_p = HTML2TXT__locate_tag_end( tmp_offset_p );
-
-                        //  Copy the remaining temporary buffer to the HTML buffer
-                        html_offset_p += 1;
-                        tmp_offset_p += 1;
-                        strncpy( html_offset_p,
-                                 tmp_offset_p,
-                                 strlen( tmp_offset_p ) + 1 );
-                    }   break;
-                }
-            }
+            }   while(  found == true );
         }
-        else
-        {
-            //  NO:     We are at the end of the buffer
-            altered = false;
-        }
-
-    }   while(  altered == true );
+    }
 
     /************************************************************************
      *  Function Exit
      ************************************************************************/
 
-    //  Set the return buffer pointer
-    render_p = html_p;
-
     //  DONE!
-    return( render_p );
+    return( html_p );
 }
 
 /****************************************************************************/
@@ -1073,14 +1167,11 @@ HTML2TXT__str_2_char(
     )
 {
     /**
-     *  @param  altered         The HTML buffer was altered in this pass    */
-    int                             altered;
+     *  @param  found           Flag indicating the search was locatd       */
+    int                             found;
     /**
      *  @param  html_table_ndx  Index into the HTML conversion table        */
     int                             html_table_ndx;
-    /**
-     *  @param  tmp_p           Pointer to a temporary data buffer          */
-    char                        *   tmp_p;
     /**
      *  @param  html_offset_p   Pointer to the first space in HTML buffer   */
     char                        *   html_offset_p;
@@ -1088,276 +1179,298 @@ HTML2TXT__str_2_char(
      *  @param  tmp_offset_p    Pointer to the last space in the tmp buffer */
     char                        *   tmp_offset_p;
     /**
-     *  @param  compare         A place to put a lowercase version          */
-    char                            compare[ 10 ];
+     *  @param  replace_l       Size of the replace string                  */
+    int                             replace_l;
     /**
-     *  @param  value           HTML code value                             */
-    int                             value;
+     *  @param  insert_str      Date to be inserted                         */
+    char                            insert_str[ 10 ];
 
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
 
-    //  Allocate the work buffer
-    tmp_p = mem_malloc( strlen( html_p ) + 1 );
-    log_write( MID_DEBUG_1, "html2txt_lib.c", "Line: %d\n", __LINE__ );
-
-    //  Duplicate the html buffer in the temporary buffer
-    memcpy( tmp_p, html_p, strlen( html_p ) );
 
     /************************************************************************
-     *  Look for character strings 'Entity', 'HTML code', or 'HTML hex code'
+     *  Replace all 'html_entry' strings with it's hex code.
      ************************************************************************/
 
-    //  Initialize the pointers
-    html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
-
-    while( 1 )
+    //  Loop through all entries in the HTML conversion table
+    for( html_table_ndx = 0;
+         html_table[ html_table_ndx ].hex_code != 0;
+         html_table_ndx += 1 )
     {
-        //  Initialize the flag
-        altered = false;
-
-        //  Locate the start of a Character Name string
-        html_offset_p = strchr( html_offset_p, '&' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '&' );
-
-        //  Did we find it ?
-        if ( html_offset_p != NULL )
+        //  Loop until all translations are done.
+        do
         {
+            //  The flag will be changed when something is translated.
+            found = false;
 
-            /****************************************************************
-             *  HTML Entity string
-             ****************************************************************/
+            //  Look for this string in the HTML buffer
+            tmp_offset_p = strcasestr( html_table[ html_table_ndx ].html_entity,
+                                       html_p );
 
-            //  YES:    Fill the compare buffer from the HTML buffer
-            memset( compare, '\0', sizeof( compare ) );
-            memcpy( compare, html_offset_p, ( sizeof( compare ) - 1 ) );
-            text_to_lowercase( compare );
-
-            //  Loop through all entries in the HTML conversion table
-            for( html_table_ndx = 0;
-                 html_table[ html_table_ndx ].hex_code != 0;
-                 html_table_ndx += 1 )
+            //  Did we find the string ?
+            if ( tmp_offset_p != NULL )
             {
+                //  YES:    Create a string of the insert character
+                insert_str[ 0 ] = html_table[ html_table_ndx ].hex_code;
+                insert_str[ 1 ] = '\0';
 
-                //  Is the string a match to HTML or Numeric ?
-                if ( strncmp( compare,
-                             html_table[ html_table_ndx ].html_entity,
-                             strlen( html_table[ html_table_ndx ].html_entity ) ) == 0 )
-                {
-                    //  YES:    Replace the string
-                    html_offset_p[ 0 ] = html_table[ html_table_ndx ].hex_code;
+                //  Replace the string with the character
+                text_replace( tmp_offset_p,
+                              strlen( tmp_offset_p ),
+                              0,
+                              insert_str,
+                              strlen( html_table[ html_table_ndx ].html_entity ) );
 
-                    //  Look for the end of the string
-                    tmp_offset_p  = strchr( tmp_offset_p,  ';' );
-
-                    //  Overlay the remainder of the string
-                    html_offset_p += 1;
-                    tmp_offset_p += 1;
-                    strncpy( html_offset_p,
-                             tmp_offset_p,
-                             strlen( tmp_offset_p ) + 1 );
-
-                    //  Change the flag showing the buffer is altered
-                    altered = true;
-
-                    //  This one is done
-                    break;
-                }
+                //  Change the flag to show something was found and translated
+                found = true;
             }
 
-            //  Already done ?
-            if ( altered == false )
-            {
-
-                /************************************************************
-                 *  HTML Code string
-                 ************************************************************/
-
-                //  NO:     Is this decimal code ?
-                if (    (    (          html_offset_p[ 1 ]   ==  '#' )
-                          && ( isdigit( html_offset_p[ 2 ] ) !=   0  )
-                          && ( isdigit( html_offset_p[ 3 ] ) !=   0  )
-                          && (          html_offset_p[ 4 ]   ==  ';' ) )
-                     || (    (          html_offset_p[ 1 ]   ==  '#' )
-                          && ( isdigit( html_offset_p[ 2 ] ) !=   0  )
-                          && ( isdigit( html_offset_p[ 3 ] ) !=   0  )
-                          && ( isdigit( html_offset_p[ 4 ] ) !=   0  )
-                          && (          html_offset_p[ 5 ]   ==  ';' ) ) )
-                {
-                    //  NO:     Get the decimal value
-                    value = atoi( &(html_offset_p[ 2 ] ) );
-
-                    //  Store the hex character
-                    html_offset_p[ 0 ] = (char)value;
-
-                    //  Look for the end of the string
-                    tmp_offset_p  = strchr( tmp_offset_p,  ';' );
-
-                    //  Copy the remaining temporary buffer to the HTML buffer
-                    html_offset_p += 1;
-                    tmp_offset_p += 1;
-                    strncpy( html_offset_p,
-                             tmp_offset_p,
-                             strlen( tmp_offset_p ) + 1 );
-
-                    //  Change the flag showing the buffer is altered
-                    altered = true;
-                }
-
-                /************************************************************
-                 *  HTML HEX Code string
-                 ************************************************************/
-
-                else
-                if (    (           html_offset_p[ 1 ]   ==  '#' )
-                     && ( tolower(  html_offset_p[ 2 ] ) ==  'x' )
-                     && ( isxdigit( html_offset_p[ 3 ] ) !=   0  )
-                     && ( isxdigit( html_offset_p[ 4 ] ) !=   0  )
-                     && (           html_offset_p[ 5 ]   ==  ';' ) )
-                {
-                    //  YES:    Null terminate the hex string
-                    //  @note   The remainder of the text is going to be overlayed
-                    //          with the left-shift.
-                    html_offset_p[ 5 ] = '\0';
-
-                    //  Get the hex value
-                    sscanf( &(html_offset_p[ 3 ]), "%X", &value );
-
-                    //  Write the character into the string.
-                    html_offset_p[ 0 ] = (char)value;
-
-                    //  Look for the end of the string
-                    tmp_offset_p  = strchr( tmp_offset_p,  ';' );
-
-                    //  Copy the remaining temporary buffer to the HTML buffer
-                    html_offset_p += 1;
-                    tmp_offset_p += 1;
-                    strncpy( html_offset_p,
-                             tmp_offset_p,
-                             strlen( tmp_offset_p ) + 1 );
-
-                    //  Change the flag showing the buffer is altered
-                    altered = true;
-                }
-            }
-
-            //  Did we find something to alter ?
-            if ( altered == false )
-            {
-                //  YES:    Advance the pointer to continue the search
-                html_offset_p += 1;
-                tmp_offset_p  += 1;
-            }
-        }
-        else
-        {
-            //  NO:     No (more) ampersands in the buffer
-            break;
-        }
-
+        }   while ( found == true );
     }
+
+    /************************************************************************
+     *  Replace all HTML-Character [&#nn] strings with it's hex code.
+     ************************************************************************/
+
+    //  Set the start point to search
+    html_offset_p = html_p;
+
+    //  Loop until all translations are done.
+    do
+    {
+        //  The flag will be changed when something is translated.
+        found = false;
+
+        //  Locate the next potential code string
+        tmp_offset_p = strchr( html_offset_p, '&' );
+
+        //  Did we find something to test ?
+        if ( tmp_offset_p != NULL )
+        {
+            //  YES:    Is this decimal code ?
+            if (    (    (          tmp_offset_p[ 1 ]   ==  '#' )
+                      && ( isdigit( tmp_offset_p[ 2 ] ) !=   0  )
+                      && ( isdigit( tmp_offset_p[ 3 ] ) !=   0  )
+                      && (          tmp_offset_p[ 4 ]   ==  ';' ) )
+                 || (    (          tmp_offset_p[ 1 ]   ==  '#' )
+                      && ( isdigit( tmp_offset_p[ 2 ] ) !=   0  )
+                      && ( isdigit( tmp_offset_p[ 3 ] ) !=   0  )
+                      && ( isdigit( tmp_offset_p[ 4 ] ) !=   0  )
+                      && (          tmp_offset_p[ 5 ]   ==  ';' ) ) )
+            {
+                //  YES:    Create a string of the insert character
+                insert_str[ 0 ] = atoi( &( tmp_offset_p[ 1 ] ) );
+                insert_str[ 1 ] = '\0';
+
+                //  Is the replace string length equal to four ?
+                if ( tmp_offset_p[ 4 ] == ';' )
+                {
+                    //  YES:    Set the length to four
+                    replace_l = 5;
+                }
+                else
+                {
+                    //  NO:     Then set the replace length to five
+                    replace_l = 6;
+                }
+
+                //  Replace the string with the character
+                text_replace( tmp_offset_p,
+                              strlen( tmp_offset_p ),
+                              0,
+                              insert_str,
+                              replace_l );
+
+                //  Update the search starting position
+                html_offset_p = tmp_offset_p;
+
+                //  Change the flag to show something was found and translated
+                found = true;
+            }
+            else
+            {
+                //  NO:     Look again from here.
+                found = true;
+
+                //  Move the search pointer to avoid an infinite loop.
+                html_offset_p = &tmp_offset_p[ 1 ];
+            }
+        }
+
+    }   while ( found == true );
+
+    /************************************************************************
+     *  Replace all HTML-Character [&#Xnn] strings with it's hex code.
+     ************************************************************************/
+
+    //  Set the start point to search
+    html_offset_p = html_p;
+
+    //  Loop until all translations are done.
+    do
+    {
+        //  The flag will be changed when something is translated.
+        found = false;
+
+        //  Locate the next potential code string
+        tmp_offset_p = strchr( html_offset_p, '&' );
+
+        //  Did we find something to test ?
+        if ( tmp_offset_p != NULL )
+        {
+            //  YES:    Is this decimal code ?
+            if (    (          tmp_offset_p[ 1 ]   ==  '#' )
+                 && ( tolower( tmp_offset_p[ 2 ] ) ==  'x' )
+                 && ( isdigit( tmp_offset_p[ 3 ] ) !=   0  )
+                 && ( isdigit( tmp_offset_p[ 4 ] ) !=   0  )
+                 && (          tmp_offset_p[ 5 ]   ==  ';' ) )
+            {
+                //  YES:    Translate the string
+                insert_str[ 0 ] = tmp_offset_p[ 3 ];
+                insert_str[ 1 ] = tmp_offset_p[ 4 ];
+                insert_str[ 2 ] = '\0';
+                sscanf( insert_str, "%X", (int*)insert_str );
+
+                //  Replace the string with the character
+                text_replace( tmp_offset_p,
+                              strlen( tmp_offset_p ),
+                              0,
+                              insert_str,
+                              5 );
+
+                //  Update the search starting position
+                html_offset_p = tmp_offset_p;
+
+                //  Change the flag to show something was found and translated
+                found = true;
+            }
+            else
+            {
+                //  NO:     Look again from here.
+                found = true;
+
+                //  Move the search pointer to avoid an infinite loop.
+                html_offset_p = &tmp_offset_p[ 1 ];
+            }
+        }
+
+    }   while ( found == true );
+
+    /************************************************************************
+     *  Replace all 'html_entry' strings with it's hex code.
+     ************************************************************************/
+
+    //  Set the start point to search
+    html_offset_p = html_p;
+
+    //  Loop until all translations are done.
+    do
+    {
+        //  The flag will be changed when something is translated.
+        found = false;
+
+        //  Locate the next potential code string
+        tmp_offset_p = strchr( html_offset_p, '#' );
+
+        //  Did we find something to test ?
+        if ( tmp_offset_p != NULL )
+        {
+            //  YES:    Is this decimal code ?
+            if (    (           tmp_offset_p[ 0 ]   ==  '#' )
+                 && ( tolower(  tmp_offset_p[ 1 ] ) ==  'x' )
+                 && ( isxdigit( tmp_offset_p[ 2 ] ) !=   0  )
+                 && ( isxdigit( tmp_offset_p[ 3 ] ) !=   0  )
+                 && (           tmp_offset_p[ 4 ]   ==  ';' ) )
+            {
+                //  YES:    Translate the string
+                insert_str[ 0 ] = tmp_offset_p[ 2 ];
+                insert_str[ 1 ] = tmp_offset_p[ 3 ];
+                insert_str[ 2 ] = '\0';
+                sscanf( insert_str, "%X", (int*)insert_str );
+
+                //  Replace the string with the character
+                text_replace( tmp_offset_p,
+                              strlen( tmp_offset_p ),
+                              0,
+                              insert_str,
+                              replace_l );
+
+                //  Update the search starting position
+                html_offset_p = tmp_offset_p;
+
+                //  Change the flag to show something was found and translated
+                found = true;
+            }
+        }
+
+    }   while ( found == true );
 
     /********************************************************************
-     *  UNICODE Strings
+     *  Translate UNICODE Strings
      ********************************************************************/
 
-    //  Initialize the pointers
+    //  Set the start point to search
     html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
 
-    while( 1 )
+    //  Loop until all translations are done.
+    do
     {
-        //  Initialize the flag
-        altered = false;
+        //  The flag will be changed when something is translated.
+        found = false;
 
-        //  Locate the start of a Character Name string
-        html_offset_p = strchr( html_offset_p, '+' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '+' );
+        //  Locate the next potential UNICODE string
+        tmp_offset_p = strcasestr( html_offset_p, "U+" );
 
-        //  Did we find it ?
-        if (    ( html_offset_p != NULL )
-             && ( tmp_offset_p  != NULL ) )
+        //  Did we find something to test ?
+        if ( tmp_offset_p != NULL )
         {
-            //  YES:    Fill the compare buffer from the HTML buffer
-            memset( compare, '\0', sizeof( compare ) );
-            memcpy( compare, &(html_offset_p[ -1 ]), ( sizeof( compare ) - 1 ) );
-            text_to_uppercase( compare );
-
-            //  Is the previous character a "U"
-            if ( compare[ 0 ] ==  'U' )
+            //  YES:    Figure out the size of the replace string
+            memset( insert_str, '\0', sizeof( insert_str ) );
+            for ( replace_l = 2;
+                  ( isdigit( tmp_offset_p[ replace_l ] ) != 0 );
+                  replace_l += 1 )
             {
-                //  The next two characters MUST be digits.
-                if (    ( isxdigit( html_offset_p[ 1 ] ) != 0 )
-                     && ( isxdigit( html_offset_p[ 2 ] ) != 0 ) )
+                //  Buffer overflow protection
+                if ( replace_l < 8 )
                 {
-                    //  YES:    Fix the offset pointers
-                    html_offset_p -= 1;
-                    tmp_offset_p  += 3;
-
-                    //  Null terminate the hex string
-                    //  @note   The remainder of the text is going to be
-                    //          overlay with the left-shift.
-                    if ( isxdigit( compare[ 4 ] ) == 0 )
-                    {
-                        html_offset_p[ 4 ] = '\0';
-                    }
-                    else
-                    if ( isxdigit( compare[ 5 ] ) == 0 )
-                    {
-                        html_offset_p[ 5 ] = '\0';
-                    }
-                    else
-                    if ( isxdigit( compare[ 6 ] ) == 0 )
-                    {
-                        html_offset_p[ 6 ] = '\0';
-                    }
-                    else
-                    if ( isxdigit( compare[ 7 ] ) == 0 )
-                    {
-                        html_offset_p[ 7 ] = '\0';
-                    }
-
-                    //  Get the hex value
-                    sscanf( &(html_offset_p[ 2 ]), "%X", &value );
-
-                    //  Store the character
-                    html_offset_p[ 0 ] = (char)value;
-
-                    //  Copy the remaining temporary buffer to the HTML buffer
-                    html_offset_p += 1;
-                    tmp_offset_p += 1;
-                    strncpy( html_offset_p,
-                             tmp_offset_p,
-                             strlen( tmp_offset_p ) + 1 );
-
-                    //  Change the flag showing the buffer is altered
-                    altered = true;
+                    //  Copy the numeric text character
+                    insert_str[ replace_l - 2 ] = tmp_offset_p[ replace_l ];
                 }
-            }
+            };
 
-            //  Was anything altered ?
-            if ( altered == false )
+            //  Is this a valid UNICODE string ?
+            if (    ( replace_l > 4 )
+                 && ( replace_l < 8 ) )
             {
-                //  NO:     Move the pointers past the space.
-                html_offset_p += 1;
-                tmp_offset_p  += 1;
+                //  YES:    Translate the string
+                sscanf( insert_str, "%X", (int*)insert_str );
+
+                //  Replace the string with the character
+                text_replace( tmp_offset_p,
+                              strlen( tmp_offset_p ),
+                              0,
+                              insert_str,
+                              replace_l );
             }
+            else
+            {
+                //  NO:     Move the pointer past the stuff we already found.
+                tmp_offset_p += replace_l;
+            }
+            //  Update the search starting position
+            html_offset_p = tmp_offset_p;
+
+            //  Change the flag to show something was found and translated
+            found = true;
         }
-        else
-        {
-            //  NO:     Nothing else to compare to
-            break;
-        }
-    }
+
+    }   while ( found == true );
 
     /************************************************************************
      *  Function Exit
      ************************************************************************/
-
-    //  Release the temporary buffer
-    mem_free( tmp_p );
 
     //  DONE!
 }

@@ -87,6 +87,11 @@ HTML2TXT__remove_crlf(
     int                             buffer_l
     );
 //----------------------------------------------------------------------------
+void
+HTML2TXT__remove_comments(
+    char                        *   html_p
+    );
+//----------------------------------------------------------------------------
 char    *
 HTML2TXT__remove_spaces(
     char                        *   html_p,

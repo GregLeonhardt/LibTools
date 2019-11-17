@@ -146,11 +146,13 @@ html2txt(
      *  Function
      ************************************************************************/
 
+    HTML2TXT__remove_comments( work_p );
+
     //  Delete CR & LF
     work_p = HTML2TXT__remove_crlf( work_p, tmp_p, work_l );
 
     //  Delete consecutive spaces
-    work_p = HTML2TXT__remove_spaces( work_p, tmp_p, work_l );
+//  work_p = HTML2TXT__remove_spaces( work_p, tmp_p, work_l );
 
     //  Delete HTML style
     work_p = HTML2TXT__remove_style( work_p, tmp_p, work_l );
