@@ -81,7 +81,7 @@ struct  html_char_t
 
 //----------------------------------------------------------------------------
 char    *
-HTML2TXT__remove_crlf(
+HTML2TXT__crlf_replace(
     char                        *   html_p,
     char                        *   tmp_p,
     int                             buffer_l

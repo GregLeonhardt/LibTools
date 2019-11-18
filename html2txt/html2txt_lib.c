@@ -530,21 +530,15 @@ HTML2TXT__tag_clean(
  ****************************************************************************/
 
 char    *
-HTML2TXT__remove_crlf(
+HTML2TXT__crlf_replace(
     char                        *   html_p,
     char                        *   tmp_p,
     int                             buffer_l
     )
 {
     /**
-     *  @param  render_p        Pointer to the rendered text                */
-    char                        *   render_p;
-    /**
      *  @param  html_offset_p   Pointer to the first space in HTML buffer   */
     char                        *   html_offset_p;
-    /**
-     *  @param  tmp_offset_p    Pointer to the last space in the tmp buffer */
-    char                        *   tmp_offset_p;
     /**
      *  @param  altered         Flag indicating the buffer was altered      */
     int                             altered;
@@ -553,11 +547,6 @@ HTML2TXT__remove_crlf(
      *  Function Initialization
      ************************************************************************/
 
-    //  Set the return pointer assuming a failure
-    render_p = NULL;
-
-    //  Duplicate the HTML buffer into the temporary buffer.
-    memcpy( tmp_p, html_p, buffer_l );
 
     /************************************************************************
      *  Find and remove Carriage Returns
@@ -565,30 +554,24 @@ HTML2TXT__remove_crlf(
 
     //  Initialize the pointers
     html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
 
     //  Loop through the buffer as many times as needed.
     do
     {
         //  Assume there is more to do.
-        altered = true;
+        altered = false;
 
         //  Locate the next space in both buffers.
         html_offset_p = strchr( html_offset_p, '\r' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '\r' );
 
         //  Did we find a Carriage Return in the buffer ?
         if ( html_offset_p != NULL )
         {
-            //  YES:    Copy the remaining temporary buffer to the HTML buffer
-            tmp_offset_p += 1;
-            strncpy( html_offset_p, tmp_offset_p,
-                     strlen( tmp_offset_p ) + 1 );
-        }
-        else
-        {
-            //  NO:     There are no more spaces in the buffer
-            altered = false;
+            //  YES:    Remove it from the data buffer
+            text_remove( html_offset_p, 0, 1 );
+
+            //  Found it and removed it.
+            altered = true;
         }
 
     }   while( altered == true );
@@ -596,46 +579,41 @@ HTML2TXT__remove_crlf(
     /************************************************************************
      *  Find and remove Line Feed
      ************************************************************************/
-
+#if 0
     //  Initialize the pointers
     html_offset_p = html_p;
-    tmp_offset_p = tmp_p;
 
     //  Loop through the buffer as many times as needed.
     do
     {
         //  Assume there is more to do.
-        altered = true;
+        altered = false;
 
         //  Locate the next space in both buffers.
         html_offset_p = strchr( html_offset_p, '\n' );
-        tmp_offset_p  = strchr( tmp_offset_p,  '\n' );
 
         //  Did we find a Line Feed in the buffer ?
         if ( html_offset_p != NULL )
         {
             //  YES:    Copy the remaining temporary buffer to the HTML buffer
-            tmp_offset_p += 1;
-            strncpy( html_offset_p, tmp_offset_p,
-                     strlen( tmp_offset_p ) + 1 );
-        }
-        else
-        {
-            //  NO:     There are no more spaces in the buffer
-            altered = false;
+#if 1
+            text_replace( html_offset_p, buffer_l, 0, "<br>", 1 );
+#else
+            text_remove( html_offset_p, 0, 1 );
+#endif
+            //  There are no more spaces in the buffer
+            altered = true;
         }
 
     }   while( altered == true );
-
+#endif
+    
     /************************************************************************
      *  Function Exit
      ************************************************************************/
 
-    //  Set the return buffer pointer
-    render_p = html_p;
-
     //  DONE!
-    return( render_p );
+    return( html_p );
 }
 
 /****************************************************************************/
