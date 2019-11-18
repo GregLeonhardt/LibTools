@@ -194,22 +194,22 @@ struct  html_char_t                 html_table[ ] =
     {   "&verbar;",  0x7C   },  //  '|' - vertical bar
     {   "&rcub;",    0x7D   },  //  '}' - right curly bracket
     {   "&tilde;",   0x7E   },  //  '~' - tilde
-    {   "&nbsp;",    0xC0   },  //  ' ' - no-break space
-    {   "&iexcl;",   0xC1   },  //  '¡' - inverted exclamation mark
-    {   "&cent;",    0xC2   },  //  '¢' - cent sign
-    {   "&pound;",   0xC3   },  //  '£' - pound sterling sign
-    {   "&curren;",  0xC4   },  //  '¤' - general currency sign
-    {   "&yen;",     0xC5   },  //  '¥' - yen sign
-    {   "&brvbar;",  0xC6   },  //  '¦' - broken (vertical) bar
-    {   "&sect;",    0xC7   },  //  '§' - section sign
-    {   "&uml;",     0xC8   },  //  '¨' - umlaut (dieresis)
-    {   "&copy;",    0xC9   },  //  '©' - copyright sign
-    {   "&ordf;",    0xCA   },  //  'ª' - ordinal indicator, feminine
-    {   "&laquo;",   0xCB   },  //  '«' - angle quotation mark, left
-    {   "&not;",     0xCC   },  //  '¬' - not sign
-    {   "&shy;",     0xCD   },  //  ' ' - soft hyphen
-    {   "&reg;",     0xCE   },  //  '®' - registered sign
-    {   "&macr;",    0xCF   },  //  '¯' - macron
+    {   "&nbsp;",    0x20   },  //  ' ' - no-break space [Supposed to be 0xA0]
+    {   "&iexcl;",   0xA1   },  //  '¡' - inverted exclamation mark
+    {   "&cent;",    0xA2   },  //  '¢' - cent sign
+    {   "&pound;",   0xA3   },  //  '£' - pound sterling sign
+    {   "&curren;",  0xA4   },  //  '¤' - general currency sign
+    {   "&yen;",     0xA5   },  //  '¥' - yen sign
+    {   "&brvbar;",  0xA6   },  //  '¦' - broken (vertical) bar
+    {   "&sect;",    0xA7   },  //  '§' - section sign
+    {   "&uml;",     0xA8   },  //  '¨' - umlaut (dieresis)
+    {   "&copy;",    0xA9   },  //  '©' - copyright sign
+    {   "&ordf;",    0xAA   },  //  'ª' - ordinal indicator, feminine
+    {   "&laquo;",   0xAB   },  //  '«' - angle quotation mark, left
+    {   "&not;",     0xAC   },  //  '¬' - not sign
+    {   "&shy;",     0xAD   },  //  ' ' - soft hyphen
+    {   "&reg;",     0xAE   },  //  '®' - registered sign
+    {   "&macr;",    0xAF   },  //  '¯' - macron
     {   "&deg;",     0xB0   },  //  '°' - degree sign
     {   "&plusmn;",  0xB1   },  //  '±' - plus-or-minus sign
     {   "&sup2;",    0xB2   },  //  '²' - superscript two
@@ -1206,8 +1206,8 @@ HTML2TXT__str_2_char(
             found = false;
 
             //  Look for this string in the HTML buffer
-            tmp_offset_p = strcasestr( html_table[ html_table_ndx ].html_entity,
-                                       html_p );
+            tmp_offset_p = strcasestr( html_p,
+                                       html_table[ html_table_ndx ].html_entity );
 
             //  Did we find the string ?
             if ( tmp_offset_p != NULL )
