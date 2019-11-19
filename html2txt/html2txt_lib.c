@@ -607,7 +607,7 @@ HTML2TXT__crlf_replace(
 
     }   while( altered == true );
 #endif
-    
+
     /************************************************************************
      *  Function Exit
      ************************************************************************/
@@ -1160,13 +1160,39 @@ HTML2TXT__str_2_char(
      *  @param  replace_l       Size of the replace string                  */
     int                             replace_l;
     /**
+     *  @param  ndx             Index into the search buffer                */
+    int                             ndx;
+    /**
      *  @param  insert_str      Date to be inserted                         */
     char                            insert_str[ 10 ];
+    /**
+     *  @param  u_html_p        Unsigned char pointer                       */
+    unsigned char               *   u_html_p;
 
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
 
+
+    /************************************************************************
+     *  Extended ASCII characters to space [ ]
+     ************************************************************************/
+
+    //  We need an unsigned character pointer here.
+    u_html_p = (unsigned char *)html_p;
+
+    //  Scan the entire buffer
+    for ( ndx = 0;
+          ndx < strlen( (char*)u_html_p );
+          ndx += 1 )
+    {
+        //  Is this an extended ASCII character ?
+        if ( u_html_p[ ndx ] >= 0x80 )
+        {
+            //  YES:    Replace it with a space
+            u_html_p[ ndx ] = ' ';
+        }
+    }
 
     /************************************************************************
      *  Replace all 'html_entry' strings with it's hex code.
