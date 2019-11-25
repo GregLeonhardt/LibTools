@@ -1229,3 +1229,60 @@ text_replace(
 }
 
 /****************************************************************************/
+/**
+ *  Center a text string in a buffer
+ *
+ *  @param  text_buffer_p       Pointer to the data buffer.
+ *  @param  text_buffer_l       Size (in bytes) of the text buffer.
+ *  @param  text_data_p         Pointer to the data to insert.
+ *
+ *  @return void
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+void
+text_center(
+    char                        *   text_buffer_p,
+    int                             text_buffer_l,
+    char                        *   text_data_p
+    )
+{
+    /**
+     *  @param  num_of_space    Number of spaces to insert                  */
+    int                             num_of_space;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Zero out the destination buffer
+    memset( text_buffer_p, '\0', text_buffer_l );
+    
+    //  The number of leading spaces needed
+    num_of_space = ( text_buffer_l - strlen( text_data_p ) / 2 );
+
+    /************************************************************************
+     *  Insert the data
+     ************************************************************************/
+
+    //  Fill in the leading spaces
+    memset( text_buffer_p, ' ', num_of_space );
+    
+    //  Now append the text.
+    strncat( text_buffer_p, text_data_p, ( text_buffer_l - num_of_space ) ); 
+
+    /************************************************************************
+     *  Function Cleanup
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+}
+
+/****************************************************************************/

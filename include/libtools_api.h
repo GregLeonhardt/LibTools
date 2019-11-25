@@ -729,7 +729,15 @@ text_replace(
     int                             text_buffer_l,
     int                             text_ndx,
     char                        *   text_data_p,
-    int                             text_remove_l    );
+    int                             text_remove_l
+    );
+//---------------------------------------------------------------------------
+void
+text_center(
+    char                        *   text_buffer_p,
+    int                             text_buffer_l,
+    char                        *   text_data_p
+    );
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
