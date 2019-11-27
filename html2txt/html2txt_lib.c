@@ -859,14 +859,12 @@ HTML2TXT__remove_style(
                 }
                 else
                 {
-                    //  Invalid HTML code
-                    log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
-                    log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
+                    //  NO:     Delete to the end
+                    delete_l = strlen( html_offset_p );
                 }
             }
             //  YES:
             else
-//          if ( html_offset_p[ 6 ]== ' ' )
             {
                 tmp_offset_p = strchr( html_offset_p, '>' );
 
@@ -892,25 +890,17 @@ HTML2TXT__remove_style(
                         }
                         else
                         {
-                            //  Invalid HTML code
-                            log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
-                            log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
+                            //  NO:     Delete to the end
+                            delete_l = strlen( html_offset_p );
                         }
                     }
                 }
-                else 
+                else
                 {
-                    //  Invalid HTML code
-                    log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
-                    log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
+                    //  NO:     Delete to the end
+                    delete_l = strlen( html_offset_p );
                 }
             }
-//          else
-//          {
-//              //  Invalid HTML code
-//              log_write( MID_INFO,  "html2txt_lib.c", "%s\n", html_offset_p );
-//              log_write( MID_FATAL, "html2txt_lib.c", "Line: %d\n", __LINE__ );
-//          }
 
             //  Now delete the '<style> ... </style>' from the buffer.
             text_remove( html_offset_p, 0, delete_l );
