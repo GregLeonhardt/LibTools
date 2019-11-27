@@ -686,6 +686,13 @@ get_cmd_line_parm(
     const char                  *   search_string_p
     );
 //---------------------------------------------------------------------------
+int
+is_cmd_line_parm(
+    int                             argc,
+    char                        **  argv,
+    const char                  *   search_string_p
+    );
+//---------------------------------------------------------------------------
 char    *
 text_copy_to_new(
     char                        *   text_p

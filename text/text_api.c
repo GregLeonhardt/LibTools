@@ -567,6 +567,80 @@ get_cmd_line_parm(
     return( value_string_p );
 }
 
+/****************************************************************************/
+/**
+ *  Test for the presence of a command line parameter.
+ *
+ *  @param  argc                Number of parameters
+ *  @param  argv                List of pointers.
+ *  @param  search_string       The parameter we are looking for.
+ *
+ *  @return text_rc             TRUE when the command line parameter is 
+ *                              part of the command line; else FALSE
+ *                              is returned.
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+int
+is_cmd_line_parm(
+    int                             argc,
+    char                        **  argv,
+    const char                  *   search_string_p
+    )
+{
+    /**
+     *  @param  text_rc         Function return code                        */
+    int                             text_rc;
+    /**
+     *  @param  argv_index      Index to the current argv                   */
+    int                             argv_index;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  The assumption is that the parameter is not present.
+    text_rc = false;
+
+    /************************************************************************
+     *  Look for a specific command line parameter
+     ************************************************************************/
+
+    //  Scan through all command line parameters
+    for( argv_index = 1;
+          argv_index < argc;
+          argv_index ++ )
+    {
+        //  Is the first character of the parameter a dash '-'
+        if( argv[ argv_index ][ 0 ] == '-' )
+        {
+            //  YES:    Are the two the same length ?
+            if ( strlen( search_string_p ) == strlen( &argv[ argv_index ][ 1 ] ) )
+            {
+                //  YES:    Does it match the search string ?
+                if( strncasecmp( search_string_p, 
+                                 &argv[ argv_index ][ 1 ], 
+                                 strlen( search_string_p ) ) == 0 )
+                {
+                    //  YES:    Set the flag for a positive compare
+                    text_rc = true;
+
+                    //  Stop looking now that we have it.
+                    break;
+                }
+            }
+        }
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  Return with a pointer to the parameter data
+    return( text_rc );
+}
 
 /****************************************************************************/
 /**
