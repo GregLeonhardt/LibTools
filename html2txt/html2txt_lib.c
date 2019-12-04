@@ -126,35 +126,36 @@ struct  html_tag_t              html_tag_list[ ] =
     {   "pre",           3, HTML_TAG_DEL_DEL,   0   },  //  28
     {   "sub",           3, HTML_TAG_DEL_DEL,   0   },  //  29
     {   "sup",           3, HTML_TAG_DEL_DEL,   0   },  //  30
-    {   "wbr",           3, HTML_TAG_DEL_DEL,   0   },  //  31
+    {   "var",           3, HTML_TAG_DEL_DEL,   0   },  //  31
+    {   "wbr",           3, HTML_TAG_DEL_DEL,   0   },  //  32
 //  {   "!--",           3, HTML_TAG_DEL_DEL,   0   },  //      Has it's own function
 
-    {   "br",            2, HTML_TAG_CRLF_CRLF, 0   },  //  32
-    {   "dd",            2, HTML_TAG_DEL_DEL,   0   },  //  33
-    {   "dl",            2, HTML_TAG_DEL_DEL,   0   },  //  34
-    {   "dt",            2, HTML_TAG_DEL_DEL,   0   },  //  35
-    {   "em",            2, HTML_TAG_DEL_DEL,   0   },  //  36
-    {   "h1",            2, HTML_TAG_DEL_CRLF,  0   },  //  37
-    {   "h2",            2, HTML_TAG_DEL_CRLF,  0   },  //  38
-    {   "h3",            2, HTML_TAG_DEL_CRLF,  0   },  //  39
-    {   "h4",            2, HTML_TAG_DEL_CRLF,  0   },  //  40
-    {   "h5",            2, HTML_TAG_DEL_CRLF,  0   },  //  41
-    {   "h6",            2, HTML_TAG_DEL_CRLF,  0   },  //  42
-    {   "hr",            2, HTML_TAG_DEL_DEL,   0   },  //  43
-    {   "ol",            2, HTML_TAG_DEL_DEL,   0   },  //  44
-    {   "li",            2, HTML_TAG_DEL_CRLF,  0   },  //  45
-    {   "ul",            2, HTML_TAG_DEL_DEL,   0   },  //  46
-    {   "td",            2, HTML_TAG_DEL_DEL,   0   },  //  47
-    {   "th",            2, HTML_TAG_DEL_DEL,   0   },  //  48
-    {   "tr",            2, HTML_TAG_DEL_CRLF,  0   },  //  49
-    {   "tt",            2, HTML_TAG_DEL_DEL,   0   },  //  50
+    {   "br",            2, HTML_TAG_CRLF_CRLF, 0   },  //  33
+    {   "dd",            2, HTML_TAG_DEL_DEL,   0   },  //  34
+    {   "dl",            2, HTML_TAG_DEL_DEL,   0   },  //  35
+    {   "dt",            2, HTML_TAG_DEL_DEL,   0   },  //  36
+    {   "em",            2, HTML_TAG_DEL_DEL,   0   },  //  37
+    {   "h1",            2, HTML_TAG_DEL_CRLF,  0   },  //  38
+    {   "h2",            2, HTML_TAG_DEL_CRLF,  0   },  //  39
+    {   "h3",            2, HTML_TAG_DEL_CRLF,  0   },  //  40
+    {   "h4",            2, HTML_TAG_DEL_CRLF,  0   },  //  41
+    {   "h5",            2, HTML_TAG_DEL_CRLF,  0   },  //  42
+    {   "h6",            2, HTML_TAG_DEL_CRLF,  0   },  //  43
+    {   "hr",            2, HTML_TAG_DEL_DEL,   0   },  //  44
+    {   "ol",            2, HTML_TAG_DEL_DEL,   0   },  //  45
+    {   "li",            2, HTML_TAG_DEL_CRLF,  0   },  //  46
+    {   "ul",            2, HTML_TAG_DEL_DEL,   0   },  //  47
+    {   "td",            2, HTML_TAG_DEL_DEL,   0   },  //  48
+    {   "th",            2, HTML_TAG_DEL_DEL,   0   },  //  49
+    {   "tr",            2, HTML_TAG_DEL_CRLF,  0   },  //  50
+    {   "tt",            2, HTML_TAG_DEL_DEL,   0   },  //  51
 
-    {   "a",             1, HTML_TAG_DEL_DEL,   0   },  //  51
-    {   "b",             1, HTML_TAG_DEL_DEL,   0   },  //  52
-    {   "i",             1, HTML_TAG_DEL_DEL,   0   },  //  53
-    {   "p",             1, HTML_TAG_CRLF_CRLF, 0   },  //  54
-    {   "u",             1, HTML_TAG_DEL_DEL,   0   },  //  55
-    {   "0000000000",   99, HTML_TAG_END,       0   }   //  56
+    {   "a",             1, HTML_TAG_DEL_DEL,   0   },  //  52
+    {   "b",             1, HTML_TAG_DEL_DEL,   0   },  //  53
+    {   "i",             1, HTML_TAG_DEL_DEL,   0   },  //  54
+    {   "p",             1, HTML_TAG_CRLF_CRLF, 0   },  //  55
+    {   "u",             1, HTML_TAG_DEL_DEL,   0   },  //  56
+    {   "0000000000",   99, HTML_TAG_END,       0   }   //  57
 };
 //----------------------------------------------------------------------------
 /**
