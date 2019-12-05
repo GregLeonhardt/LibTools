@@ -575,7 +575,7 @@ get_cmd_line_parm(
  *  @param  argv                List of pointers.
  *  @param  search_string       The parameter we are looking for.
  *
- *  @return text_rc             TRUE when the command line parameter is 
+ *  @return text_rc             TRUE when the command line parameter is
  *                              part of the command line; else FALSE
  *                              is returned.
  *
@@ -620,8 +620,8 @@ is_cmd_line_parm(
             if ( strlen( search_string_p ) == strlen( &argv[ argv_index ][ 1 ] ) )
             {
                 //  YES:    Does it match the search string ?
-                if( strncasecmp( search_string_p, 
-                                 &argv[ argv_index ][ 1 ], 
+                if( strncasecmp( search_string_p,
+                                 &argv[ argv_index ][ 1 ],
                                  strlen( search_string_p ) ) == 0 )
                 {
                     //  YES:    Set the flag for a positive compare
@@ -1333,9 +1333,9 @@ text_center(
 
     //  Zero out the destination buffer
     memset( text_buffer_p, '\0', text_buffer_l );
-    
+
     //  The number of leading spaces needed
-    num_of_space = ( text_buffer_l - strlen( text_data_p ) / 2 );
+    num_of_space = ( ( text_buffer_l / 2 ) - ( strlen( text_data_p ) / 2 ) );
 
     /************************************************************************
      *  Insert the data
@@ -1343,9 +1343,9 @@ text_center(
 
     //  Fill in the leading spaces
     memset( text_buffer_p, ' ', num_of_space );
-    
+
     //  Now append the text.
-    strncat( text_buffer_p, text_data_p, ( text_buffer_l - num_of_space ) ); 
+    strncat( text_buffer_p, text_data_p, ( text_buffer_l - num_of_space ) );
 
     /************************************************************************
      *  Function Cleanup
