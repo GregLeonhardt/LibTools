@@ -1162,7 +1162,7 @@ text_insert(
  *  Remove text_data_l bytes from text_buffer_p at text_ndx.
  *
  *  @param  text_buffer_p       Pointer to the data buffer.
- *  @param  text_ndx            Index to insert data.
+ *  @param  text_ndx            Index to remove data buffer.
  *  @param  text_remove_l       Number of bytes to remove from the buffer.
  *
  *  @return void
