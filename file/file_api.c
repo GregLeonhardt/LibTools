@@ -739,6 +739,54 @@ file_read_text(
 
 /****************************************************************************/
 /**
+ *  Read a single line of test from the file.
+ *
+ *  @param  file_p              Pointer to a file previously opened for read.
+ *  @param  buffer_p            Pointer to a read buffer
+ *  @param  size                Number of bytes to read.
+ *
+ *  @return read_data_l         The number of bytes received from the
+ *                              read.  Zero if at End of File.
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+size_t
+file_read_data(
+    FILE                        *   file_fp,
+    char                        *   buffer_p,
+    size_t                          size
+   )
+{
+    /**
+     *  @param  read_data_l     Number of bytes read                        */
+    size_t                          read_data_l;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Clean the input buffer
+    memset( buffer_p, '\0',  size );
+
+    /************************************************************************
+     *  Read a new line of text
+     ************************************************************************/
+
+    //  Read some data from the input file
+    read_data_l = fread( buffer_p, 1, size, file_fp );
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( read_data_l );
+}
+
+/****************************************************************************/
+/**
  *  The file_stat function is called once for each file.  It only opens the
  *  file and does NOT read any data from it.
  *

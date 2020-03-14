@@ -288,6 +288,13 @@ file_read_text(
     enum    read_text_options_e     options
    );
 //---------------------------------------------------------------------------
+size_t
+file_read_data(
+    FILE                        *   file_fp,
+    char                        *   buffer_p,
+    size_t                          size
+   );
+//---------------------------------------------------------------------------
 struct  file_info_t *
 file_stat(
     char                        *   full_file_name,
