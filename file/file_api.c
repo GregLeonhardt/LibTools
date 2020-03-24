@@ -888,10 +888,17 @@ file_stat(
 
         //  File Creation Time
         tm = localtime( &statbuf.st_mtime );
+#if 0
         strftime( file_info_p->date_time,
                   sizeof( file_info_p->date_time ),
                   nl_langinfo( D_T_FMT ),
                   tm );
+#else
+        strftime( file_info_p->date_time,
+                  sizeof( file_info_p->date_time ),
+                  "%Y/%m/%d %H:%M:%S",
+                  tm );
+#endif
     }
     else
     {
