@@ -886,7 +886,7 @@ file_stat(
         snprintf( file_info_p->file_size, sizeof( file_info_p->file_size ),
                 "%ld", statbuf.st_size );
 
-        //  File Creation Tile
+        //  File Creation Time
         tm = localtime( &statbuf.st_mtime );
         strftime( file_info_p->date_time,
                   sizeof( file_info_p->date_time ),
