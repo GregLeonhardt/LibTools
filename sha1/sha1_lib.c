@@ -97,10 +97,8 @@ SHA1__PrintContext(
     if ( VERBOSE == 1 )
     {
         //  YES:
-        printf( "%s (%d,%d) %x %x %x %x %x\n",
+        printf( "%s %04x %04x %04x %04x %04x\n",
                 msg,
-                context->count[ 0 ],
-                context->count[ 1 ],
                 context->state[ 0 ],
                 context->state[ 1 ],
                 context->state[ 2 ],
