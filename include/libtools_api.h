@@ -62,6 +62,7 @@
 #define MID_DEBUG_2         ( 0x0800 )
 #define MID_DEBUG_1         ( 0x0400 )
 #define MID_DEBUG_0         ( 0x0200 )
+#define MID_LOGONLY         ( 0x0100 )
 
 #define MID_VOID            ( 0x0000 )
 //----------------------------------------------------------------------------
