@@ -84,6 +84,129 @@
 
 /****************************************************************************/
 /**
+ *  Initialize a thread start & wait structure
+ *
+ *  @param  thread_wait_p   Pointer to the thread stop & wait structure.
+ *
+ *  @return void
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+
+void
+thread_flow_init(
+    struct  thread_flow_t   *   thread_flow_p
+    )
+{
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Function Code
+     ************************************************************************/
+
+    //  Initialize the signal and lock structures.
+    pthread_cond_init(  &thread_flow_p->signal, 0 );
+    pthread_mutex_init( &thread_flow_p->lock, 0 );
+
+    // Set the access lock.
+    pthread_mutex_lock( &thread_flow_p->lock );
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+     // DONE!
+}
+
+/****************************************************************************/
+/**
+ *  Signal a thread to resume processing.
+ *
+ *  @param  thread_wait_p   Pointer to the thread stop & wait structure.
+ *
+ *  @return void
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+void
+thread_resume(
+    struct  thread_flow_t   *   thread_flow_p
+    )
+{
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Function Code
+     ************************************************************************/
+
+    // Set the access lock.
+    pthread_mutex_lock( &thread_flow_p->lock );
+
+    // Signal the thread that it can start again.
+    pthread_cond_signal( &thread_flow_p->signal );
+
+    // Release the access lock.
+    pthread_mutex_unlock( &thread_flow_p->lock );
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+     // DONE!
+}
+
+/****************************************************************************/
+/**
+ *  Cause a thread to wait for a resume signal.
+ *
+ *  @param  thread_wait_p   Pointer to the thread stop & wait structure.
+ *
+ *  @return void
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+void
+thread_wait(
+    struct  thread_flow_t   *   thread_flow_p
+    )
+{
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Function Code
+     ************************************************************************/
+
+    // Signal the thread that it can start again.
+    pthread_cond_wait( &thread_flow_p->signal, &thread_flow_p->lock );
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+     // DONE!
+}
+
+
+/****************************************************************************/
+/**
  *  Spawn off a new thread.
  *
  *  @param  function_p      Pointer to the thread function.

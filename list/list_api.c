@@ -534,7 +534,7 @@ list_put_last(
  ****************************************************************************/
 
 int
-list_delete(
+my_list_delete(
     struct  list_base_t         *   list_base_p,
     void                        *   payload_p
     )

@@ -1226,7 +1226,7 @@ file_unzip(
              file_info_p = list_get_next( file_list_p, file_info_p ) )
         {
             //  Remove it from the list
-            list_delete( file_list_p, file_info_p );
+            my_list_delete( file_list_p, file_info_p );
 
             //  Will the fully qualified file name will fit in the buffer ?
             if (     (   ( strlen( file_info_p->dir_name  ) )

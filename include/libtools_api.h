@@ -27,6 +27,7 @@
 
                                 //*******************************************
 #include <stdio.h>              //  Standard I/O definitions
+#include <pthread.h>            //  All thread related functions
                                 //*******************************************
 
 /****************************************************************************
@@ -227,6 +228,21 @@ struct  tcpip_t
  */
     int                             snd_data_l;
 };
+
+//----------------------------------------------------------------------------
+//  THREAD
+//----------------------------------------------------------------------------
+/**
+ *  @param  thread_wait         Thread wait/resume structure                */
+struct
+thread_flow_t
+{
+    // Declaration of thread condition structure.
+    pthread_cond_t              signal;
+
+    // Declaration of thread mutex structure.
+    pthread_mutex_t             lock;
+};
 //----------------------------------------------------------------------------
 
 /****************************************************************************
@@ -388,7 +404,7 @@ list_put_last(
     );
 //---------------------------------------------------------------------------
 int
-list_delete(
+my_list_delete(
     struct  list_base_t         *   list_base_p,
     void                        *   payload_p
     );
@@ -762,6 +778,21 @@ void
 thread_new(
     void                            (*function_p)( void * ),
     void                        *   parm_p
+    );
+//---------------------------------------------------------------------------
+void
+thread_flow_init(
+    struct  thread_flow_t       *   thread_flow_p
+    );
+//---------------------------------------------------------------------------
+void
+thread_resume(
+    struct  thread_flow_t       *   thread_flow_p
+    );
+//---------------------------------------------------------------------------
+void
+thread_wait(
+    struct  thread_flow_t       *   thread_flow_p
     );
 //---------------------------------------------------------------------------
 
