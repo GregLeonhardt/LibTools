@@ -10,6 +10,7 @@
  *  on the terminal and in a log file.
  *
  *  @note
+ *      LOG_DIR_NAME        ~/.LibTools     Set in libtools_api.h
  *
  ****************************************************************************/
 
