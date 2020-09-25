@@ -11,19 +11,19 @@
  *
  *  @note
  *
- *  Message-Queue API.
+ *  Queue API.
  *
- *  Message queues are the primary method for passing information between
- *  process threads.  Each message queue has two addressing modes:
- *      1) Message-Queue-Name
- *      2) Message-Queue-ID
- *  Sending and receiving messages always address the queue by it's queue-ID.
- *  For cases where the queue name is known but the queue-ID isn't known you
- *  must lookup the Queue_ID.
+ *  Queues are the primary method for passing information between
+ *  process threads.  Each queue has two addressing modes:
+ *      1) Queue-Name
+ *      2) Queue-ID
+ *  Sending and receiving payloads always address the queue by it's Queue-ID.
+ *  For cases where the queue name is known but the Queue-ID isn't known you
+ *  must lookup the Queue-ID.
  *
- *  @note   Messages:
- *      The message queue does not move the contents of a message.  Only the
- *      message pointer passed through the message queue.
+ *  @note   payloads:
+ *      The queue does not move the contents of a payload.  Only the
+ *      payload pointer passed through the queue.
  *
  *  @note
  *
@@ -94,7 +94,7 @@
 
 /****************************************************************************/
 /**
- *  Initialize a message queue stack.
+ *  Initialize a queue stack.
  *
  *  @param  void            No information is passed to this function.
  *
@@ -120,7 +120,7 @@ queue_init(
     queue_rc = QUEUE_RC_SUCCESS;
 
     /************************************************************************
-     *  Initialize the Message-Queue
+     *  Initialize the Queue
      ************************************************************************/
 
     //  Should we continue ?
@@ -156,12 +156,12 @@ queue_init(
 
 /****************************************************************************/
 /**
- *  Create a new message queue for the queue stack defined by 'queue_name'.
+ *  Create a new queue for the queue stack defined by 'queue_name'.
  *
  *  @param  queue_name_p    Pointer to an ASCII string containing the name
- *                          that will be assigned to the new message queue.
+ *                          that will be assigned to the new queue.
  *
- *  @return queue_id        The message queue ID number when greater then
+ *  @return queue_id        The Queue-ID number when greater then
  *                          zero. When less then zero see queue_rc_e for a
  *                          list of failure codes.
  *
@@ -171,11 +171,12 @@ queue_init(
 
 int
 queue_new(
-    char                        *   queue_name_p
+    char                        *   queue_name_p,
+    int                             queue_depth
     )
 {
     /**
-     *  @param  queue_id        The message queue ID number (handle)        */
+     *  @param  queue_id        The Queue-ID number (handle)                */
     int                             queue_id;
     /**
      *  @param  queue_rc        Return code                                 */
@@ -187,10 +188,10 @@ queue_new(
 
 
     /************************************************************************
-     *  Validate the Message-Queue-Name
+     *  Validate the Queue-Name
      ************************************************************************/
 
-    //  Validate the Message-Queue-Name
+    //  Validate the Queue-Name
     queue_rc = QUEUE__verify_queue_name( queue_name_p );
 
     /************************************************************************
@@ -200,22 +201,22 @@ queue_new(
     //  Should we continue ?
     if ( queue_rc == QUEUE_RC_SUCCESS )
     {
-        //  Create a new Message-Queue
+        //  Create a new Queue
         queue_id = QUEUE__find_queue_name( queue_name_p );
 
         /********************************************************************
-         *  Create a new Message-Queue
+         *  Create a new Queue
          ********************************************************************/
 
         //  Does the Queue-Name already exist ?
         if ( queue_id == QUEUE_RC_QUEUE_NAME_NOT_PRESENT  )
         {
-            //  NO:     Create a new Message-Queue
-            queue_id = QUEUE__new( queue_name_p );
+            //  NO:     Create a new Queue
+            queue_id = QUEUE__new( queue_name_p, queue_depth );
         }
         else
         {
-            //  YES:    Can't create what is already in existance.
+            //  YES:    Can't create what is already in existence.
             queue_id = (int)QUEUE_RC_QUEUE_NAME_EXISTS;
         }
     }
@@ -229,7 +230,7 @@ queue_new(
     {
         //  YES:    Log the name and port number
         log_write( MID_DEBUG_0, "queue_new",
-                      "New messaging queue ID %04d for '%s'\n",
+                      "New messaging Queue-ID %04d for '%s'\n",
                       queue_id, queue_name_p );
     }
 
@@ -243,14 +244,13 @@ queue_new(
 
 /****************************************************************************/
 /**
- *  When the message queue ID is not known and has a predetermined name, the
- *  message queue ID can be looked up using this function.
+ *  When the Queue-ID is not known and has a predetermined name, the
+ *  Queue-ID can be looked up using this function.
  *
  *  @param  queue_name_p    Pointer to an ASCII string containing the name
- *                          of the message queue of the requested message
- *                          queue ID.
+ *                          of the queue of the requested Queue-ID.
  *
- *  @return queue_id        Upon success, the QUEUE-ID of the corresponding
+ *  @return queue_id        Upon success, the Queue-ID of the corresponding
  *                          queue name, else ??
  *
  *  @note
@@ -258,12 +258,12 @@ queue_new(
  ****************************************************************************/
 
 int
-queue_get_message_queue_id(
+queue_get_id(
     char                        *   queue_name_p
     )
 {
     /**
-     *  @param  queue_id        The message queue ID number (handle)        */
+     *  @param  queue_id        The Queue-ID number (handle)        */
     int                             queue_id;
 
     /************************************************************************
@@ -274,24 +274,24 @@ queue_get_message_queue_id(
     queue_id = (int)QUEUE_RC_SUCCESS;
 
     /************************************************************************
-     *  Validate the Message-Queue-Name
+     *  Validate the Queue-Name
      ************************************************************************/
 
     //  Should we continue ?
     if ( queue_id == QUEUE_RC_SUCCESS )
     {
-        //  Validate the Message-Queue-Name
+        //  Validate the Queue-Name
         queue_id = QUEUE__verify_queue_name( queue_name_p );
     }
 
     /************************************************************************
-     *  Lookup the Message-Queue-ID
+     *  Lookup the Queue-ID
      ************************************************************************/
 
     //  Should we continue ?
     if ( queue_id == QUEUE_RC_SUCCESS )
     {
-        //  Lookup the Message-Queue-ID
+        //  Lookup the Queue-ID
         queue_id = QUEUE__find_queue_name( queue_name_p );
     }
 
@@ -325,11 +325,11 @@ queue_get_message_queue_id(
 
 /****************************************************************************/
 /**
- *  Return a pointer to the message queue state structure.
+ *  Return a pointer to the queue state structure.
  *
- *  @param  queue_id        A message queue ID number (handle)
+ *  @param  queue_id        A Queue-ID number (handle)
  *
- *  @return queue_msg_count The number of messages in the queue.
+ *  @return queue_msg_count The number of payloads in the queue.
  *
  *  @note
  *
@@ -344,7 +344,7 @@ queue_get_count(
      *  @param  queue_rc        Return code                                 */
     enum    queue_rc_e              queue_rc;
     /**
-     *  @param  queue_msg_count Number of messages in the message queue     */
+     *  @param  queue_msg_count Number of payloads in the queue     */
     int                             queue_msg_count;
 
     /************************************************************************
@@ -361,7 +361,7 @@ queue_get_count(
     //  Should we continue ?
     if ( queue_rc == QUEUE_RC_SUCCESS )
     {
-        //  Lookup the Message-Queue-ID
+        //  Lookup the Queue-ID
         queue_msg_count = QUEUE__get_count( queue_id );
     }
 
@@ -369,9 +369,9 @@ queue_get_count(
      *  Log the results
      ************************************************************************/
 
-    //  Log the number of messages on the queue
+    //  Log the number of payloads on the queue
     log_write( MID_DEBUG_0, "queue_get_count",
-                  "There are %d messages on messaging queue %04d.\n",
+                  "There are %d payloads on queue %04d.\n",
                   queue_msg_count, queue_id );
 
     /************************************************************************
@@ -384,11 +384,11 @@ queue_get_count(
 
 /****************************************************************************/
 /**
- *  Put a mew message on the defined message queue.
+ *  Put a mew payload on the defined queue.
  *
- *  @param  queue_id        A message queue ID number (handle)
- *  @param  message_p       Pointer to a message that will be added to the
- *                          message queue.
+ *  @param  queue_id        A Queue-ID number (handle)
+ *  @param  payload_p       Pointer to a payload that will be added to the
+ *                          queue.
  *
  *  @return queue_rc        See queue_rc_e for a list of return codes.
  *
@@ -414,13 +414,13 @@ queue_put_payload(
     queue_rc = QUEUE_RC_SUCCESS;
 
     /************************************************************************
-     *  Add the new message pointer to the message queue.
+     *  Add the new payload pointer to the queue.
      ************************************************************************/
 
     //  Should we continue ?
     if ( queue_rc == QUEUE_RC_SUCCESS )
     {
-        //  Lookup the Message-Queue-ID
+        //  Lookup the Queue-ID
         queue_rc = (enum queue_rc_e)QUEUE__put_payload( queue_id, void_p );
     }
 
@@ -428,19 +428,19 @@ queue_put_payload(
      *  Log the results
      ************************************************************************/
 
-    //  Was the message successfully put on the queue ?
+    //  Was the payload successfully put on the queue ?
     if ( queue_rc == true )
     {
         //  YES:    Log the name and port number
         log_write( MID_DEBUG_0, "queue_put_payload",
-                      "Message %p successfully put on messaging queue %04d.\n",
+                      "Payload %p successfully put on messaging queue %04d.\n",
                       void_p, queue_id );
     }
     else
     {
         //  YES:    Log the name and port number
         log_write( MID_FATAL, "queue_put_payload",
-                      "Putting message %p on messaging queue %04d FAILED.\n",
+                      "Putting payload %p on messaging queue %04d FAILED.\n",
                       void_p, queue_id );
     }
 
@@ -454,11 +454,11 @@ queue_put_payload(
 
 /****************************************************************************/
 /**
- *  Return the next message pointer in the message queue.
+ *  Return the next payload pointer in the queue.
  *
- *  @param  queue_id        A message queue ID number (handle)
+ *  @param  queue_id        A Queue-ID number (handle)
  *
- *  @return message_p       Pointer to the next message on the message queue.
+ *  @return payload_p       Pointer to the next payload on the queue.
  *
  *  @note
  *
@@ -483,19 +483,19 @@ queue_get_payload(
     //  Set the default return code.
     queue_rc = QUEUE_RC_SUCCESS;
 
-    //  Log that we are waiting for a message.
+    //  Log that we are waiting for a payload.
     log_write( MID_DEBUG_0, "queue_get_payload",
-                  "Waiting on messaging queue %04d.\n",
+                  "Waiting on payload on QUEUE-ID %04d.\n",
                   queue_id );
 
     /************************************************************************
-     *  Add the new message pointer to the message queue.
+     *  Add the new payload pointer to the queue.
      ************************************************************************/
 
     //  Should we continue ?
     if ( queue_rc == QUEUE_RC_SUCCESS )
     {
-        //  Lookup the Message-Queue-ID
+        //  Lookup the Queue-ID
         void_p = QUEUE__get_payload( queue_id );
     }
 
@@ -503,13 +503,12 @@ queue_get_payload(
      *  Log the results
      ************************************************************************/
 
-    //  Was the message successfully pulled from the queue ?
+    //  Was the payload successfully pulled from the queue ?
     if ( void_p != NULL )
     {
         //  YES:    Log the name and port number
         log_write( MID_DEBUG_0, "queue_get_payload",
-                      "Successfully pulled message (%p) from messaging "
-                      "queue %04d.\n",
+                      "Successfully pulled payload (%p) from Queue-ID %04d.\n",
                       void_p, queue_id );
     }
     else

@@ -77,84 +77,6 @@
 
 /****************************************************************************/
 /**
- *  Send a signal that there is a new message for 'queue_id'.
- *
- *  @param  queue_cb_p      Pointer to a message queue control block
- *
- *  @return void
- *
- *  @note
- *
- ****************************************************************************/
-
-void
-QUEUE__send_signal(
-    struct  queue_cb_t          *   queue_cb_p
-    )
-{
-
-    /************************************************************************
-     *  Function Initialization
-     ************************************************************************/
-
-
-    /************************************************************************
-     *  Wake-up a thread for the new message.
-     ************************************************************************/
-
-    // Signal the job queue thread that something new is on the queue.
-    pthread_cond_signal(  &queue_cb_p->queue_signal );
-
-    /************************************************************************
-     *  Function Exit
-     ************************************************************************/
-
-}
-
-/****************************************************************************/
-/**
- *  Wait for a signal indicating there is a new message for 'queue_id'.
- *
- *  @param  queue_cb_p          Pointer to a message queue control block
- *
- *  @return void
- *
- *  @note
- *
- ****************************************************************************/
-
-#define QUEUE_ALT_METHOD          ( 1 )
-void
-QUEUE__wait_signal(
-    struct  queue_cb_t          *   queue_cb_p
-    )
-{
-
-    /************************************************************************
-     *  Function Initialization
-     ************************************************************************/
-
-    //  Change the queue state to waiting.
-    queue_cb_p->msg_queue_state = MSGQSTATE_RCV_WAITING;
-
-    /************************************************************************
-     *  Wait for a new message
-     ************************************************************************/
-
-    // Wait for a signal that there is a new message in the queue.
-    pthread_cond_wait(    &queue_cb_p->queue_signal,
-                          &queue_cb_p->queue_lock );
-
-    /************************************************************************
-     *  Function Exit
-     ************************************************************************/
-
-    //  Change the queue state to waiting.
-    queue_cb_p->msg_queue_state = MSGQSTATE_IDLE;
-}
-
-/****************************************************************************/
-/**
  *  Verify that the queue name string meets all requirements for a valid
  *  queue name.
  *
@@ -183,7 +105,7 @@ QUEUE__verify_queue_name(
     queue_rc = QUEUE_RC_SUCCESS;
 
     /************************************************************************
-     *  Validate the Message-Queue-Name
+     *  Validate the Queue-Name
      ************************************************************************/
 
     //  Should we continue ?
@@ -212,8 +134,8 @@ QUEUE__verify_queue_name(
  *  @param  queue_name_p    Pointer to an ASCII string containing the name
  *                          of the queue to search for.
  *
- *  @return queue_rc        The message queue ID number when greater then
- *                          zero. When less then zero see queue_rc_e for a
+ *  @return queue_rc        The Queue-ID number when greater then zero.
+ *                          When less then zero see queue_rc_e for a
  *                          list of failure codes.
  *
  *  @note
@@ -226,10 +148,10 @@ QUEUE__find_queue_name(
     )
 {
     /**
-     *  @param  queue_id        The message queue ID number (handle)        */
+     *  @param  queue_id        The payload Queue-ID number (handle)        */
     int                             queue_id;
     /**
-     *  @param  queue_cb_p      Pointer to a message queue control block    */
+     *  @param  queue_cb_p      Pointer to a queue control block            */
     struct  queue_cb_t          *   queue_cb_p;
     /**
      *  @param  access_key      Performance access key for a list           */
@@ -254,7 +176,7 @@ QUEUE__find_queue_name(
               "%-8s", queue_name_p );
 
     /************************************************************************
-     *  Locate the queue name in the list of message queues.
+     *  Locate the queue name in the list of queues.
      ************************************************************************/
 
     //  Should we continue ?
@@ -289,7 +211,7 @@ QUEUE__find_queue_name(
     }
     else
     {
-        //  YES:    Return the Queue ID.
+        //  YES:    Return the Queue-ID.
         queue_id = queue_cb_p->queue_id;
     }
 
@@ -309,9 +231,9 @@ QUEUE__find_queue_name(
  *  Create a new queue and add it to the queue name base list.
  *
  *  @param  queue_name_p    Pointer to an ASCII string containing the name
- *                          that will be assigned to the new message queue.
+ *                          that will be assigned to the new queue.
  *
- *  @return queue_rc        The message queue ID number when greater then
+ *  @return queue_rc        The Queue-ID number when greater then
  *                          zero. When less then zero see queue_rc_e for a
  *                          list of failure codes.
  *
@@ -321,14 +243,15 @@ QUEUE__find_queue_name(
 
 int
 QUEUE__new(
-    char                        *   queue_name_p
+    char                        *   queue_name_p,
+    int                             queue_depth
     )
 {
     /**
      *  @param  queue_rc        Return_code                                 */
     int                             queue_rc;
     /**
-     *  @param  queue_cb_p      Pointer to a message queue control block    */
+     *  @param  queue_cb_p      Pointer to a queue control block            */
     struct  queue_cb_t          *   queue_cb_p;
     /**
      *  @param  access_key      Lock key for a list                         */
@@ -375,14 +298,29 @@ QUEUE__new(
         strncpy( queue_cb_p->queue_name, queue_name,
                  sizeof( queue_cb_p->queue_name ) );
 
-        //  Initialize pthread stuff.
-        pthread_mutex_init( &queue_cb_p->queue_lock,   0 );
-        pthread_cond_init(  &queue_cb_p->queue_signal, 0 );
+        //  Initialize DeQueue pthread stuff.
+        pthread_mutex_init( &queue_cb_p->dequeue_lock,   0 );
+        pthread_cond_init(  &queue_cb_p->dequeue_signal, 0 );
+
+        //  Initialize EnQueue pthread stuff.
+        pthread_mutex_init( &queue_cb_p->enqueue_lock,   0 );
+        pthread_cond_init(  &queue_cb_p->enqueue_signal, 0 );
+
+        //  Change the queue state to ILDE.
+        queue_cb_p->msg_dequeue_state = MSGQSTATE_IDLE;
+        queue_cb_p->msg_enqueue_state = MSGQSTATE_IDLE;
+
+        //  Log the state change
+        log_write( MID_INFO, "QUEUE__new",
+                      "MSGQSTATE_IDLE\n" );
+
+        //  Set the maximum queue depth
+        queue_cb_p->queue_depth = queue_depth;
 
         //  There isn't anything on the queue yet.
         queue_cb_p->queue_state.queue_msg_count = 0;
 
-        //  Set the Queue ID number.
+        //  Set the Queue-ID number.
         queue_cb_p->queue_id = ++last_used_queue_id;
     }
 
@@ -411,7 +349,7 @@ QUEUE__new(
     //  Was the new queue successfully created ?
     if ( queue_rc == QUEUE_RC_SUCCESS )
     {
-        //  YES:    Set the Queue ID as the return code.
+        //  YES:    Set the Queue-ID as the return code.
         queue_rc = queue_cb_p->queue_id;
     }
 
@@ -424,10 +362,9 @@ QUEUE__new(
 
 /****************************************************************************/
 /**
- *  Return a pointer to the Message Queue base structure for the Message
- *  Queue-ID
+ *  Return a pointer to the Queue base structure for the Queue-ID
  *
- *  @param  queue_id        A message queue ID number (handle)
+ *  @param  queue_id        A Queue-ID number (handle)
  *
  *  @return queue_rc        See queue_rc_e for a list of return codes.
  *
@@ -444,7 +381,7 @@ QUEUE__find_queue_cb(
      *  @param  queue_rc        Return code                                 */
     enum    queue_rc_e              queue_rc;
     /**
-     *  @param  queue_cb_p      Pointer to a message queue control block    */
+     *  @param  queue_cb_p      Pointer to a queue control block    */
     struct  queue_cb_t          *   queue_cb_p;
     /**
      *  @param  access_key      Lock key for a list                         */
@@ -461,7 +398,7 @@ QUEUE__find_queue_cb(
     access_key = list_user_lock( queue_name_id_base_p );
 
     /************************************************************************
-     *  Locate the queue name in the list of message queues.
+     *  Locate the queue name in the list of queues.
      ************************************************************************/
 
     //  Should we continue ?
@@ -470,7 +407,7 @@ QUEUE__find_queue_cb(
         //  Not entirely sure why this is here (Empty queue ? )
         queue_cb_p = list_fget_first( queue_name_id_base_p, access_key );
 
-        //  Loop through all message queues.
+        //  Loop through all queues.
         for ( queue_cb_p = list_fget_first( queue_name_id_base_p, access_key );
               queue_cb_p != NULL;
               queue_cb_p = list_fget_next( queue_name_id_base_p,
@@ -499,11 +436,11 @@ QUEUE__find_queue_cb(
 
 /****************************************************************************/
 /**
- *  Return the number of messages on the messaging queue.
+ *  Return the number of payloads on the queue.
  *
- *  @param  queue_id        A message queue ID number (handle)
+ *  @param  queue_id        A Queue-ID number (handle)
  *
- *  @return queue_msg_count The number of messages on the messaging queue.
+ *  @return queue_msg_count The number of payloads on the queue.
  *
  *  @note
  *
@@ -516,7 +453,7 @@ QUEUE__get_count(
 {
     enum    queue_rc_e              queue_rc;
     /**
-     *  @param  queue_cb_p      Pointer to a message queue control block    */
+     *  @param  queue_cb_p      Pointer to a queue control block    */
     struct  queue_cb_t          *   queue_cb_p;
 
     /************************************************************************
@@ -557,10 +494,10 @@ QUEUE__get_count(
 
 /****************************************************************************/
 /**
- *  Put a message on the message queue.
+ *  Put a payload on the queue.
  *
- *  @param  queue_id        A message queue ID number (handle)
- *  @param  message_p       Pointer to the message that goes into the queue.
+ *  @param  queue_id        A Queue-ID number (handle)
+ *  @param  payload_p       Pointer to the payload that goes into the queue.
  *
  *  @return queue_rc        See queue_rc_e for a list of return codes.
  *
@@ -576,7 +513,7 @@ QUEUE__put_payload(
 {
     int                             queue_rc;
     /**
-     *  @param  queue_cb_p      Pointer to a message queue control block    */
+     *  @param  queue_cb_p      Pointer to a queue control block    */
     struct  queue_cb_t          *   queue_cb_p;
 
     /************************************************************************
@@ -614,32 +551,62 @@ QUEUE__put_payload(
     //  Should we continue ?
     if ( queue_rc == true )
     {
-        //  Lock the queue to this thread.
-        pthread_mutex_lock( &queue_cb_p->queue_lock );
+        //  YES:    Is the queue full ?
+        if ( queue_cb_p->queue_state.queue_msg_count >= queue_cb_p->queue_depth )
+        {
+            //  YES:    Lock the EnQueue side of the Queue-ID.
+            pthread_mutex_lock( &queue_cb_p->enqueue_lock );
+
+            //  Set the waiting flag so DeQueue can wake us up
+            queue_cb_p->msg_enqueue_state = MSGQSTATE_ENQUEUE_BLOCK;
+
+            //  Log the state change
+            log_write( MID_INFO, "QUEUE__put_payload",
+                          "MSGQSTATE_ENQUEUE_BLOCK [COUNT-%d]\n",
+                          queue_cb_p->queue_state.queue_msg_count );
+
+            // Wait for a signal that there is a new payload in the queue.
+            pthread_cond_wait( &queue_cb_p->enqueue_signal,
+                               &queue_cb_p->enqueue_lock );
+
+            //  Change the EnQueue state to idle.
+            queue_cb_p->msg_enqueue_state = MSGQSTATE_IDLE;
+
+            //  Log the state change
+            log_write( MID_INFO, "QUEUE__put_payload",
+                          "MSGQSTATE_DEQUEUE_BLOCK [COUNT-%d]\n",
+                          queue_cb_p->queue_state.queue_msg_count );
+        }
 
         //  Append the new payload to the end of the queue
         queue_rc = list_put_last( queue_cb_p->queue_base_p, void_p );
 
-        //  Decrement the number of messages in the queue.
+        //  Increment the number of payloads in the queue.
         queue_cb_p->queue_state.queue_msg_count += 1;
+
+        //  Unlock the EnQueue side of the queue.
+        pthread_mutex_unlock( &queue_cb_p->enqueue_lock );
     }
 
     /************************************************************************
-     *  Signal the receive thread there is a new message
+     *  Signal the receive thread there is a new payload
      ************************************************************************/
 
     //  Should we continue ?
     if ( queue_rc == true )
     {
-        //  Is the receive thread waiting for another payload ?
-        if ( queue_cb_p->msg_queue_state == MSGQSTATE_RCV_WAITING )
+        //  YES:    Is the receive thread waiting for another payload ?
+        if ( queue_cb_p->msg_dequeue_state == MSGQSTATE_DEQUEUE_BLOCK )
         {
-            //  YES:    Send it a signal.
-            QUEUE__send_signal( queue_cb_p );
-        }
+            //  YES:    Lock the DeQueue side of the Queue-ID.
+            pthread_mutex_lock( &queue_cb_p->dequeue_lock );
 
-        //  Release the queue lock.
-        pthread_mutex_unlock( &queue_cb_p->queue_lock );
+            //  Wake up the DeQueue side.
+            pthread_cond_signal(  &queue_cb_p->dequeue_signal );
+
+            //  Release the queue lock.
+            pthread_mutex_unlock( &queue_cb_p->dequeue_lock );
+        }
     }
 
     /************************************************************************
@@ -652,11 +619,11 @@ QUEUE__put_payload(
 
 /****************************************************************************/
 /**
- *  Get the next message from a queue.
+ *  Get the next payload from a queue.
  *
- *  @param  queue_id        A message queue ID number (handle)
+ *  @param  queue_id        A Queue-ID number (handle)
  *
- *  @return message_p       A pointer to a message payload.
+ *  @return payload_p       A pointer to a payload.
  *
  *  @note
  *
@@ -671,7 +638,7 @@ QUEUE__get_payload(
      *  @param  queue_rc        Return code                                 */
     enum    queue_rc_e              queue_rc;
     /**
-     *  @param  queue_cb_p      Pointer to a message queue control block    */
+     *  @param  queue_cb_p      Pointer to a queue control block    */
     struct  queue_cb_t          *   queue_cb_p;
     /**
      *  @param  void_p          Pointer to the return information           */
@@ -709,40 +676,70 @@ QUEUE__get_payload(
     }
 
     /************************************************************************
-     *  Get the next message from the queue
+     *  Get the next payload from the queue
      ************************************************************************/
 
     //  Should we continue ?
     if ( queue_rc == QUEUE_RC_SUCCESS )
     {
-        //  Lock the queue to this thread.
-        pthread_mutex_lock( &queue_cb_p->queue_lock );
-
         //  Is there anything on in the queue ?
         if ( queue_cb_p->queue_state.queue_msg_count == 0 )
         {
-            //  NO:     Wait for something to get.
-            QUEUE__wait_signal( queue_cb_p );
+            //  NO:     Lock the DeQueue side of the Queue-ID.
+            pthread_mutex_lock( &queue_cb_p->dequeue_lock );
+
+            //  Change the queue state to waiting.
+            queue_cb_p->msg_dequeue_state = MSGQSTATE_DEQUEUE_BLOCK;
+
+            //  Log the state change
+            log_write( MID_INFO, "QUEUE__get_payload",
+                          "MSGQSTATE_DEQUEUE_BLOCK [COUNT-%d]\n",
+                          queue_cb_p->queue_state.queue_msg_count );
+
+            // Wait for a signal that there is a new payload in the queue.
+            pthread_cond_wait( &queue_cb_p->dequeue_signal,
+                               &queue_cb_p->dequeue_lock );
+
+            //  Change the queue state to waiting.
+            queue_cb_p->msg_dequeue_state = MSGQSTATE_IDLE;
+
+            //  Log the state change
+            log_write( MID_INFO, "QUEUE__get_payload",
+                          "MSGQSTATE_IDLE [COUNT-%d]\n",
+                          queue_cb_p->queue_state.queue_msg_count );
+
+            //  Release the DeQueue lock.
+            pthread_mutex_unlock( &queue_cb_p->dequeue_lock );
         }
 
         //  There had better be something there now.  Get it.
         void_p = list_get_first( queue_cb_p->queue_base_p );
 
-        //  Delete the payload from the message queue.
+        //  Delete the payload from the queue.
         my_list_delete( queue_cb_p->queue_base_p, void_p );
 
-        //  Decrement the number of messages in the queue.
+        //  Decrement the number of payloads in the queue.
         queue_cb_p->queue_state.queue_msg_count -= 1;
 
-        //  Release the queue lock.
-        pthread_mutex_unlock( &queue_cb_p->queue_lock );
+        //  Is the EnQueue side waiting ?
+        if ( queue_cb_p->msg_enqueue_state == MSGQSTATE_ENQUEUE_BLOCK )
+        {
+            //  YES:    Lock the EnQueue side of the Queue-ID.
+            pthread_mutex_lock( &queue_cb_p->enqueue_lock );
+
+            //  YES:    Wake up the EnQueue side.
+            pthread_cond_signal( &queue_cb_p->enqueue_signal );
+
+            //  Release the EnQueue lock.
+            pthread_mutex_unlock( &queue_cb_p->enqueue_lock );
+        }
     }
 
     /************************************************************************
      *  Function Exit
      ************************************************************************/
 
-    //  Return the message pointer.
+    //  Return the payload pointer.
     return( void_p );
 }
 

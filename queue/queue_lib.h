@@ -57,7 +57,8 @@ enum    msg_queue_state_e
 {
     MSGQSTATE_UNINITIALIZED     =   0,
     MSGQSTATE_IDLE              =   1,
-    MSGQSTATE_RCV_WAITING       =   2
+    MSGQSTATE_DEQUEUE_BLOCK     =   2,
+    MSGQSTATE_ENQUEUE_BLOCK     =   3
 };
 //----------------------------------------------------------------------------
 
@@ -68,16 +69,29 @@ enum    msg_queue_state_e
 //----------------------------------------------------------------------------
 struct  queue_cb_t
 {
-    pthread_mutex_t                 queue_lock;
-    pthread_cond_t                  queue_signal;
+    /**
+     *  @param  dequeue_*       DeQueue wait and resume                     */
+    pthread_mutex_t                 dequeue_lock;
+    pthread_cond_t                  dequeue_signal;
+    /**
+     *  @param  enqueue_*       EnQueue wait and resume                     */
+    pthread_mutex_t                 enqueue_lock;
+    pthread_cond_t                  enqueue_signal;
 
     struct  list_base_t         *   queue_base_p;
-
-    enum    msg_queue_state_e       msg_queue_state;
+    /**
+     *  @param  msg_dequeue_state                                           */
+    enum    msg_queue_state_e       msg_dequeue_state;
+    /**
+     *  @param  msg_enqueue_state                                           */
+    enum    msg_queue_state_e       msg_enqueue_state;
 
     struct  queue_state_t           queue_state;
     /**
-     *  @param  queue_id        A message queue ID number (handle)          */
+     *  @param  queue_depth     MAX number of payloads                      */
+    int                             queue_depth;
+    /**
+     *  @param  queue_id        A message Queue-ID number (handle)          */
     int                             queue_id;
 
     char                            queue_name[ QUEUE_NAME_L + 1 ];
@@ -113,7 +127,8 @@ QUEUE__find_queue_name(
 //----------------------------------------------------------------------------
 int
 QUEUE__new(
-    char                        *   queue_name_p
+    char                        *   queue_name_p,
+    int                             queue_depth
     );
 //----------------------------------------------------------------------------
 int
