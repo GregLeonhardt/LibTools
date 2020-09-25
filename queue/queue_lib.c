@@ -311,7 +311,7 @@ QUEUE__new(
         queue_cb_p->msg_enqueue_state = MSGQSTATE_IDLE;
 
         //  Log the state change
-        log_write( MID_INFO, "QUEUE__new",
+        log_write( MID_DEBUG_0, "QUEUE__new",
                       "MSGQSTATE_IDLE\n" );
 
         //  Set the maximum queue depth
@@ -334,7 +334,7 @@ QUEUE__new(
         //  Create the new queue base
         queue_cb_p->queue_base_p = list_new( );
 
-        log_write( MID_INFO, "QUEUE__new",
+        log_write( MID_DEBUG_0, "QUEUE__new",
                       "Allocate a new list structure 'queue_cb_p->queue_base_p' [%p].\n",
                       queue_cb_p->queue_base_p );
 
@@ -561,8 +561,9 @@ QUEUE__put_payload(
             queue_cb_p->msg_enqueue_state = MSGQSTATE_ENQUEUE_BLOCK;
 
             //  Log the state change
-            log_write( MID_INFO, "QUEUE__put_payload",
-                          "MSGQSTATE_ENQUEUE_BLOCK [COUNT-%d]\n",
+            log_write( MID_DEBUG_0, "QUEUE__put_payload",
+                          "[ %03d ] Thread block [DEPTH = %d]\n",
+                          queue_id,
                           queue_cb_p->queue_state.queue_msg_count );
 
             // Wait for a signal that there is a new payload in the queue.
@@ -573,8 +574,9 @@ QUEUE__put_payload(
             queue_cb_p->msg_enqueue_state = MSGQSTATE_IDLE;
 
             //  Log the state change
-            log_write( MID_INFO, "QUEUE__put_payload",
-                          "MSGQSTATE_DEQUEUE_BLOCK [COUNT-%d]\n",
+            log_write( MID_DEBUG_0, "QUEUE__put_payload",
+                          "[ %03d ] Thread resume [DEPTH = %d]\n",
+                          queue_id,
                           queue_cb_p->queue_state.queue_msg_count );
         }
 
@@ -692,8 +694,9 @@ QUEUE__get_payload(
             queue_cb_p->msg_dequeue_state = MSGQSTATE_DEQUEUE_BLOCK;
 
             //  Log the state change
-            log_write( MID_INFO, "QUEUE__get_payload",
-                          "MSGQSTATE_DEQUEUE_BLOCK [COUNT-%d]\n",
+            log_write( MID_DEBUG_0, "QUEUE__get_payload",
+                          "[ %03d ] Thread block [DEPTH = %d]\n",
+                          queue_id,
                           queue_cb_p->queue_state.queue_msg_count );
 
             // Wait for a signal that there is a new payload in the queue.
@@ -704,8 +707,9 @@ QUEUE__get_payload(
             queue_cb_p->msg_dequeue_state = MSGQSTATE_IDLE;
 
             //  Log the state change
-            log_write( MID_INFO, "QUEUE__get_payload",
-                          "MSGQSTATE_IDLE [COUNT-%d]\n",
+            log_write( MID_DEBUG_0, "QUEUE__get_payload",
+                          "[ %03d ] Thread resume [DEPTH = %d]\n",
+                          queue_id,
                           queue_cb_p->queue_state.queue_msg_count );
 
             //  Release the DeQueue lock.
