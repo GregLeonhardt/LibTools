@@ -1,32 +1,24 @@
 LibTools is a library of functions I found myself creating and copying over and over.  I finally decided to put them all into a single static library and elimate the redundancy.  Then I got carried off with the whole library thing and started dumping everything that might some day be usefull in another project.
 
-# base64_encode
-# base64_decode
 Base64 is a text-to-binary and binary-to-text encoding/decoding scheme that represent binary data (more specifically, a sequence of 8-bit bytes) in an ASCII string format by translating the data into a radix-64 representation.
+ 1. base64_encode
+ 1. base64_decode
 
-# file_open_read
 
-# file_open_write
+ * file_open_read
+ * file_open_write
+ * file_open_write_no_dup
+ * file_open_append
+ * file_close
+ * file_read_text
+ * file_read_data
+ * file_stat
+ * file_ls
+ * file_path_to_lib
+ * file_unzip
+ * file_dir_exist
 
-# file_open_write_no_dup
 
-# file_open_append
-
-# file_close
-
-# file_read_text
-
-# file_read_data
-
-# file_stat
-
-# file_ls
-
-# file_path_to_lib
-
-# file_unzip
-
-# file_dir_exist
 
 # html2txt
 
