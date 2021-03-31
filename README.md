@@ -109,6 +109,8 @@ Again, not much more then a wrapper around the posix threading tools.  The tools
  * thread_flow_init
  * thread_resume
  * thread_wait
+
+Some time ago I was in need of a token manager and this is what came out of it.  I can't say it has been of much use since then.
  * token_init
  * token_get
  * token_free
