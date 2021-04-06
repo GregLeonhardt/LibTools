@@ -757,20 +757,12 @@ text_title_case(
         if( first_word != true )
         {
             //  NO:     Should this word be changed to Title Case ?
-            if(    ( strncmp( &in_string_p[ in_ndx ], "A ", 2 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "a ", 2 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "In ", 3 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "IN ", 3 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "in ", 3 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "Or ", 3 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "OR ", 3 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "or ", 3 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "The ", 4 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "THE ", 4 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "the ", 4 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "And ", 4 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "AND ", 4 ) == 0 )
-                || ( strncmp( &in_string_p[ in_ndx ], "and ", 4 ) == 0 ) )
+            if(    ( strncasecmp( &in_string_p[ in_ndx ], "A ",    2 ) == 0 )
+                || ( strncasecmp( &in_string_p[ in_ndx ], "IN ",   3 ) == 0 )
+                || ( strncasecmp( &in_string_p[ in_ndx ], "OR ",   3 ) == 0 )
+                || ( strncasecmp( &in_string_p[ in_ndx ], "THE ",  4 ) == 0 )
+                || ( strncasecmp( &in_string_p[ in_ndx ], "AND ",  4 ) == 0 )
+                || ( strncasecmp( &in_string_p[ in_ndx ], "WITH ", 5 ) == 0 ) )
             {
                 //  NO:     Set the flag off
                 first_character = false;
