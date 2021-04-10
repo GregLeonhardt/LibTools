@@ -1,2 +1,7 @@
-/build/
-/dist/
+#   NetBeans project folders
+nbproject/
+
+#   Compiler generated files
+*.o
+*.d
+*.a

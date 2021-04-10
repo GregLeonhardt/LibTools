@@ -1170,11 +1170,14 @@ file_path_to_lib(
  *
  ****************************************************************************/
 
-void
+int
 file_unzip(
     char                        *   path_p
     )
 {
+    /**
+     *  @param  unzip_count     Number of files UnZipped                    */
+    int                             unzip_count;
     /**
      *  @param  found_zip       Flag showing a "*.zip" file was found.      */
     int                             found_zip;
@@ -1201,11 +1204,14 @@ file_unzip(
     char                            extention[ 10 ];
 
     /************************************************************************
-     *  Function Exit
+     *  Function Initialization
      ************************************************************************/
 
     //  Create the file-list
     file_list_p = list_new( );
+
+    //  Reset the number of unzipped files.
+    unzip_count = 0;
 
     /************************************************************************
      *  Function
@@ -1290,6 +1296,9 @@ file_unzip(
 
                         //  Change the flag, we extracted a "*.zip" file
                         found_zip = true;
+
+                        //  Increment the number of files unzipped
+                        unzip_count += 1;
                     }
                 }
             }
@@ -1308,6 +1317,7 @@ file_unzip(
     list_kill( file_list_p );
 
     //  DONE!
+    return( unzip_count );
 }
 
 /****************************************************************************/
