@@ -463,6 +463,43 @@ text_is_blank_line(
 
 /****************************************************************************/
 /**
+ *  Test the line of text ALL printable characters.
+ *
+ *  @param  line_of_text_p  Pointer to the data string.
+ *
+ *  @return                     TRUE  = ALL printable characters
+ *                              FALSE = Non printable characters found
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+int
+text_is_printable(
+    char                        *   line_of_text_p
+    )
+{
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Function
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  Call the internal function
+    return( TEXT__is_printable( line_of_text_p ) );
+}
+
+/****************************************************************************/
+/**
  *  The get_cmd_line_parm will scan the list of command line parameters
  *  for one matching the search string.  When it is located, a pointer to
  *  the next string is returned.  If the string is not located NULL is

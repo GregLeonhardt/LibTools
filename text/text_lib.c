@@ -280,3 +280,62 @@ TEXT__is_blank_line(
 }
 
 /****************************************************************************/
+/**
+ *  Test the line of text ALL printable characters.
+ *
+ *  @param  line_of_text_p      Pointer to the data string.
+ *
+ *  @return                     TRUE  = ALL printable characters
+ *                              FALSE = Non printable characters found
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+int
+TEXT__is_printable(
+    char                        *   line_of_text_p
+    )
+{
+    int                             text_rc;
+    int                             char_ndx;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Assume this is a blank line.
+    text_rc = true;
+
+    /************************************************************************
+     *  Test the line of text for a zero length or only whitespace characters.
+     ************************************************************************/
+
+    //  Is the text buffer empty ?
+    if ( strlen( line_of_text_p ) > 0 )
+    {
+        //  NO:     Scan the text buffer for anything other then whitespace.
+        for ( char_ndx = 0;
+              char_ndx < strlen( line_of_text_p );
+              char_ndx ++ )
+        {
+            //  Is this character something other then a printable character ?
+            if ( isprint( line_of_text_p[ char_ndx ] ) == 0 )
+            {
+                //  YES:    Change the return code.
+                text_rc = false;
+
+                //  We are done here.
+                break;
+            }
+        }
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( text_rc );
+}
+/****************************************************************************/

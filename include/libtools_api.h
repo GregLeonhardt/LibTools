@@ -710,6 +710,11 @@ text_is_blank_line(
     char                        *   line_of_text_p
     );
 //---------------------------------------------------------------------------
+int
+text_is_printable(
+    char                        *   line_of_text_p
+    );
+//---------------------------------------------------------------------------
 char *
 get_cmd_line_parm(
     int                             argc,
