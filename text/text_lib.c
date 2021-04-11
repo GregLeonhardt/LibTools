@@ -320,7 +320,8 @@ TEXT__is_printable(
               char_ndx ++ )
         {
             //  Is this character something other then a printable character ?
-            if ( isprint( line_of_text_p[ char_ndx ] ) == 0 )
+            if (    ( isprint( line_of_text_p[ char_ndx ] ) == 0 )
+                 && ( isblank( line_of_text_p[ char_ndx ] ) == 0 ) )
             {
                 //  YES:    Change the return code.
                 text_rc = false;
