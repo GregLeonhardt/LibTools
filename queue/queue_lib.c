@@ -552,7 +552,8 @@ QUEUE__put_payload(
     if ( queue_rc == true )
     {
         //  YES:    Is the queue full ?
-        if ( queue_cb_p->queue_state.queue_msg_count >= queue_cb_p->queue_depth )
+        if (    ( queue_cb_p->queue_depth != 0 )
+             && ( queue_cb_p->queue_state.queue_msg_count >= queue_cb_p->queue_depth ) )
         {
             //  YES:    Lock the EnQueue side of the Queue-ID.
             pthread_mutex_lock( &queue_cb_p->enqueue_lock );
