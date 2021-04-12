@@ -463,20 +463,21 @@ text_is_blank_line(
 
 /****************************************************************************/
 /**
- *  Test the line of text ALL printable characters.
+ *  Test for binary data.
  *
- *  @param  line_of_text_p  Pointer to the data string.
+ *  @param  line_of_text_p      Pointer to the data string.
  *
- *  @return                     TRUE  = ALL printable characters
- *                              FALSE = Non printable characters found
+ *  @return                     TRUE  = if binary data
+ *                              FALSE = if text data
  *
  *  @note
  *
  ****************************************************************************/
 
 int
-text_is_printable(
-    char                        *   line_of_text_p
+text_is_binary(
+    char                    *   data_p,
+    int                         data_l
     )
 {
 
@@ -495,7 +496,7 @@ text_is_printable(
      ************************************************************************/
 
     //  Call the internal function
-    return( TEXT__is_printable( line_of_text_p ) );
+    return( TEXT__is_binary( data_p, data_l ) );
 }
 
 /****************************************************************************/

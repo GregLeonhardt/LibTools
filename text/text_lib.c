@@ -281,53 +281,65 @@ TEXT__is_blank_line(
 
 /****************************************************************************/
 /**
- *  Test the line of text ALL printable characters.
+ *  Test for binary data.
  *
  *  @param  line_of_text_p      Pointer to the data string.
  *
- *  @return                     TRUE  = ALL printable characters
- *                              FALSE = Non printable characters found
+ *  @return                     TRUE  = if binary data
+ *                              FALSE = if text data
  *
  *  @note
  *
  ****************************************************************************/
 
 int
-TEXT__is_printable(
-    char                        *   line_of_text_p
+TEXT__is_binary(
+    char                    *   data_p,
+    int                         data_l
     )
 {
-    int                             text_rc;
-    int                             char_ndx;
+    /**
+     *  @param  text_rc         Return Code                                 */
+    int                         text_rc;
+    /**
+     *  @param  char_ndx        Index into data buffer                      */
+    int                         char_ndx;
 
     /************************************************************************
      *  Function Initialization
      ************************************************************************/
 
-    //  Assume this is a blank line.
-    text_rc = true;
+    //   The assumption is that this is NOT binary
+    text_rc = false;
 
     /************************************************************************
-     *  Test the line of text for a zero length or only whitespace characters.
+     *  How many printable characters in the data
      ************************************************************************/
 
     //  Is the text buffer empty ?
-    if ( strlen( line_of_text_p ) > 0 )
+    if ( data_l > 0 )
     {
-        //  NO:     Scan the text buffer for anything other then whitespace.
+        //  NO:     Scan the text buffer for binary data.
         for ( char_ndx = 0;
-              char_ndx < strlen( line_of_text_p );
+              char_ndx < data_l;
               char_ndx ++ )
         {
-            //  Is this character something other then a printable character ?
-            if (    ( isprint( line_of_text_p[ char_ndx ] ) == 0 )
-                 && ( isblank( line_of_text_p[ char_ndx ] ) == 0 ) )
+            //  Is this character NOT a printable character ?
+            if (    ( isprint( data_p[ char_ndx ] ) == 0 )
+                 && ( isblank( data_p[ char_ndx ] ) == 0 ) )
             {
-                //  YES:    Change the return code.
-                text_rc = false;
+                //  NO:     Is it x'00 ?
+                if( data_p[ char_ndx ] == 0x00 )
+                {
+                    //  YES:    Then it's binary
+                    text_rc = true;
 
-                //  We are done here.
-                break;
+                    //  We can stop looking
+                    break;
+                }
+
+                //  Not binary and not printable, make it a space.
+                data_p[ char_ndx ] = ' ';
             }
         }
     }
