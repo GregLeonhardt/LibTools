@@ -1,5 +1,6 @@
 #   NetBeans project folders
 nbproject/
+.vscode/
 
 #   Compiler generated files
 *.o
