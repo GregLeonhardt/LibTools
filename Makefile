@@ -2,7 +2,7 @@
 # Compiler settings
 CC = gcc
 RM = rm
-CFLAGS = -Iinclude -DDEBUG -w -g -MMD
+CFLAGS = -Iinclude -DDEBUG -Wall -g -MMD
 
 ########################################################################
 # Makefile settings
