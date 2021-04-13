@@ -25,6 +25,10 @@ $(LIBNAME): $(OBJ)
 -include $(DEP)
 
 ########################################################################
+# Cleans everything
+cleanall:   clean   cleandep
+
+########################################################################
 # Cleans object and library file(s)
 clean:
 	@echo "CLEAN:"
