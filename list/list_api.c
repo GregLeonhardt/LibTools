@@ -98,7 +98,7 @@ struct  log_file_t
  ****************************************************************************/
 
 //----------------------------------------------------------------------------
-    pthread_mutex_t                 thread_lock;
+    pthread_mutex_t                 list_thread_lock;
 //----------------------------------------------------------------------------
 
 /****************************************************************************
@@ -534,7 +534,7 @@ list_put_last(
  ****************************************************************************/
 
 int
-list_delete(
+list_delete_payload(
     struct  list_base_t         *   list_base_p,
     void                        *   payload_p
     )
@@ -1175,7 +1175,7 @@ list_fdelete(
             }
 
             //  Delete the current bucket.
-#if 0       //  @ToDo   20171024    Decide how to do this
+#if 0       //  @ToDo: L1 Decide how to do this
             list_rc = LIST__delete( list_base_p, payload_p );
 #else
             list_rc = LIST__delete( list_base_p,

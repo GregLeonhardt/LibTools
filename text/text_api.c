@@ -318,6 +318,55 @@ text_to_int(
 
 /****************************************************************************/
 /**
+ *  Convert a text string to a long integer.
+ *
+ *  @param  text_p              Pointer to the data string.
+ *
+ *  @return integer
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+long
+text_to_long(
+    char                        *   text_p
+    )
+{
+    long                            integer;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Convert a text string to an integer
+     ************************************************************************/
+
+    //  Does the text string start with '0x' ?
+    if(    ( toupper( text_p[ 0 ] ) == '0' )
+        && ( toupper( text_p[ 1 ] ) == 'X' ) )
+    {
+        //  YES:    Convert a hex string.
+        integer = text_atox( &text_p[ 2 ] );
+    }
+    else
+    {
+        //  NO:     Do a straight conversion
+        integer = atol( text_p );
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( integer );
+}
+
+/****************************************************************************/
+/**
  *  Skip over leading whitespace
  *
  *  @param  line_of_text_p      Pointer to the data string.

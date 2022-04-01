@@ -639,7 +639,7 @@ LIST__put_last(
  *                              to the link list, else FALSE.
  *
  *  @note
- *      @ToDo   20171014    Both list_delete and list_fdelete use this
+ *      @ToDo: L1 Both list_delete and list_fdelete use this
  *              function.  However list_fdel already has a pointer to the
  *              bucket that needs to be deleted so it is wasting time by
  *              search for it.  Take the search code and move it to

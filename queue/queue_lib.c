@@ -721,7 +721,7 @@ QUEUE__get_payload(
         void_p = list_get_first( queue_cb_p->queue_base_p );
 
         //  Delete the payload from the queue.
-        list_delete( queue_cb_p->queue_base_p, void_p );
+        list_delete_payload( queue_cb_p->queue_base_p, void_p );
 
         //  Decrement the number of payloads in the queue.
         queue_cb_p->queue_state.queue_msg_count -= 1;

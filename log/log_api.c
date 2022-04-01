@@ -65,13 +65,18 @@
  ****************************************************************************/
 
 //----------------------------------------------------------------------------
-#define LOG_EVERYTHING  (  MID_FATAL | MID_WARNING | MID_INFO               \
-                         | MID_DEBUG_3 | MID_DEBUG_2 | MID_DEBUG_1 | MID_DEBUG_0 )
-#define LOG_MEM_LEAK    (  MID_FATAL | MID_WARNING | MID_INFO               \
+#define LOG_EVERYTHING  (  MID_FATAL | MID_WARNING | MID_INFO \
+                         | MID_TEMPORARY  | MID_DEBUG_3 | MID_DEBUG_2\
+                         | MID_DEBUG_1 | MID_DEBUG_0 )
+#define LOG_MEM_LEAK    (  MID_FATAL | MID_WARNING | MID_INFO | MID_TEMPORARY \
                          | MID_DEBUG_2 | MID_DEBUG_1 | MID_DEBUG_0 )
 //  The following two are meant to be the default log masks
-#define LOG_DISPLAY     (  MID_FATAL | MID_WARNING | MID_INFO )
-#define LOG_PRINT       (  MID_FATAL | MID_WARNING | MID_INFO | MID_LOGONLY )
+#define LOG_DISPLAY     (  MID_FATAL | MID_WARNING | MID_INFO | MID_TEMPORARY )
+#define LOG_PRINT       (  MID_FATAL | MID_WARNING | MID_INFO | MID_TEMPORARY\
+                         | MID_LOGONLY )
+//----------------------------------------------------------------------------
+uint16_t                            log_display_mask;
+uint16_t                            log_print_mask;
 //----------------------------------------------------------------------------
 
 /****************************************************************************
@@ -98,7 +103,7 @@ struct  log_file_t
  ****************************************************************************/
 
 //----------------------------------------------------------------------------
-    pthread_mutex_t                 thread_lock;
+    pthread_mutex_t                 log_thread_lock;
     char                            full_log_file_name[ FILE_NAME_L ];
 //----------------------------------------------------------------------------
 
@@ -336,7 +341,7 @@ log_init(
      ************************************************************************/
 
     //  Initialize the log thread lock
-    pthread_mutex_init( &thread_lock, 0 );
+    pthread_mutex_init( &log_thread_lock, 0 );
 
     //  Look to see if the .LibTools directory already exists
     dir = opendir( log_dir_path );
@@ -359,7 +364,11 @@ log_init(
 
     //  Set the default display and print filters
     log_display_mask = ( LOG_DISPLAY );
+#if 1
     log_print_mask =   ( LOG_PRINT );
+#else
+    log_print_mask =   ( LOG_EVERYTHING );
+#endif
 
     /************************************************************************
      *  Function Exit
@@ -414,7 +423,7 @@ log_write(
      ************************************************************************/
 
     // Prevent all other threads from simultaneously writing to the log.
-    pthread_mutex_lock( &thread_lock );
+    pthread_mutex_lock( &log_thread_lock );
 
     //  Set the default output flags
     mdm = pdm = false;
@@ -522,7 +531,7 @@ log_write(
      ************************************************************************/
 
     // Release the thread lock on the log
-    pthread_mutex_unlock( &thread_lock );
+    pthread_mutex_unlock( &log_thread_lock );
 
     //  DONE!
 }

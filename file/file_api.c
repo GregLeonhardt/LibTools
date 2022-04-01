@@ -1232,7 +1232,7 @@ file_unzip(
              file_info_p = list_get_next( file_list_p, file_info_p ) )
         {
             //  Remove it from the list
-            list_delete( file_list_p, file_info_p );
+            list_delete_payload( file_list_p, file_info_p );
 
             //  Will the fully qualified file name will fit in the buffer ?
             if (     (   ( strlen( file_info_p->dir_name  ) )
@@ -1346,6 +1346,9 @@ file_dir_exist(
     /**
      *  param   directory_p     Directory information structure             */
     DIR                         *   directory_p;
+    /**
+     *  @param  func_rc         Function return code                        */
+    int                             func_rc;
 
     /************************************************************************
      *  Function Initialization
@@ -1376,7 +1379,16 @@ file_dir_exist(
         if ( create == true )
         {
             //  YES:    Do it!
-            mkdir( path_p, 0766 );
+            func_rc = mkdir( path_p, 0766 );
+
+            //  Success ?
+            if ( func_rc != -0 )
+            {
+                //  NO:     Let everyone know why.
+                log_write( MID_FATAL, "file_dir_exist",
+                           "Unable to create directory %s\n%s\n",
+                           path_p, strerror( errno ) );
+            }
         }
     }
 

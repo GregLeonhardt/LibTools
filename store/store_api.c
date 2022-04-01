@@ -124,7 +124,7 @@ store_init(
      *  Create the tools directory if it doesn't already exist
      ************************************************************************/
 
-    //  @ToDo:  Some code is needed here
+    //  @ToDo: L1 Some code is needed here
 
     /************************************************************************
      *  Open the dBase
@@ -245,7 +245,7 @@ store_get(
     {
         //  Save the RECIPE-ID.
         value_p = text_copy_to_new( (char*)sqlite3_column_text( sqlite_res_p, 1 ) );
-        
+
         log_write( MID_DEBUG_1, "store_api.c", "Line: %d\n", __LINE__ );
     }
 

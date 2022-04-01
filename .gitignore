@@ -6,3 +6,6 @@ nbproject/
 *.o
 *.d
 *.a
+/build/
+/dist/
+/nbproject/
