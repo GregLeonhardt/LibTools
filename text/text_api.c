@@ -1439,3 +1439,77 @@ text_center(
 }
 
 /****************************************************************************/
+/**
+ *  Allocate a ne data buffer large enough to hold both string_1 and
+ *  string_2 then copy both data buffers to the new buffer.
+ *
+ *  @param  string_1_p          Pointer to data string # 1
+ *  @param  string_2_p          Pointer to data string # 2
+ *  @param  free_1              Free string 1 buffer when TRUE
+ *  @param  free_2              Free string 2 buffer when TRUE
+ *
+ *  @return join_p              Pointer to the new data buffer
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+char    *
+text_join(
+    char                        *   string_1_p,
+    char                        *   string_2_p,
+    int                             free_1,
+    int                             free_2
+    )
+{
+    /**
+     *  @param  join_l              Size in bytes of the two data buffers   */
+    int                             join_l;
+    /**
+     *  @param  join_p              Buffer with both string-1 and string-2  */
+    char                        *   join_p;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+
+    /************************************************************************
+     *  Insert the data
+     ************************************************************************/
+
+    //  Allocate storage for both string_1 and string_2
+    join_l = strlen( string_1_p ) + strlen( string_2_p ) + 1;
+
+    //  Allocate storage for both string_1 and string_2
+    join_p = mem_malloc( join_l );
+
+    //  Join both buffers into a single buffer
+    snprintf( join_p, join_l, "%s%s", string_1_p, string_2_p );
+
+    /************************************************************************
+     *  Function Cleanup
+     ************************************************************************/
+
+    //  Should we free storage for string 1 ?
+    if ( free_1 == true )
+    {
+        //  YES:    Free the data buffer
+        mem_free( string_1_p );
+    }
+
+    //  Should we free storage for string 2 ?
+    if ( free_2 == true )
+    {
+        //  YES:    Free the data buffer
+        mem_free( string_2_p );
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  DONE!
+    return( join_p );
+}
+/****************************************************************************/
