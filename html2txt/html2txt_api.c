@@ -152,13 +152,13 @@ html2txt(
     work_p = HTML2TXT__crlf_replace( work_p, tmp_p, work_l );
 
     //  Delete consecutive spaces
-//  work_p = HTML2TXT__remove_spaces( work_p, tmp_p, work_l );
+//  work_p = HTML2TXT__remove_spaces( work_p, work_l );
 
     //  Delete HTML style
-    work_p = HTML2TXT__remove_style( work_p, tmp_p, work_l );
+    work_p = HTML2TXT__remove_style( work_p, work_l );
 
     //  Delete HTML tags
-    work_p = HTML2TXT__tag_scan( work_p, tmp_p, work_l );
+    work_p = HTML2TXT__tag_scan( work_p, work_l );
 
     //  Convert HTML and UNICODE strings to characters.
     HTML2TXT__str_2_char( work_p );

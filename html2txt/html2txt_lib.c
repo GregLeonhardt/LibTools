@@ -715,7 +715,6 @@ HTML2TXT__remove_comments(
 char    *
 HTML2TXT__remove_spaces(
     char                        *   html_p,
-    char                        *   tmp_p,      //  @ToDo: L1 Remove - Unused
     int                             buffer_l
     )
 {
@@ -801,7 +800,6 @@ HTML2TXT__remove_spaces(
 char    *
 HTML2TXT__remove_style(
     char                        *   html_p,
-    char                        *   tmp_p,      //  @ToDo: L1 Remove - Unused
     int                             buffer_l
     )
 {
@@ -939,7 +937,6 @@ HTML2TXT__remove_style(
 char    *
 HTML2TXT__tag_scan(
     char                        *   html_p,
-    char                        *   tmp_p,      //  @ToDo: L1 Remove - Unused
     int                             buffer_l
     )
 {

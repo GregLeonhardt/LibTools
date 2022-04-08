@@ -95,21 +95,18 @@ HTML2TXT__remove_comments(
 char    *
 HTML2TXT__remove_spaces(
     char                        *   html_p,
-    char                        *   tmp_p,
     int                             buffer_l
     );
 //----------------------------------------------------------------------------
 char    *
 HTML2TXT__remove_style(
     char                        *   html_p,
-    char                        *   tmp_p,
     int                             buffer_l
     );
 //----------------------------------------------------------------------------
 char    *
 HTML2TXT__tag_scan(
     char                        *   html_p,
-    char                        *   tmp_p,
     int                             buffer_l
     );
 //----------------------------------------------------------------------------

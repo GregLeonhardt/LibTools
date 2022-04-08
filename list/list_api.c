@@ -1175,12 +1175,8 @@ list_fdelete(
             }
 
             //  Delete the current bucket.
-#if 0       //  @ToDo: L1 Decide how to do this
-            list_rc = LIST__delete( list_base_p, payload_p );
-#else
             list_rc = LIST__delete( list_base_p,
                                     list_base_p->f_key_p );
-#endif
 
             //  Save the old previous pointer as the current pointer.
             list_base_p->f_key_p = f_key_p;
