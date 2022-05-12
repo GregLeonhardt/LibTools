@@ -289,6 +289,9 @@ TEXT__is_blank_line(
  *                              FALSE = if text data
  *
  *  @note
+ *      When there is a two characters sequence where both characters are
+ *      greater than or equal to 0x80 or is equal to 0x00 the data string
+ *      is defined to be binary.
  *
  ****************************************************************************/
 
@@ -321,9 +324,23 @@ TEXT__is_binary(
     {
         //  NO:     Scan the text buffer for binary data.
         for ( char_ndx = 0;
-              char_ndx < data_l;
+              char_ndx < data_l - 1;
               char_ndx ++ )
         {
+#if 1
+            //  Are the next two characters >= 0x80 ?
+            if (    (    ( data_p[ char_ndx     ] == 0x00 )
+                      || ( data_p[ char_ndx     ] >= 0x80 ) )
+                 && (    ( data_p[ char_ndx + 1 ] == 0x00 )
+                      || ( data_p[ char_ndx + 1 ] >= 0x80 ) ) )
+            {
+                //  YES:    Then this is a binary data string
+                text_rc = true;
+
+                //  We can stop looking
+                break;
+            }
+#else
             //  Is this character NOT a printable character ?
             if (    ( isprint( data_p[ char_ndx ] ) == 0 )
                  && ( isblank( data_p[ char_ndx ] ) == 0 ) )
@@ -341,6 +358,7 @@ TEXT__is_binary(
                 //  Not binary and not printable, make it a space.
                 data_p[ char_ndx ] = ' ';
             }
+#endif
         }
     }
 
