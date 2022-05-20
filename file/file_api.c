@@ -938,23 +938,23 @@ file_ls(
     )
 {
     /**
-     *  @param  dp              Directory pointer                           */
-    DIR                         *   dp;
+     *  @param  directory_p     Directory pointer                           */
+    DIR                     *   directory_p;
     /**
      *  @param  entry           Directory information structure             */
-    struct  dirent              *   entry;
+    struct  dirent          *   entry;
     /**
      *  @param  statbuf         File or Directory state data                */
-    struct  stat                    statbuf;
+    struct  stat                statbuf;
     /**
      *  @param  full_file_name  Fully qualified file name                   */
-    char                            full_file_name[ MAX_LINE_L ];
+    char                        full_file_name[ MAX_LINE_L ];
     /**
      *  @param  file_info_p     Pointer to a file information structure     */
-    struct  file_info_t         *   file_info_p;
+    struct  file_info_t     *   file_info_p;
     /**
      *  @param  stat_data_p     Pointer to a file statistics structure  */
-    struct  file_info_t         *   stat_data_p;
+    struct  file_info_t     *   stat_data_p;
 
     /************************************************************************
      *  Function Initialization
@@ -970,14 +970,14 @@ file_ls(
      ************************************************************************/
 
     //  Attempt to open a directory
-    if ( ( dp = opendir( fd_name ) ) == NULL )
+    if ( ( directory_p = opendir( fd_name ) ) == NULL )
     {
         log_write( MID_FATAL, "file_next",
                    "File or Directory '%s' does not exist.\n",
                     fd_name );
     }
     //  Directory:
-    while( ( entry = readdir( dp ) ) != NULL )
+    while( ( entry = readdir( directory_p ) ) != NULL )
     {
         //  Will the full name fit in the buffer ?
         if (   ( strlen( fd_name ) + strlen( entry->d_name ) )
@@ -1091,7 +1091,7 @@ file_ls(
      ************************************************************************/
 
     //  At the end of the directory, close it.
-    closedir( dp );
+    closedir( directory_p );
 
     //  DONE!
 }
@@ -1172,36 +1172,45 @@ file_path_to_lib(
 
 int
 file_unzip(
-    char                        *   path_p
+    char                    *   path_p
     )
 {
     /**
      *  @param  unzip_count     Number of files UnZipped                    */
-    int                             unzip_count;
+    int                         unzip_count;
     /**
      *  @param  found_zip       Flag showing a "*.zip" file was found.      */
-    int                             found_zip;
+    int                         found_zip;
     /**
      *  @param  file_list       Pointer to a list of files                  */
-    struct  list_base_t         *   file_list_p;
+    struct  list_base_t     *   file_list_p;
     /**
      *  @param  file_info_p     Pointer to a file information structure     */
-    struct  file_info_t         *   file_info_p;
+    struct  file_info_t     *   file_info_p;
     /**
      *  @param  file_name       Buffer to hold the directory/file name      */
-    char                            file_name[ ( FILE_NAME_L * 3 ) ];
+    char                        file_name[ ( FILE_NAME_L * 3 ) ];
     /**
      *  @param  extract_to      Name of the directory to extract into       */
-    char                            extract_to[ ( FILE_NAME_L * 3 ) ];
+    char                        extract_to[ ( FILE_NAME_L * 4 ) ];
+    /**
+     *  @param  saved_dir_name  Saved directory name                        */
+    char                        saved_dir_name[ ( FILE_NAME_L * 3 ) ];
     /**
      *  @param  tmp_p           Temporary data pointer                      */
-    char                        *   tmp_p;
+    char                    *   tmp_p;
     /**
      *  @param  command         System command buffer                       */
-    char                            command[ SYS_CMD_L ];
+    char                        command[ SYS_CMD_L ];
     /**
      *  @param  extention       Buffer to hold file extention               */
-    char                            extention[ 10 ];
+    char                        extention[ 10 ];
+    /**
+     *  @param  dir_created     Directory was created                       */
+    int                         dir_created;
+    /**
+     *  @param  dir_ndx         Directory name index                        */
+    int                         dir_ndx;
 
     /************************************************************************
      *  Function Initialization
@@ -1257,24 +1266,75 @@ file_unzip(
                            file_info_p->dir_name, file_info_p->file_name );
             }
 
-            //  Find the file extention
+            //  Find the file extension
             tmp_p = strrchr( extract_to, '.' );
 
             //  Is there one ?
             if ( tmp_p != NULL )
             {
-                //  YES:    Copy the file extention to a new buffer
-                strncpy( extention, ++tmp_p, sizeof( extention ) );
-
-                //  Make the file extention all lowercase
-                text_to_lowercase( extention );
-
-                //  Is this a "*.zip" file ?
-                if ( strncmp( extention, "zip", 3 ) == 0 )
+                //  YES:    Is this a "*.zip" file ?
+                if ( strncasecmp( ++tmp_p, "zip", 3 ) == 0 )
                 {
                     //  YES:    Null terminate at the period
                     (--tmp_p)[ 0 ] = '\0';
 
+                    //  Save the directory name
+                    strncpy( saved_dir_name, extract_to, sizeof( saved_dir_name ) );
+
+                    //  Initialize the directory index value
+                    dir_ndx = 0;
+#if 1
+                    do
+                    {
+                        //  Create a directory to extract into.
+                        dir_created = mkdir( extract_to, S_IRWXU | S_IRWXG | S_IRWXO );
+
+                        //  Was the directory creation successful ?
+                        if ( dir_created == 0 )
+                        {
+                            //  YES:    Log it.
+                            log_write( MID_INFO, "file_unzip",
+                                      "Extracting: '%s'\n", file_name );
+
+                            // Build the unzip command
+                            snprintf( command, sizeof ( command ),
+                                     "unzip -q -o \"%s\" -d \"%s\"",
+                                     file_name,
+                                     extract_to );
+
+                            // Uncompress the file into the new directory
+                            system( command );
+
+                            //  Finally, delete the zip file.
+                            remove( file_name );
+
+                            //  Change the flag, we extracted a "*.zip" file
+                            found_zip = true;
+
+                            //  Increment the number of files unzipped
+                            unzip_count += 1;
+                        }
+                        else
+                        {
+                            //  NO:     Does the directory already exist ?
+                            if ( errno == EEXIST )
+                            {
+                                //  YES:    Increment the index and try again
+                                snprintf( extract_to, sizeof( extract_to ),
+                                         "%s_%02d", saved_dir_name, ++dir_ndx );
+                            }
+                            else
+                            {
+                                //  NO:     Something bad happened.
+                                log_write( MID_FATAL, "file_unzip", "%s\n",
+                                           "Unable to create the extraction "
+                                           "directory because: %s\n",
+                                           strerror( errno ) );
+                            }
+                        }
+
+                    }   while( dir_created != 0 );
+#else
                     //  Make a new directory for the uncompressed file(s).
                     if ( mkdir( extract_to, S_IRWXU | S_IRWXG | S_IRWXO ) == 0 )
                     {
@@ -1300,6 +1360,7 @@ file_unzip(
                         //  Increment the number of files unzipped
                         unzip_count += 1;
                     }
+#endif
                 }
             }
 
