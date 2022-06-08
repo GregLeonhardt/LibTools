@@ -138,6 +138,7 @@ QUEUE__get_count(
 //----------------------------------------------------------------------------
 int
 QUEUE__put_payload(
+    int                             override,
     int                             queue_id,
     void                        *   void_p
     );

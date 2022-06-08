@@ -550,6 +550,12 @@ queue_put_payload(
     void                        *   void_p
     );
 //---------------------------------------------------------------------------
+enum queue_rc_e
+queue_override_put_payload(
+    int                             queue_id,
+    void                        *   void_p
+    );
+//---------------------------------------------------------------------------
 void *
 queue_get_payload(
     int                             queue_id

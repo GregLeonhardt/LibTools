@@ -421,7 +421,77 @@ queue_put_payload(
     if ( queue_rc == QUEUE_RC_SUCCESS )
     {
         //  Lookup the Queue-ID
-        queue_rc = (enum queue_rc_e)QUEUE__put_payload( queue_id, void_p );
+        queue_rc = (enum queue_rc_e)QUEUE__put_payload( false, queue_id, void_p );
+    }
+
+    /************************************************************************
+     *  Log the results
+     ************************************************************************/
+
+    //  Was the payload successfully put on the queue ?
+    if ( queue_rc == true )
+    {
+        //  YES:    Log the name and port number
+        log_write( MID_DEBUG_0, "queue_put_payload",
+                      "Payload %p successfully put on messaging queue %04d.\n",
+                      void_p, queue_id );
+    }
+    else
+    {
+        //  YES:    Log the name and port number
+        log_write( MID_FATAL, "queue_put_payload",
+                      "Putting payload %p on messaging queue %04d FAILED.\n",
+                      void_p, queue_id );
+    }
+
+    /************************************************************************
+     *  Function Exit
+     ************************************************************************/
+
+    //  All done.
+    return( queue_rc );
+}
+
+/****************************************************************************/
+/**
+ *  Put a mew payload on the defined queue.
+ *
+ *  @param  queue_id        A Queue-ID number (handle)
+ *  @param  payload_p       Pointer to a payload that will be added to the
+ *                          queue.
+ *
+ *  @return queue_rc        See queue_rc_e for a list of return codes.
+ *
+ *  @note
+ *
+ ****************************************************************************/
+
+enum queue_rc_e
+queue_override_put_payload(
+    int                             queue_id,
+    void                        *   void_p
+    )
+{
+    /**
+     *  @param  queue_rc        Return code                                 */
+    enum    queue_rc_e              queue_rc;
+
+    /************************************************************************
+     *  Function Initialization
+     ************************************************************************/
+
+    //  Set the default return code.
+    queue_rc = QUEUE_RC_SUCCESS;
+
+    /************************************************************************
+     *  Add the new payload pointer to the queue.
+     ************************************************************************/
+
+    //  Should we continue ?
+    if ( queue_rc == QUEUE_RC_SUCCESS )
+    {
+        //  Lookup the Queue-ID
+        queue_rc = (enum queue_rc_e)QUEUE__put_payload( true, queue_id, void_p );
     }
 
     /************************************************************************

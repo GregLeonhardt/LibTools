@@ -496,6 +496,7 @@ QUEUE__get_count(
 /**
  *  Put a payload on the queue.
  *
+ *  @param  override        Override queue depth limitation
  *  @param  queue_id        A Queue-ID number (handle)
  *  @param  payload_p       Pointer to the payload that goes into the queue.
  *
@@ -507,6 +508,7 @@ QUEUE__get_count(
 
 int
 QUEUE__put_payload(
+    int                             override,
     int                             queue_id,
     void                        *   void_p
     )
@@ -552,7 +554,8 @@ QUEUE__put_payload(
     if ( queue_rc == true )
     {
         //  YES:    Is the queue full ?
-        if (    ( queue_cb_p->queue_depth != 0 )
+        if (    ( override == false )
+             && ( queue_cb_p->queue_depth != 0 )
              && ( queue_cb_p->queue_state.queue_msg_count >= queue_cb_p->queue_depth ) )
         {
             //  YES:    Lock the EnQueue side of the Queue-ID.
